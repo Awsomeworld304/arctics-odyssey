@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmcv72611vxps"]
+
+[sub_resource type="GDScript" id="GDScript_kbrna"]
+resource_name = "dick"
+script/source = "extends CanvasLayer
+
+
+func _on_vn_button_up() -> void:
+	LevelManager.change_level(\"story\");
+	pass # Replace with function body.
+
+
+func _on_battle_button_up() -> void:
+	LevelManager.change_level(\"stage\");
+	pass # Replace with function body.
+
+
+func _on_vn_2_button_up() -> void:
+	LevelManager.change_level(\"platform\");
+	pass # Replace with function body.
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnptj"]
+bg_color = Color(0.113281, 0.113281, 0.113281, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_6k4tq"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_svfpo"]
+font_size = 24
+
+[node name="DevMenu" type="CanvasLayer"]
+visible = false
+script = SubResource("GDScript_kbrna")
+
+[node name="dim_bg" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.258824)
+
+[node name="menu" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.0
+offset_top = -381.5
+offset_right = 314.0
+offset_bottom = 381.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jnptj")
+
+[node name="title" type="Label" parent="menu"]
+layout_mode = 0
+offset_right = 628.0
+offset_bottom = 38.0
+text = "DEVELOPER MENU"
+label_settings = SubResource("LabelSettings_6k4tq")
+horizontal_alignment = 1
+
+[node name="titlebg" type="ColorRect" parent="menu/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 628.0
+offset_bottom = 39.0
+color = Color(0, 0, 0, 0.345098)
+
+[node name="div1" type="Label" parent="menu"]
+layout_mode = 0
+offset_top = 56.0
+offset_right = 628.0
+offset_bottom = 90.0
+text = "Scenes:"
+label_settings = SubResource("LabelSettings_svfpo")
+
+[node name="vn" type="Button" parent="menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.0
+offset_top = -284.0
+offset_right = -173.0
+offset_bottom = -239.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Jump to VN"
+
+[node name="battle" type="Button" parent="menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.0
+offset_top = -220.0
+offset_right = -138.0
+offset_bottom = -175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Jump to Battle"
+
+[node name="freeroam" type="Button" parent="menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.0
+offset_top = -156.0
+offset_right = -96.0
+offset_bottom = -111.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Jump to Freeroam"
+
+[connection signal="button_up" from="menu/vn" to="." method="_on_vn_button_up"]
+[connection signal="button_up" from="menu/battle" to="." method="_on_battle_button_up"]
+[connection signal="button_up" from="menu/freeroam" to="." method="_on_vn_2_button_up"]

@@ -1,0 +1,74 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://co68xf08xn207"]
+
+[ext_resource type="Texture2D" uid="uid://djmfrq81yvm55" path="res://Assets/Images/Notes/arrows-blue.png" id="1_dd520"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcq6v"]
+atlas = ExtResource("1_dd520")
+region = Rect2(1024, 1024, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c24hh"]
+atlas = ExtResource("1_dd520")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0s124"]
+atlas = ExtResource("1_dd520")
+region = Rect2(2048, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e8ry"]
+atlas = ExtResource("1_dd520")
+region = Rect2(0, 1024, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udp4e"]
+atlas = ExtResource("1_dd520")
+region = Rect2(0, 0, 1024, 1024)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcq6v")
+}],
+"loop": true,
+"name": &"center",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c24hh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0s124")
+}],
+"loop": true,
+"name": &"down",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c24hh")
+}],
+"loop": true,
+"name": &"left",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7e8ry")
+}],
+"loop": true,
+"name": &"right",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udp4e")
+}],
+"loop": true,
+"name": &"up",
+"speed": 0.0
+}]

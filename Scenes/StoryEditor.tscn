@@ -1,0 +1,215 @@
+[gd_scene load_steps=8 format=3 uid="uid://3wbuw8o2owng"]
+
+[ext_resource type="Script" path="res://Scripts/story.gd" id="1_pjfly"]
+[ext_resource type="Texture2D" uid="uid://bq05v43qyjuy8" path="res://Assets/Images/BG/test.png" id="2_2xmeo"]
+[ext_resource type="Script" path="res://Scripts/StoryEditor.gd" id="3_bu5jj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjseg"]
+bg_color = Color(0, 0, 0, 0.615686)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psgmf"]
+bg_color = Color(0, 0, 0, 0.615686)
+
+[sub_resource type="GDScript" id="GDScript_d5p15"]
+resource_name = "dialog"
+script/source = "extends RichTextLabel
+
+signal typeStart;
+signal typeFinish;
+
+var dialogList = {};
+var count = 0;
+var curText : String = \"\";
+var done:bool = false;
+
+func type():
+	typeStart.emit();
+	#var tm = Timer.new();
+	#tm.start(1);
+	#await tm.is_stopped();
+	visible_ratio = 0.0;
+	if !curText.is_empty():
+		print_debug(\"curText var: \"+curText)
+		text = curText;
+	var tween: Tween = create_tween();
+	tween.set_speed_scale(0.8);
+	tween.tween_property(self, \"visible_ratio\", 1.0, 2.0).from(0.0);
+	await tween.finished;
+	#typeFinish.emit();
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	dialogList = StoryManager.text;
+	curText=dialogList.get(count);
+	type();
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if dialogList != StoryManager.text:
+		dialogList = StoryManager.text;
+	
+	if Input.is_action_just_pressed(\"story_next\"):
+		if count+1 < dialogList.size():
+			count+=1;
+			curText=dialogList.get(count);
+			type();
+	
+	if Input.is_action_just_pressed(\"story_back\"):
+		if count-1 >= 0:
+			count-=1;
+			curText=dialogList.get(count);
+			type();
+		else:
+			done=true;
+	pass
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_eryw6"]
+font_size = 24
+
+[node name="Story" type="Node2D"]
+script = ExtResource("1_pjfly")
+
+[node name="main" type="CanvasLayer" parent="."]
+
+[node name="bg_fallback" type="ColorRect" parent="main"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.288771, 0.172607, 0.394531, 1)
+
+[node name="fallback_text" type="RichTextLabel" parent="main/bg_fallback"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -652.0
+offset_top = -348.0
+offset_right = 653.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/bold_italics_font_size = 64
+theme_override_font_sizes/italics_font_size = 64
+theme_override_font_sizes/mono_font_size = 64
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 64
+bbcode_enabled = true
+text = "[wave freq=5 amp=25][center]Whoops!
+You're [i]not[/i] supposed to see [color=red]this!
+[p]
+[center][color=white]Please contact the devs and report this bug, thanks in advance!"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="bg" type="TextureRect" parent="main"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_2xmeo")
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="dialog" type="Panel" parent="hud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -240.0
+offset_right = 800.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bjseg")
+
+[node name="name" type="Panel" parent="hud/dialog"]
+layout_mode = 0
+offset_top = -40.0
+offset_right = 277.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_psgmf")
+
+[node name="name" type="RichTextLabel" parent="hud/dialog/name"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.5
+offset_top = -20.0
+offset_right = 130.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/table_v_separation = 0
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Johntavious the 331rd"
+scroll_active = false
+autowrap_mode = 0
+tab_size = 0
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="dialog" type="RichTextLabel" parent="hud/dialog"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -787.0
+offset_top = -81.5
+offset_right = 787.0
+offset_bottom = 81.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "Yeah I'm [rainbow freq=0.1][wave]gay[/wave][/rainbow]. So what? You got a problem with that pal? [color=red][wave]Fight me about it then!"
+scroll_active = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+script = SubResource("GDScript_d5p15")
+
+[node name="editor" type="CanvasLayer" parent="."]
+script = ExtResource("3_bu5jj")
+
+[node name="edit" type="Panel" parent="editor"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -683.5
+offset_right = 683.5
+offset_bottom = 756.0
+grow_horizontal = 2
+
+[node name="title" type="Label" parent="editor/edit"]
+layout_mode = 0
+offset_right = 1368.0
+offset_bottom = 34.0
+text = "STORY EDITOR"
+label_settings = SubResource("LabelSettings_eryw6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bg" type="ColorRect" parent="editor/edit/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 1368.0
+offset_bottom = 34.0
+color = Color(0, 0, 0, 0.411765)

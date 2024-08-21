@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dga6x0sqr0c3g"]
+
+[ext_resource type="SpriteFrames" uid="uid://co68xf08xn207" path="res://Assets/sprite/note.tres" id="1_g5pwj"]
+
+[node name="Note" type="Node2D"]
+
+[node name="note" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_g5pwj")
