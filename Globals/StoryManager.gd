@@ -6,12 +6,17 @@ var chapter = "test";
 var dialog_file = "test";
 var save_dir = static_path + chapter;
 var save_path = save_dir + "/" + dialog_file + ".json";
+var test_path = "user://test.json"
 
 var text = {
 	0: "Yeah I'm [rainbow freq=0.1][wave]gay.[/wave][/rainbow]",
 	1: "So, you got a problem with that pal?",
 	2: "[color=red][wave]Fight me about it then!"
 }
+
+func _ready() -> void:
+	save_dialog();
+	pass
 
 # Starts the cutscene that opens into the game(?)
 func start():
@@ -20,16 +25,16 @@ func start():
 func _process(delta: float) -> void:
 	pass
 
-var fullPath = "res://Assets/Dialog/" + dialog_file + ".script";
-func load_dialog(chapter = "test", file = "test"):
-	self.chapter = chapter;
-	dialog_file = file;
-	# Load Data from File
-	if not FileAccess.file_exists(fullPath):
+func load_dialog(_chapter = "test", file = "test"):
+	if not FileAccess.file_exists(save_path):
 		push_warning("StoryManager -> Can't find requested dialog file!");
 		return;
 	
-	var save_read = FileAccess.open(fullPath, FileAccess.READ);
+	self.chapter = _chapter;
+	dialog_file = file;
+
+	# Load Data from File
+	var save_read = FileAccess.open(save_path, FileAccess.READ);
 	if save_read != null:
 		while save_read.get_position() < save_read.get_length():
 			var json_pstring = save_read.get_line();
@@ -59,8 +64,13 @@ func save_dialog():
 	# Save to File
 	if !DirAccess.dir_exists_absolute(static_path):
 		DirAccess.make_dir_absolute(static_path);
-	var save_write = FileAccess.open(save_path, FileAccess.WRITE);
+	var save_write := FileAccess.open(save_path, FileAccess.WRITE);
+	if (save_write == null):
+		printerr("StoryManager -> ERROR: Can't open file for write!");
+		return;
+	print(save_write);
 	var json_string = JSON.stringify(save);
+	print_debug("StoryManager -> Dialog File Contents: " + json_string);
 	save_write.store_line(json_string);
 	save_write.close();
 	pass

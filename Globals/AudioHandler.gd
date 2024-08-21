@@ -1,10 +1,7 @@
-"""
 extends Node
 
-onready var hitsound = $Hitsound
-
 func _ready():
-	hitsound.stream = load("res://Assets/Sounds/Hitsounds/" + Settings.get_data("hitsound") + ".ogg")
+	pass
 
 func play_audio(audioName, startTime = 0.0,speed = 1):
 	if get_node(audioName) != null:
@@ -18,5 +15,3 @@ func stop_audio(audioName):
 func get_audio_playback(audioName):
 	if get_node(audioName) != null:
 		return get_node(audioName).get_playback_position()
-"""
-extends Object

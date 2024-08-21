@@ -47,9 +47,9 @@ func _process(delta: float) -> void:
 	curBeat = floor(curStep / 4.0);
 	
 	if curStep != oldStep and curStep > oldStep:
-		emit_signal("step_hit");
+		step_hit.emit();
 	if curBeat != oldBeat and curBeat > oldBeat:
-		emit_signal("beat_hit");
+		beat_hit.emit();
 
 func recalculate_values() -> void:
 	timeBetweenBeats = ((60.0 / bpm) * 1000.0);

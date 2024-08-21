@@ -148,7 +148,7 @@ func _load_mod_settings():
 				parsed_data["coopHUDSize"] = coopHUDSize;
 				parsed_data["fps_mode"] = fps_mode;
 				if debug:
-					print(fullscreen_mode, resolution_mode, volume, story_mode, coopMode, coopHUDSize);
+					print_debug(fullscreen_mode, resolution_mode, volume, story_mode, coopMode, coopHUDSize);
 	#  Init Data.
 	match resolution_mode:
 		0:

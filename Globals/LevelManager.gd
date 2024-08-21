@@ -15,7 +15,7 @@ func _process(delta):
 func change_level(level : String, object = false):
 	var levelPath = "";
 	if object:
-		levelPath = "res://Objects/" + level + ".tscn";
+		levelPath = "res://Scenes/Objects/" + level + ".tscn";
 	else:
 		levelPath = "res://Scenes/" + level + ".tscn";
 		

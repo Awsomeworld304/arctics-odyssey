@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="arctics-odyssey"
+config/name="Arctic's Odyssey"
 config/version="0.1.0"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/logo/FBLogo32x.png"
 
 [audio]
 
