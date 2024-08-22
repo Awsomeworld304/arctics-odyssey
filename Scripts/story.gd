@@ -15,10 +15,10 @@ func _init() -> void:
 	pass
 
 func _ready() -> void:
-	fallback(false);
+	#fallback(true);
 	pass
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func fallback(isError : bool = true) -> void:
@@ -26,7 +26,12 @@ func fallback(isError : bool = true) -> void:
 	main.visible = false;
 	hud.visible = false;
 	if isError:
+		loading_text.visible = false;
 		error_text.visible = true;
 	else:
 		loading_text.visible = true;
+	pass
+
+func load():
+	#$main/bg.texture = load();
 	pass

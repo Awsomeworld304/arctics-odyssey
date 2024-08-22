@@ -31,6 +31,7 @@ Conductor="*res://Globals/Conductor.gd"
 StoryManager="*res://Globals/StoryManager.gd"
 BattleManager="*res://Globals/BattleManager.gd"
 AudioHandler="*res://Globals/AudioHandler.gd"
+ScriptManager="*res://Globals/ScriptManager.gd"
 
 [display]
 

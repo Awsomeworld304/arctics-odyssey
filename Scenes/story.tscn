@@ -1349,7 +1349,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.490196)
 
 [node name="loading_text" type="RichTextLabel" parent="fallback_bg"]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1385,15 +1384,14 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.490196)
 
 [node name="main" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="bg" type="TextureRect" parent="main"]
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_7aasj")
+stretch_mode = 2
 
 [node name="hud" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="dialog" type="Panel" parent="hud"]
 anchors_preset = 7

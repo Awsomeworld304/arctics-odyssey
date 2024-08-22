@@ -1,76 +1,58 @@
 extends Node
 
+var debug:bool=true;
+
+# File Stuff
 var static_path = "res://Assets/Dialog/";
 var curText = "";
 var chapter = "test";
 var dialog_file = "test";
 var save_dir = static_path + chapter;
-var save_path = save_dir + "/" + dialog_file + ".json";
-var test_path = "user://test.json"
+var save_path = save_dir + "/" + dialog_file + ".script";
+var test_path = "user://test.script"
 
+## Text Buffer - holds current segment text in buffer for use.
 var text = {
 	0: "Yeah I'm [rainbow freq=0.1][wave]gay.[/wave][/rainbow]",
 	1: "So, you got a problem with that pal?",
 	2: "[color=red][wave]Fight me about it then!"
 }
 
+# Event Trigger
+# Method 1: Loading files into the scene.
+# Action | Type | Name | Resource
+var events = {
+	0: "create|image|bg0|res://Assets/Images/BG/test.png",
+	1: "",
+	2: ""
+}
+
 func _ready() -> void:
-	save_dialog();
+	# Did this to prevent the game locking during save and causing havoc to my stack.
+	process_mode = Node.PROCESS_MODE_ALWAYS;
 	pass
 
-# Starts the cutscene that opens into the game(?)
+## Starts by reading the very first story file it can find.
 func start():
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
-func load_dialog(_chapter = "test", file = "test"):
-	if not FileAccess.file_exists(save_path):
-		push_warning("StoryManager -> Can't find requested dialog file!");
+func load_dialog(file_name := "test", _chapter := "test"):
+	var fpath = static_path + _chapter + "/";
+	var _dialog_thing = ScriptManager.load_script(file_name + ".script", fpath);
+	if _dialog_thing == null:
+		printerr("StoryManager -> Error loading dialog script!");
 		return;
-	
-	self.chapter = _chapter;
-	dialog_file = file;
-
-	# Load Data from File
-	var save_read = FileAccess.open(save_path, FileAccess.READ);
-	if save_read != null:
-		while save_read.get_position() < save_read.get_length():
-			var json_pstring = save_read.get_line();
-
-			# Creates the helper class to interact with JSON
-			var json = JSON.new();
-
-			# Check if there is any error while parsing the JSON string, skip in case of failure
-			var parse_result = json.parse(json_pstring);
-			if not parse_result == OK:
-				print("JSON Parse Error: ", json.get_error_message(), " in ", json_pstring, " at line ", json.get_error_line());
-				LevelManager.errCode = parse_result 
-				
-				return parse_result;
-				continue;
-			var parsed_data = json.get_data();
 	pass
 
-func save_dialog():
-	# Setup File
-	#var save = text;
-	var save = {
-		0: "Yeah I'm [rainbow freq=0.1][wave]gay.[/wave][/rainbow]",
-		1: "So what? You got a problem with that pal?",
-		2: "[color=red][wave]Fight me about it then!"
-	}
-	# Save to File
-	if !DirAccess.dir_exists_absolute(static_path):
-		DirAccess.make_dir_absolute(static_path);
-	var save_write := FileAccess.open(save_path, FileAccess.WRITE);
-	if (save_write == null):
-		printerr("StoryManager -> ERROR: Can't open file for write!");
+func save_dialog(script:Dictionary, _chapter := "test"):
+	var fpath = static_path + _chapter + "/";
+	var ss := ScriptManager.save_script(script, fpath);
+	if ss != OK:
+		printerr("StoryManager -> Error saving dialog script, error code: " + var_to_str(ss));
 		return;
-	print(save_write);
-	var json_string = JSON.stringify(save);
-	print_debug("StoryManager -> Dialog File Contents: " + json_string);
-	save_write.store_line(json_string);
-	save_write.close();
 	pass
+
+
