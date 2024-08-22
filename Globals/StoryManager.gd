@@ -54,5 +54,3 @@ func save_dialog(script:Dictionary, _chapter := "test"):
 		printerr("StoryManager -> Error saving dialog script, error code: " + var_to_str(ss));
 		return;
 	pass
-
-
