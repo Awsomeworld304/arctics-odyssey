@@ -1,0 +1,5 @@
+extends StoryScript
+
+func script():
+	add_line("Yep this is dialog");
+	pass

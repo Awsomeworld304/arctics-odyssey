@@ -15,19 +15,34 @@
 
 extends Node
 
-func _ready():
+# God help my soul for what I have to do here.
+var command := "";
+var error := "OK";
+
+var script_base := """
+extends Node
+
+func custom() -> void:
+"""
+
+func _ready() -> void:
 	pass
 
-# TODO: Refactor!!
-func play_audio(audioName, startTime = 0.0,speed = 1):
-	if get_node(audioName) != null:
-		get_node(audioName).pitch_scale = speed
-		get_node(audioName).play(startTime)
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("debug"):
+		if !CommandPrompt.onScreen:
+			CommandPrompt.slide_in();
+		else:
+			CommandPrompt.slide_out();
 
-func stop_audio(audioName):
-	if get_node(audioName) != null:
-		get_node(audioName).stop()
-		
-func get_audio_playback(audioName):
-	if get_node(audioName) != null:
-		return get_node(audioName).get_playback_position()
+func parse_cmd(cmd:="") -> bool:
+	if cmd == "":
+		return true;
+	
+	var script = GDScript.new();
+	script.source_code = script_base + "	" + cmd;
+	print(script_base + cmd);
+	script.reload();
+	var obj = script.new();
+	obj.custom();
+	return true;

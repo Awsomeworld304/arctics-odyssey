@@ -164,6 +164,7 @@ theme_override_font_sizes/font_size = 32
 text = "QUIT"
 
 [node name="DevMenu" parent="." instance=ExtResource("3_slqtq")]
+visible = false
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {

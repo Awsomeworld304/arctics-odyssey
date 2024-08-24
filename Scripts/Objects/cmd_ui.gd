@@ -13,21 +13,35 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-extends Node
+extends Control
 
-func _ready():
+@onready var input = $main/main/input;
+@onready var help = $main/main/help;
+@onready var anim = $anim;
+
+var onScreen = false;
+var cmd:="";
+
+func _ready() -> void:
+	input.focus_mode = Control.FocusMode.FOCUS_ALL;
+
+func slide_in():
+	anim.play("slide_in");
+	await anim.animation_finished;
+	onScreen = true;
+	input.grab_focus();
+
+func slide_out():
+	input.clear();
+	input.release_focus();
+	anim.play("slide_out");
+	await anim.animation_finished;
+	onScreen = false;
+
+func _on_input_text_submitted(new_text: String) -> void:
+	cmd = new_text;
+	await CommandManager.parse_cmd(cmd);
+	if CommandManager.error != "OK":
+		return;
+	slide_out();
 	pass
-
-# TODO: Refactor!!
-func play_audio(audioName, startTime = 0.0,speed = 1):
-	if get_node(audioName) != null:
-		get_node(audioName).pitch_scale = speed
-		get_node(audioName).play(startTime)
-
-func stop_audio(audioName):
-	if get_node(audioName) != null:
-		get_node(audioName).stop()
-		
-func get_audio_playback(audioName):
-	if get_node(audioName) != null:
-		return get_node(audioName).get_playback_position()

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjv12k5egq6xv"]
+
+[ext_resource type="PackedScene" uid="uid://cjqoeju3yisxe" path="res://Scenes/Objects/strum.tscn" id="1_02syc"]
+[ext_resource type="Script" path="res://Scripts/Objects/strumline.gd" id="1_018d1"]
+
+[node name="Strumline" type="Node2D"]
+script = ExtResource("1_018d1")
+
+[node name="left" parent="." instance=ExtResource("1_02syc")]
+position = Vector2(-2176, 0)
+animation = &"left"
+
+[node name="down" parent="." instance=ExtResource("1_02syc")]
+position = Vector2(-1088, 0)
+animation = &"down"
+
+[node name="center" parent="." instance=ExtResource("1_02syc")]
+
+[node name="up" parent="." instance=ExtResource("1_02syc")]
+position = Vector2(1088, 0)
+animation = &"up"
+
+[node name="right" parent="." instance=ExtResource("1_02syc")]
+position = Vector2(2176, 0)
+animation = &"right"

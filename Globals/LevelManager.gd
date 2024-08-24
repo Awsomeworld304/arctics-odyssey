@@ -42,7 +42,8 @@ func change_level(level : String, object = false):
 			if !FileAccess.file_exists(levelPath):
 				printerr("LevelManager: Level not found!");
 				return;
-			print_debug("Loading " + level + "...");
+			if Settings.debug:
+				print_debug("Loading " + level + "...");
 	# Wait for very last frame, to switch it on a good frame!
 	await get_tree().process_frame;
 	# Changes the scene to the specified level.

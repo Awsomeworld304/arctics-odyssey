@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjqoeju3yisxe"]
+
+[ext_resource type="SpriteFrames" uid="uid://fmavbj1lj3rp" path="res://Assets/sprite/note_frame.tres" id="1_6y72g"]
+
+[node name="Strum" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_6y72g")
+animation = &"center"

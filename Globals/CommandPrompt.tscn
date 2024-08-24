@@ -1,0 +1,142 @@
+[gd_scene load_steps=12 format=3 uid="uid://lrtrpwc1yar3"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/cmd_ui.gd" id="1_i8vqo"]
+[ext_resource type="FontFile" uid="uid://1xqr3kf645fc" path="res://Assets/Fonts/FiraCode/FiraCode-Regular.ttf" id="2_boila"]
+[ext_resource type="FontFile" uid="uid://ba6m1p7270i6y" path="res://Assets/Fonts/FiraCode/FiraCode-Retina.ttf" id="3_swntm"]
+[ext_resource type="FontFile" uid="uid://8am3xr4nm5f" path="res://Assets/Fonts/FiraCode/FiraCode-Medium.ttf" id="4_oxcdw"]
+[ext_resource type="FontFile" uid="uid://bdr2lboicbl4f" path="res://Assets/Fonts/FiraCode/FiraCode-SemiBold.ttf" id="5_fjo5o"]
+[ext_resource type="FontFile" uid="uid://o4opdh3o6c12" path="res://Assets/Fonts/FiraCode/FiraCode-Bold.ttf" id="6_1k2qx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lrxau"]
+bg_color = Color(0, 0, 0, 0.737255)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="Animation" id="Animation_0g6dq"]
+resource_name = "slide_in"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main/main:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(64, 1144), Vector2(64, 840)]
+}
+
+[sub_resource type="Animation" id="Animation_1lvib"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main/main:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(-2),
+"update": 0,
+"values": [Vector2(64, 1144)]
+}
+
+[sub_resource type="Animation" id="Animation_tyqii"]
+resource_name = "slide_out"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main/main:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(64, 840), Vector2(64, 1144)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_33wmk"]
+_data = {
+"RESET": SubResource("Animation_1lvib"),
+"slide_in": SubResource("Animation_0g6dq"),
+"slide_out": SubResource("Animation_tyqii")
+}
+
+[node name="CommandPrompt" type="Control"]
+z_index = 100
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i8vqo")
+
+[node name="main" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="main" type="Panel" parent="main"]
+z_index = 10
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -896.0
+offset_top = 64.0
+offset_right = 896.0
+offset_bottom = 247.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lrxau")
+
+[node name="static" type="RichTextLabel" parent="main/main"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 1784.0
+offset_bottom = 56.0
+theme_override_fonts/normal_font = ExtResource("2_boila")
+theme_override_fonts/mono_font = ExtResource("3_swntm")
+theme_override_fonts/italics_font = ExtResource("4_oxcdw")
+theme_override_fonts/bold_italics_font = ExtResource("5_fjo5o")
+theme_override_fonts/bold_font = ExtResource("6_1k2qx")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "Enter command here:"
+
+[node name="input" type="LineEdit" parent="main/main"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 56.0
+offset_right = 1784.0
+offset_bottom = 120.0
+theme_override_fonts/font = ExtResource("2_boila")
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Type 'help' for list of commands."
+
+[node name="help" type="RichTextLabel" parent="main/main"]
+offset_left = 8.0
+offset_top = 128.0
+offset_right = 1784.0
+offset_bottom = 184.0
+theme_override_fonts/normal_font = ExtResource("2_boila")
+theme_override_fonts/mono_font = ExtResource("3_swntm")
+theme_override_fonts/italics_font = ExtResource("4_oxcdw")
+theme_override_fonts/bold_italics_font = ExtResource("5_fjo5o")
+theme_override_fonts/bold_font = ExtResource("6_1k2qx")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_33wmk")
+}
+
+[connection signal="text_submitted" from="main/main/input" to="." method="_on_input_text_submitted"]

@@ -15,8 +15,6 @@
 
 extends Node
 
-var debug:bool=true;
-
 # File Stuff
 var static_path = "res://Assets/Dialog/";
 var curText = "";
@@ -36,6 +34,8 @@ var text = {
 # Event Trigger
 # Method 1: Loading files into the scene.
 # Action | Type | Name | Resource
+
+# Method 2: Command | Command Name | 
 var events = {
 	0: "create|image|bg0|res://Assets/Images/BG/test.png",
 	1: "",

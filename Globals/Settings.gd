@@ -16,9 +16,9 @@
 extends Node
 
 # Static Stuff
-var save_file = "user://GRT/EngineSettings.grt";
-var mod_file = "user://GRT/ModSettings.grt";
-var save_dir = "user://GRT/";
+var save_file = "user://AO/EngineSettings.grt";
+var mod_file = "user://AO/ModSettings.grt";
+var save_dir = "user://AO/";
 
 '''
 - Encryption Seed:
@@ -210,6 +210,28 @@ func _load_mod_settings():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), sfxVolume - 100);
 	pass
 
+func init_discord():
+	DiscordRPC.app_id = 1276697909823279196;
+	DiscordRPC.details = "In current developement." if debug else "In the Menus";
+	DiscordRPC.state = ""
+	DiscordRPC.large_image = "logo"
+	#DiscordRPC.large_image_text = ""
+	#DiscordRPC.small_image = ""
+	#DiscordRPC.small_image_text = "";
+	pass
+
+## Update the Discord RPC.[br]
+## The defaut character [^] is used to indicate to keep using the previous config.
+func update_discord(details:="^", state:="^", l_img:="^", l_img_txt:="^", s_img:="^", s_img_txt:="^"):
+	
+	DiscordRPC.details = details if !details.contains("^") else DiscordRPC.details;
+	DiscordRPC.state = state if !state.contains("^") else DiscordRPC.state;
+	DiscordRPC.large_image = l_img if !l_img.contains("^") else DiscordRPC.large_image;
+	DiscordRPC.large_image_text = l_img if !l_img_txt.contains("^") else DiscordRPC.large_image_text;
+	DiscordRPC.small_image = s_img if !s_img.contains("^") else DiscordRPC.small_image;
+	DiscordRPC.small_image_text = s_img_txt if !s_img_txt.contains("^") else DiscordRPC.small_image_text;
+	pass
+
 func _ready():
 	var loadahh = _load_settings(); # Inline function.
 	if loadahh != OK:
@@ -218,3 +240,8 @@ func _ready():
 				LevelManager.error(load, "Error");
 	if first_run:
 		_save_settings();
+	if !debug:
+		init_discord();
+
+func _process(_delta: float) -> void:
+	pass

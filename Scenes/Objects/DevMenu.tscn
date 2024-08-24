@@ -34,7 +34,6 @@ font_size = 24
 font_size = 24
 
 [node name="DevMenu" type="CanvasLayer"]
-visible = false
 script = SubResource("GDScript_kbrna")
 
 [node name="dim_bg" type="ColorRect" parent="."]
@@ -130,6 +129,23 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "Jump to Freeroam"
 
+[node name="editor" type="Button" parent="menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.0
+offset_top = -92.0
+offset_right = -128.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Jump to Editor"
+
 [connection signal="button_up" from="menu/vn" to="." method="_on_vn_button_up"]
 [connection signal="button_up" from="menu/battle" to="." method="_on_battle_button_up"]
 [connection signal="button_up" from="menu/freeroam" to="." method="_on_vn_2_button_up"]
+[connection signal="button_up" from="menu/editor" to="." method="_on_vn_2_button_up"]

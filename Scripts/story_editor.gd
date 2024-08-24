@@ -13,33 +13,35 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-extends Node2D
+extends "res://Scripts/story.gd"
 
+@onready var load_window = $editor/load_dialog;
+@onready var save_window = $editor/save_dialog;
 
-# Called when the node enters the scene tree for the first time.
+@onready var editor = $editor/edit/editor;
+
 func _ready() -> void:
-	
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("debug2"):
-		$DevMenu.visible = !$DevMenu.visible;
 	pass
 
-
-func _on_start_button_up() -> void:
-	LevelManager.change_level("stage");
+func _on_load_script_button_up() -> void:
+	load_window.visible = true;
 	pass # Replace with function body.
 
 
-func _on_opt_button_up() -> void:
+func _on_save_script_button_up() -> void:
+	save_window.visible = true;
 	pass # Replace with function body.
 
 
-func _on_quit_button_up() -> void:
-	$anim.play("fade_out");
-	await $anim.animation_finished;
-	LevelManager.quit();
+func _on_load_dialog_file_selected(path: String) -> void:
+	var lol := FileAccess.open(path, FileAccess.READ);
+	editor.text = lol.get_as_text();
+	lol.close();
+	pass # Replace with function body.
+
+
+func _on_save_dialog_file_selected(path: String) -> void:
+	var lol := FileAccess.open(path, FileAccess.WRITE);
+	lol.store_string(editor.text);
+	lol.close();
 	pass # Replace with function body.
