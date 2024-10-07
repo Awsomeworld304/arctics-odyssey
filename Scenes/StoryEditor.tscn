@@ -1,10 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://3wbuw8o2owng"]
+[gd_scene load_steps=38 format=3 uid="uid://3wbuw8o2owng"]
 
 [ext_resource type="Script" path="res://Scripts/story_editor.gd" id="1_e2olr"]
 [ext_resource type="Texture2D" uid="uid://bq05v43qyjuy8" path="res://Assets/Images/BG/test.png" id="2_2xmeo"]
 [ext_resource type="SpriteFrames" uid="uid://co68xf08xn207" path="res://Assets/sprite/note.tres" id="2_to2xb"]
 [ext_resource type="Script" path="res://Scripts/StoryEditor.gd" id="3_bu5jj"]
 [ext_resource type="FontFile" uid="uid://1xqr3kf645fc" path="res://Assets/Fonts/FiraCode/FiraCode-Regular.ttf" id="4_nab5a"]
+[ext_resource type="StyleBox" uid="uid://ccch5fwxyqrwo" path="res://Assets/Editor/exit_button_focus.tres" id="5_6bj8k"]
+[ext_resource type="StyleBox" uid="uid://hpsn6k77t6ai" path="res://Assets/Editor/exit_button_hover.tres" id="6_78bnl"]
+[ext_resource type="Script" path="res://Scripts/Objects/DialogBox.gd" id="6_di33m"]
+[ext_resource type="StyleBox" uid="uid://c51vlkpcx7kne" path="res://Assets/Editor/exit_button_pressed.tres" id="7_fiwen"]
+[ext_resource type="StyleBox" uid="uid://b76h87gmgi7lu" path="res://Assets/Editor/exit_button.tres" id="8_jvihp"]
+[ext_resource type="FontFile" uid="uid://ba6m1p7270i6y" path="res://Assets/Fonts/FiraCode/FiraCode-Retina.ttf" id="10_gloam"]
+[ext_resource type="FontFile" uid="uid://o4opdh3o6c12" path="res://Assets/Fonts/FiraCode/FiraCode-Bold.ttf" id="11_823er"]
 
 [sub_resource type="GDScript" id="GDScript_v70dk"]
 resource_name = "autoscroll"
@@ -34,9 +41,203 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	scroll_offset.x -= 40*delta;
-	scroll_offset.y -= 40*delta;
+	#scroll_offset.y -= 40*delta;
 	pass
 "
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_54a0f"]
+
+[sub_resource type="GDScript" id="GDScript_h3121"]
+resource_name = "preview"
+script/source = "extends Panel
+
+@export var fullscreen = false;
+
+@onready var vp = $SubViewportContainer;
+
+var resetPos := Vector2(1154,0);
+var resetScale = 0.4;
+
+func _on_fullscreen_preview_button_up() -> void:
+	fullscreen = !fullscreen;
+	if fullscreen:
+		vp.position = Vector2(0,0);
+		vp.scale.x = 1;
+		vp.scale.y = 1;
+		$\"../edit\".visible = false;
+		$\"../stats\".visible = false;
+		$\"../bar\".visible = false;
+	else:
+		$\"../edit\".visible = true;
+		$\"../stats\".visible = true;
+		$\"../bar\".visible = true;
+		vp.position = resetPos;
+		vp.scale.x = resetScale;
+		vp.scale.y = resetScale;
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id="GDScript_dxfe6"]
+resource_name = "fuck"
+script/source = "# Copyright (C) 2024 JamesTech4849
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+extends SubViewportContainer
+
+@onready var svp = $SubViewport;
+
+func _on_focus_entered() -> void:
+	svp.gui_disable_input = false;
+	pass # Replace with function body.
+
+
+func _on_focus_exited() -> void:
+	svp.gui_disable_input = true;
+	pass # Replace with function body.
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjseg"]
+bg_color = Color(0, 0, 0, 0.615686)
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psgmf"]
+bg_color = Color(0, 0, 0, 0.615686)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+
+[sub_resource type="Animation" id="Animation_3chfr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_dl145"]
+resource_name = "blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.499, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.999, 0.999, 1.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_nd802"]
+resource_name = "type"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.999]
+}
+
+[sub_resource type="Animation" id="Animation_spll3"]
+resource_name = "type_full"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p3ncg"]
+_data = {
+"RESET": SubResource("Animation_3chfr"),
+"blink": SubResource("Animation_dl145"),
+"type": SubResource("Animation_nd802"),
+"type_full": SubResource("Animation_spll3")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtwhn"]
+bg_color = Color(0, 0, 0, 0.815686)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkflf"]
+bg_color = Color(0.0734863, 0.126825, 0.21875, 0.839216)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o387c"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.839216)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfs8x"]
+bg_color = Color(0.160156, 0.160156, 0.160156, 0.839216)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klxr6"]
+bg_color = Color(0.0234375, 0.0234375, 0.0234375, 0.839216)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kcxg0"]
+bg_color = Color(0.09375, 0.09375, 0.09375, 0.839216)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lqw6"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 0.85098)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_eryw6"]
 font_size = 24
@@ -74,112 +275,56 @@ func _ready() -> void:
 	# Base Types
 	for ck in [\"Node\", \"Control\", \"Object\", \"StoryScript\"]:
 		self.syntax_highlighter.add_keyword_color(ck, Color(\"42ffc2\"));
-	pass
+	
+	# Comments
+	for ck in [\"#\", \"##\"]:
+		self.syntax_highlighter.add_color_region(ck, \"\", Color(\"cfd0d180\"), true);
+	for ck in [\"\\\"\\\"\\\"\", \"\\\"\"]:
+		self.syntax_highlighter.add_color_region(ck, ck, Color(\"ffeda1\"));
+	
+pass
+
+
+func _on_code_completion_requested() -> void:
+	for each in self.function_names:
+		add_code_completion_option(CodeEdit.KIND_FUNCTION, each, each+\"()\", syntax_highlighter.function_color)
+	for each in self.variable_names:
+		add_code_completion_option(CodeEdit.KIND_VARIABLE, each, each)
+	update_code_completion_options(true)
+	self.changed = true
+	pass # Replace with function body.
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2hbg"]
+bg_color = Color(0, 0, 0, 0.87451)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 8.0
+expand_margin_right = 8.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_1rwqw"]
 font_size = 20
 
-[sub_resource type="GDScript" id="GDScript_dxfe6"]
-resource_name = "fuck"
-script/source = "# Copyright (C) 2024 JamesTech4849
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eykvq"]
+bg_color = Color(0.0664063, 0.0664063, 0.0664063, 0.85098)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
 
-extends SubViewportContainer
-
-@onready var svp = $SubViewport;
+[sub_resource type="GDScript" id="GDScript_bujqu"]
+resource_name = "editor_opt_menu"
+script/source = "extends Window
 
 
-
-func _on_focus_entered() -> void:
-	svp.gui_disable_input = false;
-	pass # Replace with function body.
-
-
-func _on_focus_exited() -> void:
-	svp.gui_disable_input = true;
+func _on_close_requested() -> void:
+	self.visible = false;
 	pass # Replace with function body.
 "
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjseg"]
-bg_color = Color(0, 0, 0, 0.615686)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psgmf"]
-bg_color = Color(0, 0, 0, 0.615686)
-
-[sub_resource type="GDScript" id="GDScript_d5p15"]
-resource_name = "dialog"
-script/source = "extends RichTextLabel
-
-signal typeStart;
-signal typeFinish;
-
-var dialogList = {};
-var count = 0;
-var curText : String = \"\";
-var done:bool = false;
-
-func type():
-	typeStart.emit();
-	#var tm = Timer.new();
-	#tm.start(1);
-	#await tm.is_stopped();
-	visible_ratio = 0.0;
-	if !curText.is_empty():
-		print_debug(\"curText var: \"+curText)
-		text = curText;
-	var tween: Tween = create_tween();
-	tween.set_speed_scale(0.8);
-	tween.tween_property(self, \"visible_ratio\", 1.0, 2.0).from(0.0);
-	await tween.finished;
-	#typeFinish.emit();
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	dialogList = StoryManager.text;
-	curText=dialogList.get(count);
-	type();
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if dialogList != StoryManager.text:
-		dialogList = StoryManager.text;
-	
-	if Input.is_action_just_pressed(\"story_next\"):
-		if count+1 < dialogList.size():
-			count+=1;
-			curText=dialogList.get(count);
-			type();
-	
-	if Input.is_action_just_pressed(\"story_back\"):
-		if count-1 >= 0:
-			count-=1;
-			curText=dialogList.get(count);
-			type();
-		else:
-			done=true;
-	pass
-"
-
-[node name="Story" type="Node2D"]
+[node name="StoryEditor" type="Node2D"]
 script = ExtResource("1_e2olr")
 
 [node name="bg" type="CanvasLayer" parent="."]
@@ -1409,98 +1554,50 @@ color = Color(0, 0, 0, 0.592157)
 [node name="editor" type="CanvasLayer" parent="."]
 script = ExtResource("3_bu5jj")
 
-[node name="edit" type="Panel" parent="editor"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -960.0
-offset_right = 194.0
+[node name="preview" type="Panel" parent="editor"]
+offset_right = 1920.0
 offset_bottom = 1080.0
-grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_54a0f")
+script = SubResource("GDScript_h3121")
 
-[node name="title" type="Label" parent="editor/edit"]
+[node name="block" type="ColorRect" parent="editor/preview"]
+visible = false
+top_level = true
+layout_mode = 2
+offset_left = 1152.0
+offset_right = 1920.0
+offset_bottom = 432.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="editor/preview/block"]
 layout_mode = 0
-offset_right = 1154.0
-offset_bottom = 34.0
-text = "STORY EDITOR"
-label_settings = SubResource("LabelSettings_eryw6")
+offset_left = 270.0
+offset_top = 97.0
+offset_right = 564.0
+offset_bottom = 233.0
+rotation = 0.336849
+theme_override_fonts/font = ExtResource("10_gloam")
+theme_override_font_sizes/font_size = 48
+text = "Spoilers!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="bg" type="ColorRect" parent="editor/edit/title"]
-show_behind_parent = true
+[node name="SubViewportContainer" type="SubViewportContainer" parent="editor/preview"]
 layout_mode = 0
-offset_right = 1154.0
-offset_bottom = 34.0
-color = Color(0, 0, 0, 0.411765)
-
-[node name="editor" type="CodeEdit" parent="editor/edit"]
-layout_mode = 0
-offset_top = 110.0
-offset_right = 1154.0
-offset_bottom = 1006.0
-theme_override_fonts/font = ExtResource("4_nab5a")
-theme_override_font_sizes/font_size = 24
-text = "extends StoryScript
-
-func script():
-	pass"
-syntax_highlighter = SubResource("CodeHighlighter_ywwwt")
-highlight_all_occurrences = true
-highlight_current_line = true
-draw_tabs = true
-symbol_lookup_on_click = true
-gutters_draw_breakpoints_gutter = true
-gutters_draw_bookmarks = true
-gutters_draw_executing_lines = true
-gutters_draw_line_numbers = true
-gutters_draw_fold_gutter = true
-code_completion_enabled = true
-indent_automatic = true
-auto_brace_completion_enabled = true
-auto_brace_completion_highlight_matching = true
-script = SubResource("GDScript_5kydc")
-
-[node name="file" type="Label" parent="editor/edit"]
-layout_mode = 0
-offset_top = 48.0
-offset_right = 134.0
-offset_bottom = 97.0
-text = "Current File: untitled (Unsaved)"
-label_settings = SubResource("LabelSettings_1rwqw")
-vertical_alignment = 1
-
-[node name="load_script" type="Button" parent="editor/edit"]
-layout_mode = 0
-offset_left = 832.0
-offset_top = 48.0
-offset_right = 954.0
-offset_bottom = 94.0
-text = "Load Script"
-
-[node name="save_script" type="Button" parent="editor/edit"]
-layout_mode = 0
-offset_left = 984.0
-offset_top = 48.0
-offset_right = 1106.0
-offset_bottom = 94.0
-text = "Save Script"
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="editor"]
-offset_left = 1154.0
-offset_right = 3074.0
+offset_left = 1152.0
+offset_right = 3072.0
 offset_bottom = 1080.0
 scale = Vector2(0.4, 0.4)
 script = SubResource("GDScript_dxfe6")
 
-[node name="SubViewport" type="SubViewport" parent="editor/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="editor/preview/SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="main" type="CanvasLayer" parent="editor/SubViewportContainer/SubViewport"]
+[node name="main" type="CanvasLayer" parent="editor/preview/SubViewportContainer/SubViewport"]
 
-[node name="bg_fallback" type="ColorRect" parent="editor/SubViewportContainer/SubViewport/main"]
+[node name="bg_fallback" type="ColorRect" parent="editor/preview/SubViewportContainer/SubViewport/main"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1510,7 +1607,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0.288771, 0.172607, 0.394531, 1)
 
-[node name="fallback_text" type="RichTextLabel" parent="editor/SubViewportContainer/SubViewport/main/bg_fallback"]
+[node name="fallback_text" type="RichTextLabel" parent="editor/preview/SubViewportContainer/SubViewport/main/bg_fallback"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1536,14 +1633,14 @@ You're [i]not[/i] supposed to see [color=red]this!
 scroll_active = false
 shortcut_keys_enabled = false
 
-[node name="bg" type="TextureRect" parent="editor/SubViewportContainer/SubViewport/main"]
+[node name="bg" type="TextureRect" parent="editor/preview/SubViewportContainer/SubViewport/main"]
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_2xmeo")
 
-[node name="hud" type="CanvasLayer" parent="editor/SubViewportContainer/SubViewport"]
+[node name="hud" type="CanvasLayer" parent="editor/preview/SubViewportContainer/SubViewport"]
 
-[node name="dialog" type="Panel" parent="editor/SubViewportContainer/SubViewport/hud"]
+[node name="dialog" type="Panel" parent="editor/preview/SubViewportContainer/SubViewport/hud"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -1557,13 +1654,13 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_bjseg")
 
-[node name="name" type="Panel" parent="editor/SubViewportContainer/SubViewport/hud/dialog"]
+[node name="name" type="Panel" parent="editor/preview/SubViewportContainer/SubViewport/hud/dialog"]
 layout_mode = 0
 offset_top = -40.0
 offset_right = 277.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_psgmf")
 
-[node name="name" type="RichTextLabel" parent="editor/SubViewportContainer/SubViewport/hud/dialog/name"]
+[node name="name" type="RichTextLabel" parent="editor/preview/SubViewportContainer/SubViewport/hud/dialog/name"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1579,7 +1676,7 @@ grow_vertical = 2
 theme_override_constants/table_v_separation = 0
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "Johntavious the 331rd"
+text = "Johntavious the 331st"
 scroll_active = false
 autowrap_mode = 0
 tab_size = 0
@@ -1587,7 +1684,7 @@ shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="dialog" type="RichTextLabel" parent="editor/SubViewportContainer/SubViewport/hud/dialog"]
+[node name="dialog" type="RichTextLabel" parent="editor/preview/SubViewportContainer/SubViewport/hud/dialog"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1602,14 +1699,234 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
-text = "Yeah I'm [rainbow freq=0.1][wave]gay[/wave][/rainbow]. So what? You got a problem with that pal? [color=red][wave]Fight me about it then!"
+text = "Yeah I'm [rainbow freq=0.1][wave]gay[/wave][/rainbow]. So what? You got a problem with that pal? [color=red][wave]Fight me about it then![/wave][color=white]ᛜ"
 scroll_active = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
-script = SubResource("GDScript_d5p15")
+visible_characters = 0
+visible_ratio = 0.0
+script = ExtResource("6_di33m")
+
+[node name="anim" type="AnimationPlayer" parent="editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog"]
+root_node = NodePath("../../../../../../../..")
+libraries = {
+"": SubResource("AnimationLibrary_p3ncg")
+}
+autoplay = "type"
+
+[node name="fullscreen_preview" type="Button" parent="editor/preview"]
+layout_mode = 0
+offset_left = 1814.0
+offset_right = 1920.0
+offset_bottom = 31.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_xtwhn")
+text = "FULLSCREEN"
+
+[node name="bar" type="Panel" parent="editor"]
+offset_top = 1006.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kkflf")
+
+[node name="exit" type="Button" parent="editor/bar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 10.0
+offset_right = 144.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("4_nab5a")
+theme_override_styles/focus = ExtResource("5_6bj8k")
+theme_override_styles/hover = ExtResource("6_78bnl")
+theme_override_styles/pressed = ExtResource("7_fiwen")
+theme_override_styles/normal = ExtResource("8_jvihp")
+text = "Exit To Menu"
+
+[node name="editor_opt" type="Button" parent="editor/bar"]
+layout_mode = 0
+offset_left = 1768.0
+offset_top = 10.0
+offset_right = 1914.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("4_nab5a")
+theme_override_styles/focus = SubResource("StyleBoxFlat_o387c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tfs8x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_klxr6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kcxg0")
+text = "Editor Options"
+
+[node name="edit" type="Panel" parent="editor"]
+clip_children = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -960.0
+offset_right = 192.0
+offset_bottom = 1006.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0lqw6")
+
+[node name="title" type="Label" parent="editor/edit"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 34.0
+text = "STORY EDITOR"
+label_settings = SubResource("LabelSettings_eryw6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bg" type="ColorRect" parent="editor/edit/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 34.0
+color = Color(0, 0, 0, 0.411765)
+
+[node name="editor" type="CodeEdit" parent="editor/edit"]
+layout_mode = 0
+offset_top = 110.0
+offset_right = 1154.0
+offset_bottom = 1006.0
+theme_override_fonts/font = ExtResource("4_nab5a")
+theme_override_font_sizes/font_size = 24
+text = "extends StoryScript
+
+# This gets ran first.
+func script():
+	# Use add_line(\"\") to add a line!
+	# Use add_event(event) to add an event!
+	# Please note that you have to program your events here.
+	add_line(\"Test run!\");
+	add_event(example_event);
+	# This is very important!
+	# If you forget this, your script will be ignored!
+	register(); 
+	pass
+
+func example_event():
+	print(\"Event ran!\");"
+syntax_highlighter = SubResource("CodeHighlighter_ywwwt")
+highlight_all_occurrences = true
+highlight_current_line = true
+draw_tabs = true
+symbol_lookup_on_click = true
+gutters_draw_breakpoints_gutter = true
+gutters_draw_bookmarks = true
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
+gutters_draw_fold_gutter = true
+code_completion_enabled = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+script = SubResource("GDScript_5kydc")
+
+[node name="file" type="Label" parent="editor/edit"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = 224.0
+offset_bottom = 97.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_m2hbg")
+text = "Current File: untitled (Unsaved)"
+label_settings = SubResource("LabelSettings_1rwqw")
+vertical_alignment = 1
+
+[node name="load_script" type="Button" parent="editor/edit"]
+layout_mode = 0
+offset_left = 832.0
+offset_top = 48.0
+offset_right = 954.0
+offset_bottom = 94.0
+text = "Load Script"
+
+[node name="save_script" type="Button" parent="editor/edit"]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 48.0
+offset_right = 1106.0
+offset_bottom = 94.0
+text = "Save Script"
+
+[node name="reload_code" type="Button" parent="editor/edit"]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 48.0
+offset_right = 802.0
+offset_bottom = 94.0
+text = "Parse Code"
+
+[node name="stats" type="Panel" parent="editor"]
+clip_children = 2
+offset_left = 1152.0
+offset_top = 432.0
+offset_right = 1920.0
+offset_bottom = 1006.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eykvq")
+
+[node name="title" type="Label" parent="editor/stats"]
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 34.0
+text = "STATUS PANEL"
+label_settings = SubResource("LabelSettings_eryw6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bg" type="ColorRect" parent="editor/stats/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 34.0
+color = Color(0, 0, 0, 0.411765)
+
+[node name="static_stuff" type="RichTextLabel" parent="editor/stats"]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 382.0
+offset_bottom = 574.0
+theme_override_fonts/normal_font = ExtResource("4_nab5a")
+theme_override_fonts/mono_font = ExtResource("10_gloam")
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+text = "Code Status:
+Current Step:  "
+
+[node name="code_stat" type="RichTextLabel" parent="editor/stats"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 34.0
+offset_right = 768.0
+offset_bottom = 80.0
+theme_override_fonts/normal_font = ExtResource("4_nab5a")
+theme_override_fonts/mono_font = ExtResource("10_gloam")
+theme_override_fonts/bold_font = ExtResource("11_823er")
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[color=gray]Unknown"
+fit_content = true
+scroll_active = false
+scroll_following = true
+
+[node name="cur_step" type="RichTextLabel" parent="editor/stats"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 65.0
+offset_right = 768.0
+offset_bottom = 97.0
+theme_override_fonts/normal_font = ExtResource("10_gloam")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "0 / 0"
 
 [node name="load_dialog" type="FileDialog" parent="editor"]
-title = "Open a Script"
+title = "Open a File"
 initial_position = 2
 size = Vector2i(400, 600)
 ok_button_text = "Open"
@@ -1628,9 +1945,36 @@ ok_button_text = "Save"
 dialog_hide_on_ok = true
 show_hidden_files = true
 
+[node name="editor_options" type="Window" parent="editor"]
+title = "Editor Options"
+initial_position = 1
+size = Vector2i(400, 600)
+visible = false
+popup_window = true
+min_size = Vector2i(400, 400)
+keep_title_visible = true
+theme_override_fonts/title_font = ExtResource("4_nab5a")
+script = SubResource("GDScript_bujqu")
+
+[node name="auto_parse" type="CheckButton" parent="editor/editor_options"]
+offset_right = 400.0
+offset_bottom = 31.0
+tooltip_text = "Every time you edit in the code editor, the code will be checked.
+This can be resource intensive when working with big scripts!"
+text = "Auto Parse Code on Edit"
+
+[connection signal="focus_entered" from="editor/preview/SubViewportContainer" to="editor/preview/SubViewportContainer" method="_on_focus_entered"]
+[connection signal="focus_exited" from="editor/preview/SubViewportContainer" to="editor/preview/SubViewportContainer" method="_on_focus_exited"]
+[connection signal="button_up" from="editor/preview/fullscreen_preview" to="editor/preview" method="_on_fullscreen_preview_button_up"]
+[connection signal="button_up" from="editor/bar/exit" to="." method="_on_exit_button_up"]
+[connection signal="button_up" from="editor/bar/editor_opt" to="." method="_on_editor_opt_button_up"]
+[connection signal="code_completion_requested" from="editor/edit/editor" to="editor/edit/editor" method="_on_code_completion_requested"]
+[connection signal="text_changed" from="editor/edit/editor" to="." method="_on_editor_text_changed"]
 [connection signal="button_up" from="editor/edit/load_script" to="." method="_on_load_script_button_up"]
 [connection signal="button_up" from="editor/edit/save_script" to="." method="_on_save_script_button_up"]
-[connection signal="focus_entered" from="editor/SubViewportContainer" to="editor/SubViewportContainer" method="_on_focus_entered"]
-[connection signal="focus_exited" from="editor/SubViewportContainer" to="editor/SubViewportContainer" method="_on_focus_exited"]
+[connection signal="button_up" from="editor/edit/reload_code" to="." method="_on_reload_code_button_up"]
 [connection signal="file_selected" from="editor/load_dialog" to="." method="_on_load_dialog_file_selected"]
+[connection signal="canceled" from="editor/save_dialog" to="." method="_on_save_dialog_canceled"]
 [connection signal="file_selected" from="editor/save_dialog" to="." method="_on_save_dialog_file_selected"]
+[connection signal="close_requested" from="editor/editor_options" to="editor/editor_options" method="_on_close_requested"]
+[connection signal="toggled" from="editor/editor_options/auto_parse" to="." method="_on_auto_parse_toggled"]

@@ -16,11 +16,11 @@
 extends Node2D
 
 # Scene References
-@onready var error_text = $fallback_bg/fallback_text;
-@onready var loading_text = $fallback_bg/loading_text;
-@onready var main = $main;
-@onready var hud = $hud;
-@onready var parallax_bg = $fallback_bg/parallax_bg;
+@onready var error_text:RichTextLabel = ($fallback_bg/fallback_text as RichTextLabel);
+@onready var loading_text:RichTextLabel = ($fallback_bg/loading_text as RichTextLabel);
+@onready var main:CanvasLayer = ($main as CanvasLayer);
+@onready var hud:CanvasLayer = ($hud as CanvasLayer);
+@onready var parallax_bg:ParallaxBackground = ($fallback_bg/parallax_bg as ParallaxBackground);
 
 # This holds the 
 var max_seg : int = 0;
@@ -47,6 +47,7 @@ func fallback(isError : bool = true) -> void:
 		loading_text.visible = true;
 	pass
 
-func load():
+## Loads the story content.
+func load_content() -> void:
 	#$main/bg.texture = load();
 	pass

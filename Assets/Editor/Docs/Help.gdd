@@ -1,0 +1,10 @@
+[center][font_size=64]Arctic's Odyssey: Command List[/font_size][/center]
+[font_size=30][b]Local Commands[/b][/font_size]
+
+[b]help[/b]
+[ul]This displays the help window that you are reading now.[/ul]
+
+[font_size=30][b]Global Commands[/b][/font_size]
+[font_size=28][b]Settings[/b][/font_size]
+[b]change(key:String, value, value2)[/b]
+Available keys: [code]max_framerate, res[/code]

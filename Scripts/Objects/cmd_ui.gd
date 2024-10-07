@@ -15,33 +15,49 @@
 
 extends Control
 
-@onready var input = $main/main/input;
-@onready var help = $main/main/help;
-@onready var anim = $anim;
+@onready var input:LineEdit = $main/main/input as LineEdit;
+@onready var help:RichTextLabel = $main/main/help as RichTextLabel;
+@onready var anim:AnimationPlayer = $anim as AnimationPlayer;
+@onready var hanim:AnimationPlayer = $helpanim as AnimationPlayer;
 
-var onScreen = false;
-var cmd:="";
+var onScreen:bool = false;
+var cmd:String = "";
+
+var helpVisible:bool = false;
 
 func _ready() -> void:
 	input.focus_mode = Control.FocusMode.FOCUS_ALL;
 
-func slide_in():
+func slide_in() -> void:
 	anim.play("slide_in");
 	await anim.animation_finished;
 	onScreen = true;
 	input.grab_focus();
 
-func slide_out():
+func slide_out() -> void:
 	input.clear();
 	input.release_focus();
+	if helpVisible == true: toggle_help();
 	anim.play("slide_out");
 	await anim.animation_finished;
 	onScreen = false;
 
+func toggle_help() -> void:
+	input.clear();
+	if helpVisible: hanim.play_backwards("help_show");
+	else: hanim.play("help_show");
+	await hanim.animation_finished;
+	helpVisible = !helpVisible;
+	pass
+
 func _on_input_text_submitted(new_text: String) -> void:
 	cmd = new_text;
-	await CommandManager.parse_cmd(cmd);
+	CommandManager.parse_cmd(cmd);
+	await CommandManager.parsed_command;
+	if CommandManager.error == "SHOW_HELP": print("Help has been ran!"); toggle_help(); return;
 	if CommandManager.error != "OK":
+		help.text = "[color=red][wave freq=5]Error: " + CommandManager.error;
 		return;
+	else: help.text = "";
 	slide_out();
 	pass

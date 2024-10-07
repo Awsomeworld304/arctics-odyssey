@@ -19,6 +19,8 @@ extends Node
 var command := "";
 var error := "OK";
 
+signal parsed_command
+
 var script_base := """
 extends Node
 
@@ -35,14 +37,22 @@ func _process(_delta: float) -> void:
 		else:
 			CommandPrompt.slide_out();
 
-func parse_cmd(cmd:="") -> bool:
+func parse_cmd(cmd:=""):
 	if cmd == "":
-		return true;
+		error = "No Command Provided!";
+		parsed_command.emit();
+		return;
+	
+	if cmd == "help":
+		error = "SHOW_HELP";
+		parsed_command.emit();
+		return;
 	
 	var script = GDScript.new();
 	script.source_code = script_base + "	" + cmd;
-	print(script_base + cmd);
-	script.reload();
-	var obj = script.new();
-	obj.custom();
-	return true;
+	if Settings.debug: print("CommandManager -> Command: " + cmd);
+	if script.reload() == OK:
+		var obj = script.new();
+		obj.custom();
+		error = "OK";
+	parsed_command.emit();

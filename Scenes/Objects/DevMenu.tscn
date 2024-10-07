@@ -15,8 +15,8 @@ func _on_battle_button_up() -> void:
 	pass # Replace with function body.
 
 
-func _on_vn_2_button_up() -> void:
-	LevelManager.change_level(\"platform\");
+func _on_editor_button_up() -> void:
+	LevelManager.change_level(\"StoryEditor\");
 	pass # Replace with function body.
 "
 
@@ -147,5 +147,4 @@ text = "Jump to Editor"
 
 [connection signal="button_up" from="menu/vn" to="." method="_on_vn_button_up"]
 [connection signal="button_up" from="menu/battle" to="." method="_on_battle_button_up"]
-[connection signal="button_up" from="menu/freeroam" to="." method="_on_vn_2_button_up"]
-[connection signal="button_up" from="menu/editor" to="." method="_on_vn_2_button_up"]
+[connection signal="button_up" from="menu/editor" to="." method="_on_editor_button_up"]

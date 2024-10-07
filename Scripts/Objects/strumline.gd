@@ -15,28 +15,28 @@
 
 extends Node2D
 
-@onready var left := $left;
-@onready var down := $down;
-@onready var center := $center;
-@onready var up := $up;
-@onready var right := $right;
+@onready var left:AnimatedSprite2D = $left as AnimatedSprite2D;
+@onready var down:AnimatedSprite2D = $down as AnimatedSprite2D;
+@onready var center:AnimatedSprite2D = $center as AnimatedSprite2D;
+@onready var up:AnimatedSprite2D = $up as AnimatedSprite2D;
+@onready var right:AnimatedSprite2D = $right as AnimatedSprite2D;
 
-signal left_p
-signal down_p
-signal center_p
-signal up_p
-signal right_p 
+signal left_p;
+signal down_p;
+signal center_p;
+signal up_p;
+signal right_p; 
 
-signal left_r
-signal down_r
-signal center_r
-signal up_r
-signal right_r
+signal left_r;
+signal down_r;
+signal center_r;
+signal up_r;
+signal right_r;
 
 func _ready() -> void:
 	pass
 
-func _process(_delta: float) -> void:	
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("left"):
 		left_p.emit();
 		left.frame = 1;

@@ -1,0 +1,1239 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0xhrq4deefa3"]
+
+[ext_resource type="SpriteFrames" uid="uid://cnw0fag4xxki" path="res://Assets/sprite/note-alt.tres" id="1_lfqum"]
+
+[sub_resource type="GDScript" id="GDScript_v70dk"]
+resource_name = "autoscroll"
+script/source = "extends ParallaxBackground
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	scroll_offset.x += 40*delta;
+	scroll_offset.y += 40*delta;
+	pass
+"
+
+[node name="bg" type="CanvasLayer"]
+
+[node name="parallax_bg" type="ParallaxBackground" parent="."]
+layer = -1
+script = SubResource("GDScript_v70dk")
+
+[node name="bg_color" type="ColorRect" parent="parallax_bg"]
+z_index = -2
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.45849, 0.0212402, 0.679688, 1)
+
+[node name="main" type="ParallaxLayer" parent="parallax_bg"]
+z_as_relative = false
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(1960, 1080)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main9" type="ParallaxLayer" parent="parallax_bg/main"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main2" type="ParallaxLayer" parent="parallax_bg"]
+z_as_relative = false
+position = Vector2(96, 128)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(1960, 1080)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main10" type="ParallaxLayer" parent="parallax_bg/main2"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main3" type="ParallaxLayer" parent="parallax_bg"]
+z_as_relative = false
+position = Vector2(0, 256)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(1960, 1080)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main11" type="ParallaxLayer" parent="parallax_bg/main3"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main4" type="ParallaxLayer" parent="parallax_bg"]
+z_as_relative = false
+position = Vector2(96, 384)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(1960, 1080)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main12" type="ParallaxLayer" parent="parallax_bg/main4"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main5" type="ParallaxLayer" parent="parallax_bg"]
+z_as_relative = false
+position = Vector2(0, 512)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(1960, 1080)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main13" type="ParallaxLayer" parent="parallax_bg/main5"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main6" type="ParallaxLayer" parent="parallax_bg"]
+z_as_relative = false
+position = Vector2(96, 640)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(1960, 1080)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main14" type="ParallaxLayer" parent="parallax_bg/main6"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main7" type="ParallaxLayer" parent="parallax_bg"]
+z_as_relative = false
+position = Vector2(8, 768)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(1960, 1080)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main15" type="ParallaxLayer" parent="parallax_bg/main7"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main8" type="ParallaxLayer" parent="parallax_bg"]
+z_as_relative = false
+position = Vector2(104, 896)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(1960, 1080)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)
+
+[node name="main16" type="ParallaxLayer" parent="parallax_bg/main8"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(2000, 0)
+
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(4000, 0)
+
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(6000, 0)
+
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(8000, 0)
+
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(10000, 0)
+
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(12000, 0)
+
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(14000, 0)
+
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(16000, 0)
+
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+z_as_relative = false
+position = Vector2(59, 59)
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("1_lfqum")
+offset = Vector2(18000, 0)

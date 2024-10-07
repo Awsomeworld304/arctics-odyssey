@@ -18,9 +18,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -30,16 +28,20 @@ func _process(_delta: float) -> void:
 
 
 func _on_start_button_up() -> void:
-	LevelManager.change_level("stage");
+	LevelManager.trans("stage");
 	pass # Replace with function body.
 
 
 func _on_opt_button_up() -> void:
-	pass # Replace with function body.
+	LevelManager.trans("options");
+	pass
 
 
 func _on_quit_button_up() -> void:
 	$anim.play("fade_out");
 	await $anim.animation_finished;
 	LevelManager.quit();
+	pass # Replace with function body.
+
+func _on_dev_menu_visibility_changed() -> void:
 	pass # Replace with function body.

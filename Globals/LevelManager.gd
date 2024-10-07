@@ -15,22 +15,26 @@
 
 extends Node
 
+@onready var trans_anim:AnimationPlayer = $"../TransitionLayer".get_node("anim") as AnimationPlayer;
 
+signal level_changed;
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta) -> void:
 	pass
 
-# Handle it ourselves because 4.2 makes scene changes instant which causes flickering.
-func change_level(level : String, object = false):
-	var levelPath = "";
+# Handle it ourselves because 4.2+ makes scene changes instant which causes flickering.
+func change_level(level : String, object:bool = false, global:bool = false) -> void:
+	var levelPath:String = "";
 	if object:
 		levelPath = "res://Scenes/Objects/" + level + ".tscn";
+	elif  global:
+		levelPath = "res://Globals/" + level + ".tscn";
 	else:
 		levelPath = "res://Scenes/" + level + ".tscn";
 		
@@ -48,6 +52,8 @@ func change_level(level : String, object = false):
 	await get_tree().process_frame;
 	# Changes the scene to the specified level.
 	get_tree().change_scene_to_file(levelPath);
+	#await get_tree().current_scene.ready;
+	level_changed.emit();
 	pass
 	
 func reload(restart = false):
@@ -61,5 +67,22 @@ func reload(restart = false):
 		await get_tree().process_frame;
 		get_tree().reload_current_scene();
 
-func quit():
-	get_tree().quit(0);
+func quit(code:=0):
+	get_tree().quit(code);
+
+func trans(level:String, global:=false, _trans:="default"):
+	match _trans:
+		_:
+			trans_anim.play("default");
+			await trans_anim.animation_finished;
+			change_level(level, false, global);
+			await level_changed;
+			trans_anim.play_backwards("default");
+			await trans_anim.animation_finished;
+			pass
+	pass
+
+func error(msg:="Unknown Fatal Error!"):
+	LevelManager.trans("ErrorScene", true);
+	ErrorScene.change_error(msg);
+	pass

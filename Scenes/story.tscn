@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/story.gd" id="1_4id8q"]
 [ext_resource type="Texture2D" uid="uid://bq05v43qyjuy8" path="res://Assets/Images/BG/test.png" id="1_7aasj"]
 [ext_resource type="SpriteFrames" uid="uid://co68xf08xn207" path="res://Assets/sprite/note.tres" id="2_1s2ej"]
+[ext_resource type="Script" path="res://Scripts/Objects/DialogBox.gd" id="4_uwvig"]
 
 [sub_resource type="GDScript" id="GDScript_v70dk"]
 resource_name = "autoscroll"
@@ -23,72 +24,14 @@ func _process(delta: float) -> void:
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjseg"]
 bg_color = Color(0, 0, 0, 0.615686)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psgmf"]
 bg_color = Color(0, 0, 0, 0.615686)
-
-[sub_resource type="GDScript" id="GDScript_d5p15"]
-resource_name = "dialog"
-script/source = "extends RichTextLabel
-
-signal typeStart;
-signal typeFinish;
-
-var dialogList = {};
-var count = 0;
-var curText : String = \"\";
-var done:bool = false;
-var speed = 0.8;
-
-func type():
-	typeStart.emit();
-	#var tm = Timer.new();
-	#tm.start(1);
-	#await tm.is_stopped();
-	visible_ratio = 0.0;
-	if !curText.is_empty():
-		print_debug(\"curText var: \"+curText)
-		text = curText;
-	var tween: Tween = create_tween();
-	tween.set_speed_scale(speed);
-	tween.tween_property(self, \"visible_ratio\", 1.0, speed).from(0.0);
-	await tween.finished;
-	#typeFinish.emit();
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	dialogList = StoryManager.text;
-	curText=dialogList.get(count);
-	type();
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if dialogList != StoryManager.text:
-		dialogList = StoryManager.text;
-	
-	if Input.is_action_just_pressed(\"story_next\"):
-		if count+1 < dialogList.size():
-			count+=1;
-			curText=dialogList.get(count);
-			type();
-	
-	if Input.is_action_just_pressed(\"story_back\"):
-		if count-1 >= 0:
-			count-=1;
-			curText=dialogList.get(count);
-			type();
-		else:
-			done=true;
-	speed = 1 * ((curText.length()*2.3)*delta);
-	pass
-"
+corner_radius_top_left = 12
+corner_radius_top_right = 12
 
 [node name="Story" type="Node2D"]
 script = ExtResource("1_4id8q")
@@ -1456,4 +1399,4 @@ text = "Yeah I'm [rainbow freq=0.1][wave]gay[/wave][/rainbow]. So what? You got 
 scroll_active = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
-script = SubResource("GDScript_d5p15")
+script = ExtResource("4_uwvig")

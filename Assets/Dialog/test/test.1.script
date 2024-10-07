@@ -1,0 +1,6 @@
+extends StoryScript
+
+func script():
+	add_line("Yep this is dialog");
+	add_event(LevelManager.reload(true));
+	pass

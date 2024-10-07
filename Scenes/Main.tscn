@@ -96,7 +96,7 @@ offset_left = -367.0
 offset_right = 367.0
 offset_bottom = 88.0
 grow_horizontal = 2
-text = "Untitled Rhythm Engine"
+text = "AO Development Engine"
 label_settings = SubResource("LabelSettings_rf6d1")
 
 [node name="version" type="RichTextLabel" parent="menu/main"]
@@ -175,3 +175,4 @@ autoplay = "fade_in"
 [connection signal="button_up" from="menu/main/start" to="." method="_on_start_button_up"]
 [connection signal="button_up" from="menu/main/opt" to="." method="_on_opt_button_up"]
 [connection signal="button_up" from="menu/main/quit" to="." method="_on_quit_button_up"]
+[connection signal="visibility_changed" from="DevMenu" to="." method="_on_dev_menu_visibility_changed"]
