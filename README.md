@@ -12,7 +12,7 @@ This project is quite ambitious and needs a lot more resources and work which ne
 ## Status
 Currently in pre-alpha.\
 LOTS of things are subject to change.\
-Currently, an experimental visual novel style is being developed.
+The base rhythm engine is being developed.
 
 ## Credits
 JamesTech4849 - Owner, Programmer, Pixel Artist. (jamesprototech, Awsomeworld304)
