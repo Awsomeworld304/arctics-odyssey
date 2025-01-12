@@ -15,62 +15,68 @@
 
 extends Node
 
+var current_scene:String = "";
+var previous_scene:String = "";
+
 @onready var trans_anim:AnimationPlayer = $"../TransitionLayer".get_node("anim") as AnimationPlayer;
 
 signal level_changed;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	cycle_scenes();
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	pass
 
-# Handle it ourselves because 4.2+ makes scene changes instant which causes flickering.
+func cycle_scenes() -> void:
+	# Set previous scene.
+	previous_scene = current_scene;
+	# Get new current scene.
+	if (get_tree().current_scene != null): current_scene = get_tree().current_scene.name;
+	print("LevelManager -> Current Scene: " + current_scene);
+	pass
+
+## Custom scene changer.[br]
+## Paramaters:[br]
+## level (String) - The file name of the level.[br]
+## object (Bool) - Specifies if the loaded scene is an object.[br]
+## global (Bool) - Specifies if the loaded scene is a global scene.
 func change_level(level : String, object:bool = false, global:bool = false) -> void:
 	var levelPath:String = "";
-	if object:
-		levelPath = "res://Scenes/Objects/" + level + ".tscn";
-	elif  global:
-		levelPath = "res://Globals/" + level + ".tscn";
-	else:
-		levelPath = "res://Scenes/" + level + ".tscn";
-		
+	if object: levelPath = "res://Scenes/Objects/" + level + ".tscn";
+	elif global: levelPath = "res://Globals/" + level + ".tscn";
+	else: levelPath = "res://Scenes/" + level + ".tscn";
+	
 	match level:
-		"":
-			printerr("LevelManager: Invalid args for level!");
-			return;
+		"": printerr("LevelManager: Invalid args for level!"); return;
 		_:
-			if !FileAccess.file_exists(levelPath):
-				printerr("LevelManager: Level not found!");
-				return;
-			if Settings.debug:
-				print_debug("Loading " + level + "...");
-	# Wait for very last frame, to switch it on a good frame!
+			if !FileAccess.file_exists(levelPath): printerr("LevelManager: Level not found!"); return;
+			if Settings.debug: print_debug("Loading " + level + "...");
+	# Wait for last frame. (4.2+ | Fixes transitions.)
 	await get_tree().process_frame;
-	# Changes the scene to the specified level.
-	get_tree().change_scene_to_file(levelPath);
-	#await get_tree().current_scene.ready;
+	var _err:Error = get_tree().change_scene_to_file(levelPath);
+	await get_tree().tree_changed;
+	cycle_scenes();
 	level_changed.emit();
 	pass
-	
-func reload(restart = false):
-	if get_tree().paused == true:
-		get_tree().paused = false;
-	if restart:
-		await get_tree().process_frame;
-		get_tree().change_scene_to_file("res://Scenes/Main.tscn");
-		Settings._load_settings();
-	else:
-		await get_tree().process_frame;
-		get_tree().reload_current_scene();
 
-func quit(code:=0):
+## Restarts current scene.
+func reload(restart_to_main:bool = false) -> void:
+	if get_tree().paused == true: get_tree().paused = false;
+	await get_tree().process_frame;
+	if restart_to_main:
+		var _err:Error = get_tree().change_scene_to_file("res://Scenes/Main.tscn");
+		_err = Settings._load_settings();
+	else: var _err:Error = get_tree().reload_current_scene();
+
+func quit(code:int = 0) -> void:
 	get_tree().quit(code);
 
-func trans(level:String, global:=false, _trans:="default"):
+func trans(level:String, global:bool = false, _trans:String = "default") -> void:
 	match _trans:
 		_:
 			trans_anim.play("default");
@@ -82,7 +88,7 @@ func trans(level:String, global:=false, _trans:="default"):
 			pass
 	pass
 
-func error(msg:="Unknown Fatal Error!"):
+func error(msg:String = "Unknown Fatal Error!") -> void:
 	LevelManager.trans("ErrorScene", true);
 	ErrorScene.change_error(msg);
 	pass

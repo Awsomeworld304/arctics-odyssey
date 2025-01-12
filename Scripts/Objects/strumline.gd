@@ -21,12 +21,14 @@ extends Node2D
 @onready var up:AnimatedSprite2D = $up as AnimatedSprite2D;
 @onready var right:AnimatedSprite2D = $right as AnimatedSprite2D;
 
+# Press
 signal left_p;
 signal down_p;
 signal center_p;
 signal up_p;
 signal right_p; 
 
+# Release
 signal left_r;
 signal down_r;
 signal center_r;

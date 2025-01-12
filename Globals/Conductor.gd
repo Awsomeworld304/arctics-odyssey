@@ -15,89 +15,177 @@
 
 extends Node
 
-var songPosition: float = 0.0;
-var bpm: float = 100.0;
-var speed: float = 1.0;
+# Signals for when beats pass (4th, 8th, etc.)
+signal quarter_passed(beat:int);
+signal eighth_passed(beat:int, fract:int);
+signal twelth_passed(beat:int, fract:int);
+signal sixteenth_passed(beat:int, fract:int);
 
-var timeBetweenBeats: float = ((60.0 / bpm) * 1000.0);
-var timeBetweenSteps: float = timeBetweenBeats / 4.0;
+# Same as above signals but AudioServer.get_output_latency() seconds earlier
+# (for audio scheduling)
+signal quarter_will_pass(beat:int);
+signal eighth_will_pass(beat:int, fract:int);
+signal twelth_will_pass(beat:int, fract:int);
+signal sixteenth_will_pass(beat:int, fract:int);
 
-var curBeat: int = 0;
-var curStep: int = 0;
+@export var curr_beat:float = 0;
+@export var curr_beat_without_latency:float = 0;
+@export var bpm:float = 100;
+@export var is_playing:bool = false;
+@export var is_paused:bool = false;
+@export var audio_offset_ms:int = 0;
+@export var visual_offset_ms:int = 0;
 
-var curBeat_f: float = 0.0;
-var curStep_f: float = 0.0;
+@onready var player:AudioStreamPlayer;
 
-# MS of allowed safe frames.
-var safeZoneOffset: float = 166.6;
+# Caching this since getting output latency is expensive. This value doesn't
+# change, so we only need to lookup once
+var _cached_latency:float = AudioServer.get_output_latency();
+var _num_beats_in_song:int = 0;
+var _prev_time_seconds:float = 0;
+var _loops:int = 0;
+var _quarter_passed_incrementor:BeatIncrementor = BeatIncrementor.new(quarter_passed);
+var _eighth_passed_incrementor:BeatIncrementor = BeatIncrementor.new(eighth_passed, 2);
+var _twelth_passed_incrementor:BeatIncrementor = BeatIncrementor.new(twelth_passed, 3);
+var _sixteenth_passed_incrementor:BeatIncrementor = BeatIncrementor.new(sixteenth_passed, 4);
+var _quarter_will_pass_incrementor:BeatIncrementor = BeatIncrementor.new(quarter_will_pass);
+var _eighth_will_pass_incrementor:BeatIncrementor = BeatIncrementor.new(eighth_will_pass, 2);
+var _twelth_will_pass_incrementor:BeatIncrementor = BeatIncrementor.new(twelth_will_pass, 3);
+var _sixteenth_will_pass_incrementor:BeatIncrementor = BeatIncrementor.new(sixteenth_will_pass, 4);
 
-# funny array of [position_in_song, bpm, step_change_is_at]
-var bpm_changes: Array = [];
 
-signal beat_hit;
-signal step_hit;
-
-func _process(_delta: float) -> void:
-	var oldBeat: int = curBeat;
-	var oldStep: int = curStep;
-
-	var lastChange: Array = [0, 0, 0];
+class BeatIncrementor:
+	var _fract_mod:int;
+	var _signal:Signal;
+	var _last_beat:int = -1;
+	var _last_fract:int;
 	
-	for change in bpm_changes:
-		if songPosition >= change[0]:
-			lastChange = change;
+	
+	func _init(sig:Signal, fract_mod:int = 1) -> void:
+		_fract_mod = fract_mod;
+		_signal = sig;
+		_last_fract = fract_mod - 1;
+		pass
+	
+	
+	func increment_to(beat:int, fract:int = 0) -> void:
+		while beat > _last_beat or fract > _last_fract:
+			_last_fract += 1;
+			if _last_fract == _fract_mod:
+				_last_beat += 1;
+				_last_fract = 0;
+				pass
 			
-			bpm = change[1];
-			recalculate_values();
-		else:
-			break;
-	
-	if len(lastChange) < 3:
-		lastChange.append(0);
-	
-	curStep_f = lastChange[2] + ((songPosition - lastChange[0]) / timeBetweenSteps);
-	curBeat_f = curStep_f / 4.0;
-	
-	curStep = lastChange[2] + floor((songPosition - lastChange[0]) / timeBetweenSteps);
-	curBeat = floor(curStep / 4.0);
-	
-	if curStep != oldStep and curStep > oldStep:
-		step_hit.emit();
-	if curBeat != oldBeat and curBeat > oldBeat:
-		beat_hit.emit();
+			if _fract_mod == 1: _signal.emit(_last_beat);
+			else: _signal.emit(_last_beat, _last_fract);
+			pass
+		pass
+	pass
+			
 
-func recalculate_values() -> void:
-	timeBetweenBeats = ((60.0 / bpm) * 1000.0);
-	timeBetweenSteps = timeBetweenBeats / 4.0;
 
-func change_bpm(new_bpm, changes = []):
-	if len(changes) == 0:
-		changes = [[0.0, new_bpm, 0.0]];
-	
-	bpm_changes = changes;
-	bpm = new_bpm;
-	recalculate_values();
+func _ready() -> void:
+	pass
 
-func map_bpm_changes(songData) -> Array:
-	var changes: Array = [];
+
+func play() -> void:
+	_prev_time_seconds = -_cached_latency - 0.001;
+	curr_beat = _prev_time_seconds / 60 * bpm;
+	_loops = 0;
+	_num_beats_in_song = round(player.stream.get_length() / 60 * bpm);
+	await get_tree().create_timer(3).timeout;
+	player.play();
+	is_playing = true;
+	pass
+
+## Stops the current song but does not flush variables.
+func stop() -> void:
+	player.stop();
+	is_playing = false;
+	pass
+
+## Pauses and resumes the song.
+## Returns ```is_paused```.
+func pause() -> bool:
+	is_paused = !is_paused;
+	player.stream_paused = is_paused;
+	is_playing = !is_paused;
+	return is_paused;
+
 	
-	var cur_bpm: float = songData["bpm"];
-	var total_steps: int = 0;
-	var total_pos: float = 0.0;
+func get_beat_time() -> float:
+	return 60 / bpm;
+
+
+func _process(_delta:float) -> void:
+	if not is_playing or is_paused: return;
 	
-	for section in songData["notes"]:
-		if "changeBPM" in section:
-			if section["changeBPM"] and section["bpm"] != cur_bpm and section["bpm"] > 0:
-				cur_bpm = section["bpm"];
-				var change = [total_pos, section["bpm"], total_steps];
-				changes.append(change);
-		
-		if not "lengthInSteps" in section:
-			section["lengthInSteps"] = 16;
-		
-		var section_length:int = section["lengthInSteps"];
-		
-		total_steps += section_length;
-		total_pos += ((60.0 / cur_bpm) * 1000.0 / 4.0) * section_length;
+	var time_seconds = (player.get_playback_position() + AudioServer.get_time_since_last_mix() - _cached_latency - audio_offset_ms / 1000.0);
 	
-	return changes;
+	# Validation
+	if not _is_valid_update(time_seconds): return;
+	
+	if time_seconds - _prev_time_seconds < -5:
+		print("big reverse: prev=", _prev_time_seconds, " curr=", time_seconds, " delta=", _prev_time_seconds - time_seconds);
+		# Loop happened!
+		_loops += 1;
+		# Make prev time on the same "loop" as the curr time. It's not
+		# recommended to use song length directly as there can be small
+		# inaccuracies with audio looping and the song itself
+		_prev_time_seconds -= _num_beats_in_song / bpm * 60;
+	
+	var beat = time_seconds / 60 * bpm;
+	var prev_beat = _prev_time_seconds / 60 * bpm;
+	
+	# Now add additional beats from previous loops
+	beat += _loops * _num_beats_in_song;
+	prev_beat += _loops * _num_beats_in_song;
+	
+	# Apply visual beat offset
+	beat -= visual_offset_ms / 60000.0 * bpm;
+	prev_beat -= visual_offset_ms / 60000.0 * bpm;
+	
+	# Signal the beats that are happening (with offset)
+	curr_beat = beat
+	if floor(beat) > floor(prev_beat):
+		_quarter_passed_incrementor.increment_to(floor(beat));
+	if floor(beat*2) > floor(prev_beat*2):
+		_eighth_passed_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 2));
+	if floor(beat*3) > floor(prev_beat*3):
+		_twelth_passed_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 3));
+	if floor(beat*4) > floor(prev_beat*4):
+		_sixteenth_passed_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 4));
+	
+	# Unapply visual beat offset
+	beat += visual_offset_ms / 60000.0 * bpm;
+	prev_beat += visual_offset_ms / 60000.0 * bpm;
+	
+	# Now adjust the time to be in the future
+	var latency_in_beats = _cached_latency / 60 * bpm;
+	beat += latency_in_beats;
+	prev_beat += latency_in_beats;
+	
+	# Signal the beats that will happen soon
+	curr_beat_without_latency = beat;
+	if floor(beat) > floor(prev_beat):
+		_quarter_will_pass_incrementor.increment_to(floor(beat));
+	if floor(beat*2) > floor(prev_beat*2):
+		_eighth_will_pass_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 2));
+	if floor(beat*3) > floor(prev_beat*3):
+		_twelth_will_pass_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 3));
+	if floor(beat*4) > floor(prev_beat*4):
+		_sixteenth_will_pass_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 4));
+	
+	# Keep track of the previous frame's time.
+	_prev_time_seconds = time_seconds;
+
+
+func _is_valid_update(time_seconds:float) -> bool:
+	return (
+		# Web issue fix.
+		time_seconds < 1000 and (
+			# Prevents a backward time jump.
+			time_seconds > _prev_time_seconds or
+			# Loop happened.
+			time_seconds - _prev_time_seconds < -5)
+			);

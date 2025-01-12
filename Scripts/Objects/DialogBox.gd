@@ -11,8 +11,15 @@ var done:bool = false;
 
 @onready var anim:AnimationPlayer = $anim as AnimationPlayer;
 
+func fire_event() -> void:
+	#var a:GDScript = StoryManager.events.get(count) as GDScript;
+	#a.reload();
+	#var b:Object = a.new();
+	pass
+
 func type() -> void:
 	typeStart.emit();
+	#fire_event(); # I MIGHT be stupid...
 	curText += "[color=gray]ᛜ";
 	anim.play("RESET");
 	#var tm = Timer.new();

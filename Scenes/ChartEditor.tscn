@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=3 uid="uid://dobkulb7xcfar"]
+
+[ext_resource type="Script" path="res://Scripts/chart_editor.gd" id="1_67anw"]
+[ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/test100bpm.wav" id="3_akv22"]
+[ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_qsohv"]
+[ext_resource type="FontFile" uid="uid://o4opdh3o6c12" path="res://Assets/Fonts/FiraCode/FiraCode-Bold.ttf" id="5_6envu"]
+[ext_resource type="PackedScene" uid="uid://cjv12k5egq6xv" path="res://Scenes/Objects/strumline.tscn" id="6_qbpw4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31dnc"]
+bg_color = Color(0.300781, 0.300781, 0.300781, 0.772549)
+
+[node name="ChartEditor" type="Node2D"]
+script = ExtResource("1_67anw")
+
+[node name="Player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_akv22")
+bus = &"Music"
+
+[node name="main" type="CanvasLayer" parent="."]
+
+[node name="bg_color" type="ColorRect" parent="main"]
+z_index = -2
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.0627451, 0.0627451, 0.0627451, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="debuginfo" type="RichTextLabel" parent="main"]
+anchors_preset = -1
+anchor_right = 0.05
+offset_right = 192.0
+offset_bottom = 360.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_qsohv")
+theme_override_fonts/mono_font = ExtResource("3_qsohv")
+theme_override_fonts/bold_font = ExtResource("5_6envu")
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "Song information will be displayed here.
+
+If the song information does not load, the conductor has not started and an error has likley occured."
+metadata/_edit_use_anchors_ = true
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+[node name="player" type="Panel" parent="hud"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_right = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_31dnc")
+metadata/_edit_use_anchors_ = true
+
+[node name="Strumline" parent="hud" instance=ExtResource("6_qbpw4")]
+position = Vector2(320, 32)

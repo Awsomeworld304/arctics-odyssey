@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://3wbuw8o2owng"]
+[gd_scene load_steps=34 format=3 uid="uid://3wbuw8o2owng"]
 
 [ext_resource type="Script" path="res://Scripts/story_editor.gd" id="1_e2olr"]
 [ext_resource type="Texture2D" uid="uid://bq05v43qyjuy8" path="res://Assets/Images/BG/test.png" id="2_2xmeo"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://ccch5fwxyqrwo" path="res://Assets/Editor/exit_button_focus.tres" id="5_6bj8k"]
 [ext_resource type="StyleBox" uid="uid://hpsn6k77t6ai" path="res://Assets/Editor/exit_button_hover.tres" id="6_78bnl"]
 [ext_resource type="Script" path="res://Scripts/Objects/DialogBox.gd" id="6_di33m"]
+[ext_resource type="AnimationLibrary" uid="uid://cw5t8l4pfy3vv" path="res://Assets/Animations/DialogAnims.res" id="7_6ot5l"]
 [ext_resource type="StyleBox" uid="uid://c51vlkpcx7kne" path="res://Assets/Editor/exit_button_pressed.tres" id="7_fiwen"]
 [ext_resource type="StyleBox" uid="uid://b76h87gmgi7lu" path="res://Assets/Editor/exit_button.tres" id="8_jvihp"]
 [ext_resource type="FontFile" uid="uid://ba6m1p7270i6y" path="res://Assets/Fonts/FiraCode/FiraCode-Retina.ttf" id="10_gloam"]
@@ -118,77 +119,6 @@ corner_radius_bottom_left = 12
 bg_color = Color(0, 0, 0, 0.615686)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
-
-[sub_resource type="Animation" id="Animation_3chfr"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog:visible_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_dl145"]
-resource_name = "blink"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog:visible_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.499, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.999, 0.999, 1.0, 1.0]
-}
-
-[sub_resource type="Animation" id="Animation_nd802"]
-resource_name = "type"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog:visible_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.999]
-}
-
-[sub_resource type="Animation" id="Animation_spll3"]
-resource_name = "type_full"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog:visible_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0666667, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_p3ncg"]
-_data = {
-"RESET": SubResource("Animation_3chfr"),
-"blink": SubResource("Animation_dl145"),
-"type": SubResource("Animation_nd802"),
-"type_full": SubResource("Animation_spll3")
-}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtwhn"]
 bg_color = Color(0, 0, 0, 0.815686)
@@ -1569,18 +1499,18 @@ offset_right = 1920.0
 offset_bottom = 432.0
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="editor/preview/block"]
+[node name="Label" type="RichTextLabel" parent="editor/preview/block"]
 layout_mode = 0
 offset_left = 270.0
 offset_top = 97.0
-offset_right = 564.0
+offset_right = 536.0
 offset_bottom = 233.0
 rotation = 0.336849
-theme_override_fonts/font = ExtResource("10_gloam")
-theme_override_font_sizes/font_size = 48
-text = "Spoilers!"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_fonts/normal_font = ExtResource("10_gloam")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Spoilers!
+[center][font_size=32](sorry)[/font_size]"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="editor/preview"]
 layout_mode = 0
@@ -1710,7 +1640,7 @@ script = ExtResource("6_di33m")
 [node name="anim" type="AnimationPlayer" parent="editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog"]
 root_node = NodePath("../../../../../../../..")
 libraries = {
-"": SubResource("AnimationLibrary_p3ncg")
+"": ExtResource("7_6ot5l")
 }
 autoplay = "type"
 
@@ -1759,8 +1689,8 @@ clip_children = 2
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -960.0
-offset_right = 192.0
+offset_left = -320.0
+offset_right = 832.0
 offset_bottom = 1006.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0lqw6")

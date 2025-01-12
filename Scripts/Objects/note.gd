@@ -15,11 +15,11 @@
 
 extends AnimatedSprite2D
 
-@onready var curName = self.animation.get_basename();
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#self.apply_scale(Vector2(0.1,0.1))
-	self.position.y = 1000;
+	#self.position.y = 1000*10;
+	var curName = self.animation.get_basename();
 	match curName:
 		"left":
 			self.position.x = $"../left".position.x;
@@ -45,5 +45,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	self.position.y -= 1000*delta;
+	self.position.y -= 2000*delta;
 	pass

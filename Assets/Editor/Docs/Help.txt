@@ -1,0 +1,16 @@
+[center][font_size=32]Arctic's Odyssey: Command List[/font_size][/center]
+[font_size=16][b]Local Commands[/b][/font_size]
+
+[b]help[/b]
+[ul]This displays the help window that you are reading now.[/ul]
+
+[font_size=16][b]Global Commands[/b][/font_size]
+[font_size=16][b]Settings[/b][/font_size]
+[indent][b]change(key:String, value, value2, save_settings)[/b][/indent]
+[indent][font_size=16][color=gray]Available keys: [code]max_framerate (fps), resolution (res)[/code][font_size=16][color=white]
+Example 1: [font_size=16][code]Settings.change("fps", 60);[/code][font_size=16]
+Example 2: [font_size=16][code]Settings.change("res", resolutions[2]); OR Settings.change("res", 1920, 1080);[/code][font_size=16]
+Allows you to change settings from the command line.
+
+
+[font_size=16][color=gray][center]For for advanced runtime scripting, please visit the Script Editor.[/center][color=white][font_size=16]

@@ -16,28 +16,24 @@
 extends Node
 
 # God help my soul for what I have to do here.
-var command := "";
-var error := "OK";
+var command:String = "";
+var error:String = "OK";
+var msg:String = "";
 
 signal parsed_command
 
-var script_base := """
-extends Node
-
-func custom() -> void:
-"""
+## The script base extends the CommandScript class and overrides [member custom].
+var script_base:String = "extends CommandScript; func custom() -> void:";
 
 func _ready() -> void:
 	pass
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug"):
-		if !CommandPrompt.onScreen:
-			CommandPrompt.slide_in();
-		else:
-			CommandPrompt.slide_out();
+		if !CommandPrompt.onScreen: CommandPrompt.slide_in();
+		else: CommandPrompt.slide_out();
 
-func parse_cmd(cmd:=""):
+func parse_cmd(cmd:String="") -> void:
 	if cmd == "":
 		error = "No Command Provided!";
 		parsed_command.emit();
@@ -45,14 +41,20 @@ func parse_cmd(cmd:=""):
 	
 	if cmd == "help":
 		error = "SHOW_HELP";
+		msg = "Showing help page...";
 		parsed_command.emit();
 		return;
 	
-	var script = GDScript.new();
-	script.source_code = script_base + "	" + cmd;
+	var script:GDScript = GDScript.new();
+	script.source_code = script_base as String + "	" + cmd as String;
 	if Settings.debug: print("CommandManager -> Command: " + cmd);
 	if script.reload() == OK:
-		var obj = script.new();
-		obj.custom();
-		error = "OK";
+		var obj:Object = script.new();
+		if obj.has_method("custom") && obj != null:
+			(obj as CommandScript).custom();
+			error = "OK";
+		else:
+			error = "Error";
+			msg = "Script object does not have the method named \'custom\'.";
+	else: error = var_to_str(script.reload());
 	parsed_command.emit();

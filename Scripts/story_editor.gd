@@ -42,6 +42,10 @@ var code_obj:StoryScript;
 @onready var preview_dialog:RichTextLabel = $editor/preview/SubViewportContainer/SubViewport/hud/dialog/dialog as RichTextLabel;
 
 func _ready() -> void:
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
+	DisplayServer.window_set_position(Vector2i(320,320), 0);
+	DisplayServer.window_set_size(Vector2i(1280,720));
+	get_viewport().set("size", Vector2i(1920,1080))
 	test_code(editor.text);
 	check_steps(false);
 	pass

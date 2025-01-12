@@ -15,19 +15,21 @@
 
 extends Node
 
-func _ready():
+func _ready() -> void:
 	pass
 
 # TODO: Refactor!!
-func play_audio(audioName, startTime = 0.0,speed = 1):
+func play_audio(audioName:NodePath, startTime:float = 0.0,speed:float = 1) -> void:
 	if get_node(audioName) != null:
-		get_node(audioName).pitch_scale = speed
-		get_node(audioName).play(startTime)
+		(get_node(audioName) as AudioStreamPlayer).pitch_scale = speed
+		(get_node(audioName) as AudioStreamPlayer).play(startTime)
+	pass
 
-func stop_audio(audioName):
+func stop_audio(audioName:NodePath) -> void:
 	if get_node(audioName) != null:
-		get_node(audioName).stop()
+		(get_node(audioName) as AudioStreamPlayer).stop()
 		
-func get_audio_playback(audioName):
+func get_audio_playback(audioName:NodePath) -> float:
 	if get_node(audioName) != null:
-		return get_node(audioName).get_playback_position()
+		return (get_node(audioName) as AudioStreamPlayer).get_playback_position() + AudioServer.get_time_since_last_mix();
+	else: return 0.0;

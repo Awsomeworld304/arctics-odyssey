@@ -37,7 +37,7 @@ func slide_in() -> void:
 func slide_out() -> void:
 	input.clear();
 	input.release_focus();
-	if helpVisible == true: toggle_help();
+	if helpVisible == true: toggle_help(); help.text = "";
 	anim.play("slide_out");
 	await anim.animation_finished;
 	onScreen = false;
@@ -54,10 +54,10 @@ func _on_input_text_submitted(new_text: String) -> void:
 	cmd = new_text;
 	CommandManager.parse_cmd(cmd);
 	await CommandManager.parsed_command;
-	if CommandManager.error == "SHOW_HELP": print("Help has been ran!"); toggle_help(); return;
+	if CommandManager.error == "SHOW_HELP": toggle_help(); help.text = CommandManager.msg; return;
 	if CommandManager.error != "OK":
-		help.text = "[color=red][wave freq=5]Error: " + CommandManager.error;
+		help.text = "[color=red][wave freq=10]Error: " + CommandManager.error;
 		return;
-	else: help.text = "";
+	else: help.text = CommandManager.msg;
 	slide_out();
 	pass

@@ -7,19 +7,19 @@
 script = ExtResource("1_018d1")
 
 [node name="left" parent="." instance=ExtResource("1_02syc")]
-position = Vector2(-2176, 0)
+position = Vector2(-72, 0)
 animation = &"left"
 
 [node name="down" parent="." instance=ExtResource("1_02syc")]
-position = Vector2(-1088, 0)
+position = Vector2(-34, 0)
 animation = &"down"
 
 [node name="center" parent="." instance=ExtResource("1_02syc")]
 
 [node name="up" parent="." instance=ExtResource("1_02syc")]
-position = Vector2(1088, 0)
+position = Vector2(34, 0)
 animation = &"up"
 
 [node name="right" parent="." instance=ExtResource("1_02syc")]
-position = Vector2(2176, 0)
+position = Vector2(72, 0)
 animation = &"right"

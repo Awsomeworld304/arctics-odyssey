@@ -1,47 +1,98 @@
-[gd_scene load_steps=14 format=3 uid="uid://6d3ioa3fqdj2"]
+[gd_scene load_steps=30 format=3 uid="uid://6d3ioa3fqdj2"]
 
 [ext_resource type="Script" path="res://Scripts/options.gd" id="1_8l66q"]
-[ext_resource type="PackedScene" uid="uid://d0xhrq4deefa3" path="res://Scenes/Objects/notes_parallax_bg_alt.tscn" id="2_5mb8v"]
-[ext_resource type="FontFile" uid="uid://ba6m1p7270i6y" path="res://Assets/Fonts/FiraCode/FiraCode-Retina.ttf" id="3_0na4a"]
+[ext_resource type="PackedScene" uid="uid://bs1l0mns6uorv" path="res://Scenes/Objects/notes_parallax_bg_alt.tscn" id="2_5mb8v"]
 [ext_resource type="PackedScene" uid="uid://dmcv72611vxps" path="res://Scenes/Objects/DevMenu.tscn" id="3_b5nib"]
+[ext_resource type="StyleBox" uid="uid://dyystfptfnk6a" path="res://Assets/Editor/Panel.tres" id="3_iqibs"]
+[ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_wag1g"]
+[ext_resource type="StyleBox" uid="uid://b8uta3fal6kwk" path="res://Assets/Editor/DefaultButton/Btn-Focus.tres" id="5_00htj"]
+[ext_resource type="StyleBox" uid="uid://s5trp4ljd7d5" path="res://Assets/Editor/DefaultButton/Btn-Pressed.tres" id="6_d3j4e"]
+[ext_resource type="StyleBox" uid="uid://dhb2dhrhi04x" path="res://Assets/Editor/DefaultButton/Btn-Hover.tres" id="7_3xwud"]
+[ext_resource type="StyleBox" uid="uid://bbcm74hpo08oy" path="res://Assets/Editor/DefaultButton/Btn-Normal.tres" id="8_tuycc"]
+[ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="9_j2wfu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5rq3"]
+bg_color = Color(0, 0, 0, 0.505882)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_rf6d1"]
-font_size = 64
+font = ExtResource("3_wag1g")
+font_size = 32
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxenh"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(1, 1, 1, 1)
-border_blend = true
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xh2l3"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0, 0, 0, 0.690196)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_205mv"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0, 0, 0, 0.690196)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jf82"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0, 0, 0, 0.690196)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+anti_aliasing = false
+
+[sub_resource type="GDScript" id="GDScript_p5oaw"]
+resource_name = "FUCKGODOT"
+script/source = "extends TabBar
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	self.add
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7f5dv"]
+content_margin_top = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_047hm"]
+bg_color = Color(0.158081, 0, 0.546875, 0.419608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46ff0"]
+bg_color = Color(1, 1, 1, 0.0470588)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hi08"]
+bg_color = Color(0.652344, 0, 0, 0.686275)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
-corner_detail = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k5s4v"]
-bg_color = Color(0.172549, 0.172549, 0.172549, 0.901961)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lknhe"]
+bg_color = Color(1, 1, 1, 0.0470588)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ed2bl"]
-bg_color = Color(0.211765, 0.211765, 0.211765, 0.686275)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
+[sub_resource type="LabelSettings" id="LabelSettings_o6h3d"]
+font = ExtResource("3_wag1g")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dj6ga"]
-bg_color = Color(0.054902, 0.054902, 0.054902, 0.666667)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
+[sub_resource type="LabelSettings" id="LabelSettings_s02xc"]
+font = ExtResource("3_wag1g")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcquk"]
+bg_color = Color(0, 0.495605, 0.546875, 0.419608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvrgx"]
+bg_color = Color(0.50415, 0.546875, 0, 0.419608)
 
 [sub_resource type="Animation" id="Animation_a8bis"]
 length = 0.001
@@ -104,37 +155,84 @@ script = ExtResource("1_8l66q")
 [node name="menu" type="CanvasLayer" parent="."]
 
 [node name="bg_overlay" type="ColorRect" parent="menu"]
+visible = false
 offset_right = 1920.0
 offset_bottom = 1080.0
-color = Color(0, 0, 0, 0.356863)
+color = Color(0.101961, 0, 0.160784, 1)
 
 [node name="mod" type="CanvasModulate" parent="menu"]
 
 [node name="main" type="Panel" parent="menu"]
+texture_filter = 1
+clip_contents = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -760.0
-offset_top = -440.0
-offset_right = 760.0
-offset_bottom = 440.0
+offset_left = -252.0
+offset_top = -146.5
+offset_right = 252.0
+offset_bottom = 146.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_iqibs")
+
+[node name="titleBG" type="Panel" parent="menu/main"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -146.5
+offset_right = -506.0
+offset_bottom = -113.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.96)
+theme_override_styles/panel = SubResource("StyleBoxFlat_h5rq3")
 
 [node name="title" type="Label" parent="menu/main"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -367.0
-offset_right = 367.0
-offset_bottom = 88.0
+offset_left = -232.0
+offset_top = 0.5
+offset_right = 240.0
+offset_bottom = 31.5
 grow_horizontal = 2
 text = "Options"
 label_settings = SubResource("LabelSettings_rf6d1")
 horizontal_alignment = 1
+
+[node name="SettingsTabs" type="TabBar" parent="menu/main"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 38.5
+offset_bottom = 59.5
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_wag1g")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/button_highlight = SubResource("StyleBoxFlat_xh2l3")
+theme_override_styles/button_pressed = SubResource("StyleBoxFlat_xh2l3")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_205mv")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_1jf82")
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_1jf82")
+current_tab = 0
+tab_alignment = 1
+scrolling_enabled = false
+tab_count = 4
+tab_0/title = "Gameplay"
+tab_0/tooltip = "Gameplay Settings"
+tab_1/title = "Graphics"
+tab_1/tooltip = "Graphics Settings"
+tab_2/title = "Display"
+tab_2/tooltip = "Display Settings"
+tab_3/title = "Input"
+tab_3/tooltip = "Input Settings"
+script = SubResource("GDScript_p5oaw")
 
 [node name="version" type="RichTextLabel" parent="menu/main"]
 layout_mode = 1
@@ -143,43 +241,157 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -160.0
-offset_top = -71.0
+offset_left = -88.0
+offset_top = -43.0
+offset_right = -8.0
+offset_bottom = -2.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_font_sizes/normal_font_size = 24
+theme_override_fonts/normal_font = ExtResource("3_wag1g")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7f5dv")
 bbcode_enabled = true
-text = "[rainbow freq=0.2][wave amp=50.0 freq=5.0 connected=1] Version: 0.2
-   Pre-Alpha"
+text = "[center][rainbow freq=0.2][wave amp=50.0 freq=10.0 connected=1] Version: 0.2
+[center]Pre-Alpha"
+scroll_active = false
+autowrap_mode = 0
 
 [node name="save-close" type="Button" parent="menu/main"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 16.0
-offset_top = 780.0
-offset_right = 290.0
-offset_bottom = 860.0
-theme_override_fonts/font = ExtResource("3_0na4a")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = SubResource("StyleBoxFlat_lxenh")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_k5s4v")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ed2bl")
-theme_override_styles/normal = SubResource("StyleBoxFlat_dj6ga")
+offset_left = 8.0
+offset_top = 254.5
+offset_right = 99.0
+offset_bottom = 280.5
+theme_override_fonts/font = ExtResource("3_wag1g")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = ExtResource("5_00htj")
+theme_override_styles/hover_pressed = ExtResource("6_d3j4e")
+theme_override_styles/hover = ExtResource("7_3xwud")
+theme_override_styles/normal = ExtResource("8_tuycc")
 text = "Save & Close"
 
 [node name="close" type="Button" parent="menu/main"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 310.0
-offset_top = 780.0
-offset_right = 584.0
-offset_bottom = 860.0
-theme_override_fonts/font = ExtResource("3_0na4a")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = SubResource("StyleBoxFlat_lxenh")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_k5s4v")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ed2bl")
-theme_override_styles/normal = SubResource("StyleBoxFlat_dj6ga")
+offset_left = 106.0
+offset_top = 254.5
+offset_right = 197.0
+offset_bottom = 280.5
+theme_override_fonts/font = ExtResource("3_wag1g")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = ExtResource("5_00htj")
+theme_override_styles/hover_pressed = ExtResource("6_d3j4e")
+theme_override_styles/hover = ExtResource("7_3xwud")
+theme_override_styles/normal = ExtResource("8_tuycc")
 text = "Close"
 clip_text = true
+
+[node name="TemplateMenu" type="Panel" parent="menu/main"]
+visible = false
+layout_mode = 0
+offset_top = 62.2658
+offset_right = 506.0
+offset_bottom = 250.266
+theme_override_styles/panel = SubResource("StyleBoxFlat_047hm")
+
+[node name="Gameplay" type="Panel" parent="menu/main"]
+layout_mode = 0
+offset_top = 62.2658
+offset_right = 506.0
+offset_bottom = 250.266
+theme_override_styles/panel = SubResource("StyleBoxFlat_46ff0")
+
+[node name="DeleteSave" type="Button" parent="menu/main/Gameplay"]
+layout_mode = 0
+offset_left = 402.0
+offset_top = 155.0
+offset_right = 486.0
+offset_bottom = 175.0
+theme = ExtResource("9_j2wfu")
+theme_override_fonts/font = ExtResource("3_wag1g")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_2hi08")
+text = "Delete Save"
+
+[node name="Graphics" type="Panel" parent="menu/main"]
+visible = false
+layout_mode = 0
+offset_top = 62.2658
+offset_right = 506.0
+offset_bottom = 250.266
+theme_override_styles/panel = SubResource("StyleBoxFlat_lknhe")
+
+[node name="ResolutionLabel" type="Label" parent="menu/main/Graphics"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 68.0
+offset_bottom = 32.0
+theme = ExtResource("9_j2wfu")
+text = "Resolution:"
+label_settings = SubResource("LabelSettings_o6h3d")
+
+[node name="Resolution" type="OptionButton" parent="menu/main/Graphics/ResolutionLabel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 0.234245
+offset_right = 201.0
+offset_bottom = 24.2342
+theme = ExtResource("9_j2wfu")
+item_count = 3
+popup/item_0/text = "1280 x 720 (720p)"
+popup/item_1/text = "1920 x 1080 (1080p)"
+popup/item_1/id = 1
+popup/item_2/text = "2560 x 1440 (2K)"
+popup/item_2/id = 2
+
+[node name="FramerateLabel" type="Label" parent="menu/main/Graphics"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 40.2343
+offset_right = 68.0
+offset_bottom = 64.2343
+theme = ExtResource("9_j2wfu")
+text = "Framerate: "
+label_settings = SubResource("LabelSettings_s02xc")
+
+[node name="Framerate" type="LineEdit" parent="menu/main/Graphics/FramerateLabel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 0.234253
+offset_right = 144.0
+offset_bottom = 24.2343
+theme = ExtResource("9_j2wfu")
+placeholder_text = "60"
+alignment = 2
+caret_blink = true
+
+[node name="GraphicsDefaults" type="Button" parent="menu/main/Graphics"]
+layout_mode = 0
+offset_left = 1208.0
+offset_top = 467.482
+offset_right = 1460.0
+offset_bottom = 529.482
+theme = ExtResource("9_j2wfu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2hi08")
+text = "Set Defaults"
+
+[node name="Display" type="Panel" parent="menu/main"]
+visible = false
+layout_mode = 0
+offset_top = 62.2658
+offset_right = 506.0
+offset_bottom = 250.266
+theme_override_styles/panel = SubResource("StyleBoxFlat_dcquk")
+
+[node name="Input" type="Panel" parent="menu/main"]
+visible = false
+layout_mode = 0
+offset_top = 62.2658
+offset_right = 506.0
+offset_bottom = 250.266
+theme_override_styles/panel = SubResource("StyleBoxFlat_nvrgx")
 
 [node name="DevMenu" parent="." instance=ExtResource("3_b5nib")]
 visible = false
@@ -190,5 +402,7 @@ libraries = {
 }
 autoplay = "fade_in"
 
+[connection signal="tab_changed" from="menu/main/SettingsTabs" to="." method="_on_settings_tabs_tab_changed"]
 [connection signal="button_up" from="menu/main/save-close" to="." method="_on_saveclose_button_up"]
 [connection signal="button_up" from="menu/main/close" to="." method="_on_close_button_up"]
+[connection signal="button_up" from="menu/main/Gameplay/DeleteSave" to="." method="_on_delete_save_button_up"]

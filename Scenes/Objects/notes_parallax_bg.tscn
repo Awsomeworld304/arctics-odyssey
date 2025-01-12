@@ -14,8 +14,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	scroll_offset.x -= 40*delta;
-	scroll_offset.y -= 40*delta;
+	scroll_offset.x -= 60*delta;
+	scroll_offset.y -= 60*delta;
 	pass
 "
 
@@ -27,83 +27,64 @@ script = SubResource("GDScript_v70dk")
 
 [node name="bg_color" type="ColorRect" parent="parallax_bg"]
 z_index = -2
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_right = 640.0
+offset_bottom = 360.0
 color = Color(0.321569, 0.113725, 0.4, 1)
 
 [node name="main" type="ParallaxLayer" parent="parallax_bg"]
 z_as_relative = false
 motion_offset = Vector2(0, -80)
-motion_mirroring = Vector2(1960, 1080)
+motion_mirroring = Vector2(640, 360)
 
 [node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(592, 16)
 sprite_frames = ExtResource("1_iitko")
 
 [node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(528, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
 [node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(464, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
 [node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(400, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
 [node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(336, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
 [node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(272, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
 [node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(208, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
 [node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(144, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
 [node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(80, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
 [node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(16, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
 [node name="main9" type="ParallaxLayer" parent="parallax_bg/main"]
 modulate = Color(0.254902, 0.254902, 0.254902, 1)
@@ -114,1126 +95,609 @@ motion_mirroring = Vector2(1960, 1020)
 
 [node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("1_iitko")
 
 [node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(576, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
 [node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(512, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
 [node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(448, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
 [node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(384, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
 [node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(320, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
 [node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(256, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
 [node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(192, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
 [node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(128, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
 [node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(64, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
 [node name="main2" type="ParallaxLayer" parent="parallax_bg"]
 z_as_relative = false
-position = Vector2(96, 128)
+position = Vector2(16, 60)
 motion_offset = Vector2(0, -80)
-motion_mirroring = Vector2(1960, 1080)
+motion_mirroring = Vector2(640, 360)
 
 [node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(592, 16)
 sprite_frames = ExtResource("1_iitko")
 
 [node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(528, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
 [node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(464, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
 [node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(400, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
 [node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(336, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
 [node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(272, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
 [node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(208, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
 [node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(144, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
 [node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(80, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
 [node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main2"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(16, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
-[node name="main10" type="ParallaxLayer" parent="parallax_bg/main2"]
+[node name="main9" type="ParallaxLayer" parent="parallax_bg/main2"]
 modulate = Color(0.254902, 0.254902, 0.254902, 1)
 show_behind_parent = true
 z_index = -84
 position = Vector2(24, 24)
 motion_mirroring = Vector2(1960, 1020)
 
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(576, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(512, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(448, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(384, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(320, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(256, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(192, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(128, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main2/main10"]
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main2/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(64, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
 [node name="main3" type="ParallaxLayer" parent="parallax_bg"]
 z_as_relative = false
-position = Vector2(0, 256)
+position = Vector2(32, 120)
 motion_offset = Vector2(0, -80)
-motion_mirroring = Vector2(1960, 1080)
+motion_mirroring = Vector2(640, 360)
 
 [node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(592, 16)
 sprite_frames = ExtResource("1_iitko")
 
 [node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(528, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
 [node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(464, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
 [node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(400, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
 [node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(336, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
 [node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(272, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
 [node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(208, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
 [node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(144, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
 [node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(80, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
 [node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main3"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(16, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
-[node name="main11" type="ParallaxLayer" parent="parallax_bg/main3"]
+[node name="main9" type="ParallaxLayer" parent="parallax_bg/main3"]
 modulate = Color(0.254902, 0.254902, 0.254902, 1)
 show_behind_parent = true
 z_index = -84
 position = Vector2(24, 24)
 motion_mirroring = Vector2(1960, 1020)
 
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(576, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(512, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(448, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(384, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(320, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(256, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(192, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(128, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main3/main11"]
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main3/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(64, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
 [node name="main4" type="ParallaxLayer" parent="parallax_bg"]
 z_as_relative = false
-position = Vector2(96, 384)
+position = Vector2(16, 180)
 motion_offset = Vector2(0, -80)
-motion_mirroring = Vector2(1960, 1080)
+motion_mirroring = Vector2(640, 360)
 
 [node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(592, 16)
 sprite_frames = ExtResource("1_iitko")
 
 [node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(528, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
 [node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(464, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
 [node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(400, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
 [node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(336, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
 [node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(272, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
 [node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(208, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
 [node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(144, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
 [node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(80, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
 [node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main4"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(16, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
-[node name="main12" type="ParallaxLayer" parent="parallax_bg/main4"]
+[node name="main9" type="ParallaxLayer" parent="parallax_bg/main4"]
 modulate = Color(0.254902, 0.254902, 0.254902, 1)
 show_behind_parent = true
 z_index = -84
 position = Vector2(24, 24)
 motion_mirroring = Vector2(1960, 1020)
 
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(576, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(512, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(448, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(384, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(320, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(256, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(192, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(128, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main4/main12"]
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main4/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(64, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
 [node name="main5" type="ParallaxLayer" parent="parallax_bg"]
 z_as_relative = false
-position = Vector2(0, 512)
+position = Vector2(32, 240)
 motion_offset = Vector2(0, -80)
-motion_mirroring = Vector2(1960, 1080)
+motion_mirroring = Vector2(640, 360)
 
 [node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(592, 16)
 sprite_frames = ExtResource("1_iitko")
 
 [node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(528, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
 [node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(464, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
 [node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(400, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
 [node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(336, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
 [node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(272, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
 [node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(208, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
 [node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(144, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
 [node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(80, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
 [node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main5"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(16, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
-[node name="main13" type="ParallaxLayer" parent="parallax_bg/main5"]
+[node name="main9" type="ParallaxLayer" parent="parallax_bg/main5"]
 modulate = Color(0.254902, 0.254902, 0.254902, 1)
 show_behind_parent = true
 z_index = -84
 position = Vector2(24, 24)
 motion_mirroring = Vector2(1960, 1020)
 
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(576, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(512, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(448, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(384, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(320, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(256, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(192, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(128, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main5/main13"]
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main5/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(64, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
 [node name="main6" type="ParallaxLayer" parent="parallax_bg"]
 z_as_relative = false
-position = Vector2(96, 640)
+position = Vector2(16, 296)
 motion_offset = Vector2(0, -80)
-motion_mirroring = Vector2(1960, 1080)
+motion_mirroring = Vector2(640, 360)
 
 [node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(592, 16)
 sprite_frames = ExtResource("1_iitko")
 
 [node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(528, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
 [node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(464, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
 [node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(400, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
 [node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(336, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
 [node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(272, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
 
 [node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(208, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
 
 [node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(144, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
 
 [node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(80, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
 
 [node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main6"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(16, 16)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
 
-[node name="main14" type="ParallaxLayer" parent="parallax_bg/main6"]
+[node name="main9" type="ParallaxLayer" parent="parallax_bg/main6"]
 modulate = Color(0.254902, 0.254902, 0.254902, 1)
 show_behind_parent = true
 z_index = -84
 position = Vector2(24, 24)
 motion_mirroring = Vector2(1960, 1020)
 
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
+[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
-
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
-
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
-
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
-
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
-
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
-
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
-
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
-
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main6/main14"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
-
-[node name="main7" type="ParallaxLayer" parent="parallax_bg"]
-z_as_relative = false
-position = Vector2(8, 768)
-motion_offset = Vector2(0, -80)
-motion_mirroring = Vector2(1960, 1080)
-
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(576, 0)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main7"]
+[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
-
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
-
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
-
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
-
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
-
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
-
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
-
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
-
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main7"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
-
-[node name="main15" type="ParallaxLayer" parent="parallax_bg/main7"]
-modulate = Color(0.254902, 0.254902, 0.254902, 1)
-show_behind_parent = true
-z_index = -84
-position = Vector2(24, 24)
-motion_mirroring = Vector2(1960, 1020)
-
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(512, 0)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
+[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
-
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
-
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
-
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
-
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
-
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
-
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
-
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
-
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main7/main15"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
-
-[node name="main8" type="ParallaxLayer" parent="parallax_bg"]
-z_as_relative = false
-position = Vector2(104, 896)
-motion_offset = Vector2(0, -80)
-motion_mirroring = Vector2(1960, 1080)
-
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(448, 0)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main8"]
+[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
-
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
-
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
-
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
-
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
-
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
-
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
-
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
-
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main8"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
-
-[node name="main16" type="ParallaxLayer" parent="parallax_bg/main8"]
-modulate = Color(0.254902, 0.254902, 0.254902, 1)
-show_behind_parent = true
-z_index = -84
-position = Vector2(24, 24)
-motion_mirroring = Vector2(1960, 1020)
-
-[node name="note1" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(384, 0)
 sprite_frames = ExtResource("1_iitko")
 
-[node name="note2" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(320, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(2000, 0)
 
-[node name="note3" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(256, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(4000, 0)
 
-[node name="note4" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(192, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(6000, 0)
 
-[node name="note5" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(128, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(8000, 0)
 
-[node name="note6" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
+[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main6/main9"]
 z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
+position = Vector2(64, 0)
 sprite_frames = ExtResource("1_iitko")
-offset = Vector2(10000, 0)
-
-[node name="note7" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(12000, 0)
-
-[node name="note8" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(14000, 0)
-
-[node name="note9" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(16000, 0)
-
-[node name="note10" type="AnimatedSprite2D" parent="parallax_bg/main8/main16"]
-z_as_relative = false
-position = Vector2(59, 59)
-scale = Vector2(0.1, 0.1)
-sprite_frames = ExtResource("1_iitko")
-offset = Vector2(18000, 0)
