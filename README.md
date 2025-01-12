@@ -15,5 +15,4 @@ LOTS of things are subject to change.\
 Currently, an experimental visual novel style is being developed.
 
 ## Credits
-JamesTech4849 - Owner, Programmer, Pixel Artist. (jamesprototech, Awsomeworld304)\
-SpeedyVibesYT - Co-Owner, Artist, Musician.
+JamesTech4849 - Owner, Programmer, Pixel Artist. (jamesprototech, Awsomeworld304)

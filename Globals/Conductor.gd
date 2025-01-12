@@ -23,10 +23,10 @@ signal sixteenth_passed(beat:int, fract:int);
 
 # Same as above signals but AudioServer.get_output_latency() seconds earlier
 # (for audio scheduling)
-signal quarter_will_pass(beat:int);
-signal eighth_will_pass(beat:int, fract:int);
-signal twelth_will_pass(beat:int, fract:int);
-signal sixteenth_will_pass(beat:int, fract:int);
+signal quarter_will_pass(beat:int); # Beat
+signal eighth_will_pass(beat:int, fract:int); # 1/2 Step
+signal twelth_will_pass(beat:int, fract:int); # 3/4 Step
+signal sixteenth_will_pass(beat:int, fract:int); # Step
 
 @export var curr_beat:float = 0;
 @export var curr_beat_without_latency:float = 0;
