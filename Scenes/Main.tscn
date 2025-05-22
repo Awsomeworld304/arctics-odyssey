@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bte5dcwrm7m0y"]
 
-[ext_resource type="Script" path="res://Scripts/main.gd" id="1_ydx8k"]
+[ext_resource type="Script" uid="uid://t5v6fjhj0vxp" path="res://Scripts/main.gd" id="1_ydx8k"]
 [ext_resource type="PackedScene" uid="uid://6e7l3l3q7g3h" path="res://Scenes/Objects/notes_parallax_bg.tscn" id="2_60k5j"]
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="2_fw4gg"]
 [ext_resource type="PackedScene" uid="uid://dmcv72611vxps" path="res://Scenes/Objects/DevMenu.tscn" id="3_slqtq"]
@@ -64,9 +64,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ko1p"]
 _data = {
-"RESET": SubResource("Animation_a8bis"),
-"fade_in": SubResource("Animation_6h1ku"),
-"fade_out": SubResource("Animation_m1u6l")
+&"RESET": SubResource("Animation_a8bis"),
+&"fade_in": SubResource("Animation_6h1ku"),
+&"fade_out": SubResource("Animation_m1u6l")
 }
 
 [node name="Main" type="Node2D"]
@@ -198,7 +198,7 @@ visible = false
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_2ko1p")
+&"": SubResource("AnimationLibrary_2ko1p")
 }
 autoplay = "fade_in"
 

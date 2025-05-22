@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://bxm75ofup0bc8"]
 
-[ext_resource type="Script" path="res://Scripts/error.gd" id="1_cmq8g"]
+[ext_resource type="Script" uid="uid://b1onv13dcd7t" path="res://Scripts/error.gd" id="1_cmq8g"]
 [ext_resource type="SpriteFrames" uid="uid://co68xf08xn207" path="res://Assets/sprite/note.tres" id="2_robfu"]
 [ext_resource type="FontFile" uid="uid://ba6m1p7270i6y" path="res://Assets/Fonts/FiraCode/FiraCode-Retina.ttf" id="3_2opxk"]
-[ext_resource type="StyleBox" path="res://Assets/Editor/exit_button_focus.tres" id="4_xt2pv"]
-[ext_resource type="StyleBox" path="res://Assets/Editor/exit_button_hover.tres" id="5_sxerb"]
-[ext_resource type="StyleBox" path="res://Assets/Editor/exit_button_pressed.tres" id="6_8kjpa"]
+[ext_resource type="StyleBox" uid="uid://ccch5fwxyqrwo" path="res://Assets/Editor/exit_button_focus.tres" id="4_xt2pv"]
+[ext_resource type="StyleBox" uid="uid://hpsn6k77t6ai" path="res://Assets/Editor/exit_button_hover.tres" id="5_sxerb"]
+[ext_resource type="StyleBox" uid="uid://c51vlkpcx7kne" path="res://Assets/Editor/exit_button_pressed.tres" id="6_8kjpa"]
 [ext_resource type="StyleBox" uid="uid://b76h87gmgi7lu" path="res://Assets/Editor/exit_button.tres" id="7_u1wc7"]
 
 [sub_resource type="GDScript" id="GDScript_7tm63"]

@@ -1,13 +1,48 @@
-[gd_scene load_steps=7 format=3 uid="uid://dobkulb7xcfar"]
+[gd_scene load_steps=13 format=3 uid="uid://dobkulb7xcfar"]
 
-[ext_resource type="Script" path="res://Scripts/chart_editor.gd" id="1_67anw"]
+[ext_resource type="Script" uid="uid://bamkw10fyf8p8" path="res://Scripts/chart_editor.gd" id="1_67anw"]
 [ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/test100bpm.wav" id="3_akv22"]
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_qsohv"]
 [ext_resource type="FontFile" uid="uid://o4opdh3o6c12" path="res://Assets/Fonts/FiraCode/FiraCode-Bold.ttf" id="5_6envu"]
-[ext_resource type="PackedScene" uid="uid://cjv12k5egq6xv" path="res://Scenes/Objects/strumline.tscn" id="6_qbpw4"]
+[ext_resource type="Script" uid="uid://byhh3wexdca1b" path="res://Scripts/Objects/strumline.gd" id="5_gk37r"]
+[ext_resource type="Script" uid="uid://bnru5lmcpyjia" path="res://Scripts/Objects/grid_panel.gd" id="5_lelxc"]
+[ext_resource type="PackedScene" uid="uid://cjqoeju3yisxe" path="res://Scenes/Objects/strum.tscn" id="6_6btys"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_506um"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+bg_color = Color(0.140625, 0.140625, 0.140625, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m0q2"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+bg_color = Color(0.261719, 0.261719, 0.261719, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_la6po"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+bg_color = Color(0.140625, 0.140625, 0.140625, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1vlv"]
+bg_color = Color(0, 0.0452271, 0.152344, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31dnc"]
-bg_color = Color(0.300781, 0.300781, 0.300781, 0.772549)
+bg_color = Color(0.257812, 0.17926, 0.17926, 0.772549)
 
 [node name="ChartEditor" type="Node2D"]
 script = ExtResource("1_67anw")
@@ -45,6 +80,29 @@ text = "Song information will be displayed here.
 If the song information does not load, the conductor has not started and an error has likley occured."
 metadata/_edit_use_anchors_ = true
 
+[node name="ChartMenu" type="TabContainer" parent="main"]
+offset_left = 416.0
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_fonts/font = ExtResource("3_qsohv")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_506um")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_506um")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_8m0q2")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_la6po")
+current_tab = 0
+
+[node name="Chart" type="Panel" parent="main/ChartMenu"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d1vlv")
+metadata/_tab_index = 0
+
+[node name="Note" type="Panel" parent="main/ChartMenu"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d1vlv")
+metadata/_tab_index = 1
+
 [node name="hud" type="CanvasLayer" parent="."]
 
 [node name="player" type="Panel" parent="hud"]
@@ -60,5 +118,71 @@ size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_31dnc")
 metadata/_edit_use_anchors_ = true
 
-[node name="Strumline" parent="hud" instance=ExtResource("6_qbpw4")]
-position = Vector2(320, 32)
+[node name="GridPanel" type="Control" parent="hud/player"]
+visible = false
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 48.0
+offset_bottom = 56.0
+script = ExtResource("5_lelxc")
+grid_width = 11
+grid_height = 32
+pri_grid_color = Color(0.449219, 0.150909, 0.150909, 1)
+sec_grid_color = Color(0.175781, 0.115356, 0.115356, 1)
+metadata/_custom_type_script = "uid://bnru5lmcpyjia"
+
+[node name="Strumline" type="Node2D" parent="hud/player"]
+position = Vector2(96, 32)
+script = ExtResource("5_gk37r")
+
+[node name="left" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
+position = Vector2(-72, 0)
+animation = &"left"
+key_name = &"left"
+
+[node name="down" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
+position = Vector2(-34, 0)
+animation = &"down"
+key_name = &"down"
+
+[node name="center" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
+key_name = &"center"
+
+[node name="up" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
+position = Vector2(34, 0)
+animation = &"up"
+key_name = &"up"
+
+[node name="right" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
+position = Vector2(72, 0)
+animation = &"right"
+key_name = &"right"
+
+[node name="Line2D" type="Line2D" parent="hud/player/Strumline"]
+visible = false
+position = Vector2(5.96046e-08, 0)
+scale = Vector2(0.988889, 1)
+points = PackedVector2Array(-1.01123, 0, -90, 0, 87.9775, 0)
+width = 2.0
+
+[node name="Rating" type="Label" parent="hud"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -76.0
+offset_right = 29.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_qsohv")
+theme_override_font_sizes/font_size = 32
+text = "{Rating}"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

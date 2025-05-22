@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjv12k5egq6xv"]
 
 [ext_resource type="PackedScene" uid="uid://cjqoeju3yisxe" path="res://Scenes/Objects/strum.tscn" id="1_02syc"]
-[ext_resource type="Script" path="res://Scripts/Objects/strumline.gd" id="1_018d1"]
+[ext_resource type="Script" uid="uid://byhh3wexdca1b" path="res://Scripts/Objects/strumline.gd" id="1_018d1"]
 
 [node name="Strumline" type="Node2D"]
 script = ExtResource("1_018d1")

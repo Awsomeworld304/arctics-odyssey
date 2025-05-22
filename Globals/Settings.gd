@@ -211,11 +211,12 @@ func change(key:String, value:String="", value2:String="", save_settings:bool=fa
 
 func _ready() -> void:
 	ErrorScene.hide();
-	if  _load_settings() != OK:
+	#_load_settings()
+	if  OK != OK:
 		print("Settings Error!");
 		LevelManager.error();
 	if _save_flag:
-		if _save_settings() != OK: LevelManager.error("Save error during settings save!");
+		pass##if _save_settings() != OK: LevelManager.error("Save error during settings save!");
 	init_discord();
 
 func _process(_delta: float) -> void:

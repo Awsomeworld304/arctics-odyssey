@@ -14,6 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 extends Node2D
+class_name Strumline
 
 @onready var left:AnimatedSprite2D = $left as AnimatedSprite2D;
 @onready var down:AnimatedSprite2D = $down as AnimatedSprite2D;
@@ -21,61 +22,8 @@ extends Node2D
 @onready var up:AnimatedSprite2D = $up as AnimatedSprite2D;
 @onready var right:AnimatedSprite2D = $right as AnimatedSprite2D;
 
-# Press
-signal left_p;
-signal down_p;
-signal center_p;
-signal up_p;
-signal right_p; 
-
-# Release
-signal left_r;
-signal down_r;
-signal center_r;
-signal up_r;
-signal right_r;
-
-func _ready() -> void:
+func add_note(note:Note) -> void:
 	pass
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("left"):
-		left_p.emit();
-		left.frame = 1;
-	elif Input.is_action_just_released("left"):
-		left_r.emit();
-		left.frame = 0;
-		pass
-	
-	if Input.is_action_just_pressed("down"):
-		down_p.emit();
-		down.frame = 1;
-	elif Input.is_action_just_released("down"):
-		down_r.emit();
-		down.frame = 0;
-		pass
-	
-	if Input.is_action_just_pressed("center"):
-		center_p.emit();
-		center.frame = 1;
-	elif Input.is_action_just_released("center"):
-		center_r.emit();
-		center.frame = 0;
-		pass
-	
-	if Input.is_action_just_pressed("up"):
-		up_p.emit();
-		up.frame = 1;
-	elif Input.is_action_just_released("up"):
-		up_r.emit();
-		up.frame = 0;
-		pass
-	
-	if Input.is_action_just_pressed("right"):
-		right_p.emit();
-		right.frame = 1;
-	elif Input.is_action_just_released("right"):
-		right_r.emit();
-		right.frame = 0;
-		pass
+func add_chart() -> void:
 	pass

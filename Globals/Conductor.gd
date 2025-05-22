@@ -36,6 +36,9 @@ signal sixteenth_will_pass(beat:int, fract:int); # Step
 @export var audio_offset_ms:int = 0;
 @export var visual_offset_ms:int = 0;
 
+var position:float = 0.0;
+var scroll_speed:int = 100;
+
 @onready var player:AudioStreamPlayer;
 
 # Caching this since getting output latency is expensive. This value doesn't
@@ -89,6 +92,7 @@ func _ready() -> void:
 
 
 func play() -> void:
+	if player == null: return;
 	_prev_time_seconds = -_cached_latency - 0.001;
 	curr_beat = _prev_time_seconds / 60 * bpm;
 	_loops = 0;
@@ -100,6 +104,7 @@ func play() -> void:
 
 ## Stops the current song but does not flush variables.
 func stop() -> void:
+	if player == null: return;
 	player.stop();
 	is_playing = false;
 	pass
@@ -107,6 +112,7 @@ func stop() -> void:
 ## Pauses and resumes the song.
 ## Returns ```is_paused```.
 func pause() -> bool:
+	if player == null: return false;
 	is_paused = !is_paused;
 	player.stream_paused = is_paused;
 	is_playing = !is_paused;
@@ -118,12 +124,16 @@ func get_beat_time() -> float:
 
 
 func _process(_delta:float) -> void:
+	if player == null: return;
+	if not player.playing: is_playing = false;
 	if not is_playing or is_paused: return;
 	
-	var time_seconds = (player.get_playback_position() + AudioServer.get_time_since_last_mix() - _cached_latency - audio_offset_ms / 1000.0);
+	var time_seconds:float = (player.get_playback_position() + AudioServer.get_time_since_last_mix() - _cached_latency - audio_offset_ms / 1000.0);
 	
 	# Validation
 	if not _is_valid_update(time_seconds): return;
+
+	position = time_seconds;
 	
 	if time_seconds - _prev_time_seconds < -5:
 		print("big reverse: prev=", _prev_time_seconds, " curr=", time_seconds, " delta=", _prev_time_seconds - time_seconds);

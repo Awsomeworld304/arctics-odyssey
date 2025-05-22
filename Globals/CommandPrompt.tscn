@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://lrtrpwc1yar3"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/cmd_ui.gd" id="1_i8vqo"]
+[ext_resource type="Script" uid="uid://b26mgs53monk8" path="res://Scripts/Objects/cmd_ui.gd" id="1_i8vqo"]
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_gl12v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdql3"]
@@ -111,10 +111,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_33wmk"]
 _data = {
-"RESET": SubResource("Animation_1lvib"),
-"help_show": SubResource("Animation_56idl"),
-"slide_in": SubResource("Animation_0g6dq"),
-"slide_out": SubResource("Animation_tyqii")
+&"RESET": SubResource("Animation_1lvib"),
+&"help_show": SubResource("Animation_56idl"),
+&"slide_in": SubResource("Animation_0g6dq"),
+&"slide_out": SubResource("Animation_tyqii")
 }
 
 [node name="CommandPrompt" type="Control"]
@@ -194,6 +194,8 @@ offset_bottom = 35.0
 theme_override_fonts/font = ExtResource("3_gl12v")
 theme_override_font_sizes/font_size = 16
 placeholder_text = "Type 'help' for list of commands."
+middle_mouse_paste_enabled = false
+caret_blink = true
 
 [node name="help" type="RichTextLabel" parent="main/main"]
 layout_mode = 0
@@ -208,12 +210,12 @@ bbcode_enabled = true
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_33wmk")
+&"": SubResource("AnimationLibrary_33wmk")
 }
 
 [node name="helpanim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_33wmk")
+&"": SubResource("AnimationLibrary_33wmk")
 }
 
 [connection signal="text_submitted" from="main/main/input" to="." method="_on_input_text_submitted"]

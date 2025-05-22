@@ -1,0 +1,40 @@
+{
+	"song": "beat_test",
+	"character": "player",
+	"notes": {
+		"normal": [
+			{
+				"key_name": "left",
+				"time": 2.5
+			},
+			{
+				"key_name": "down",
+				"time": 3
+			},
+			{
+				"key_name": "center",
+				"time": 3.5
+			},
+			{
+				"key_name": "up",
+				"time": 4
+			},
+			{
+				"key_name": "right",
+				"time": 4.5
+			},
+			{
+				"key_name": "center",
+				"time": 5
+			},
+			{
+				"key_name": "left",
+				"time": 5.5
+			},
+			{
+				"key_name": "up",
+				"time": 6
+			},
+		]
+	}
+}

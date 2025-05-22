@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://biju1tr65vey"]
 
-[ext_resource type="Script" path="res://Scripts/stage.gd" id="1_427rr"]
+[ext_resource type="Script" uid="uid://d1h7h7lu0i3wx" path="res://Scripts/stage.gd" id="1_427rr"]
 [ext_resource type="PackedScene" uid="uid://cjv12k5egq6xv" path="res://Scenes/Objects/strumline.tscn" id="2_gkhib"]
 [ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/test100bpm.wav" id="3_xjxsv"]
 [ext_resource type="FontFile" uid="uid://ba6m1p7270i6y" path="res://Assets/Fonts/FiraCode/FiraCode-Retina.ttf" id="4_ui3h8"]

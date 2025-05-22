@@ -1,16 +1,22 @@
-[center][font_size=32]Arctic's Odyssey: Command List[/font_size][/center]
-[font_size=16][b]Local Commands[/b][/font_size]
+[center][font_size=48]Arctic's Odyssey[/font_size][/center]
+[center][font_size=32]Command List[/font_size][/center]
+[font_size=32][color=white][center]---- Local Commands ----[/center][color=white][font_size=16]
 
 [b]help[/b]
 [ul]This displays the help window that you are reading now.[/ul]
 
-[font_size=16][b]Global Commands[/b][/font_size]
+[font_size=32][color=white][center]---- Global Commands ----[/center][color=white][font_size=16]
 [font_size=16][b]Settings[/b][/font_size]
-[indent][b]change(key:String, value, value2, save_settings)[/b][/indent]
+[indent][b]change(key:String, value:String, value2:String, save_settings:Bool)[/b][/indent]
 [indent][font_size=16][color=gray]Available keys: [code]max_framerate (fps), resolution (res)[/code][font_size=16][color=white]
-Example 1: [font_size=16][code]Settings.change("fps", 60);[/code][font_size=16]
-Example 2: [font_size=16][code]Settings.change("res", resolutions[2]); OR Settings.change("res", 1920, 1080);[/code][font_size=16]
+Example 1: [font_size=16][code]Settings.change("fps", "60");[/code][font_size=16]
+Example 2: [font_size=16][code]Settings.change("res", Settings.change("res", "1280", "720");[/code][font_size=16]
 Allows you to change settings from the command line.
 
+[font_size=32][color=blue][center]---- Advanced Scripting ----[/center][color=white][font_size=16]
 
-[font_size=16][color=gray][center]For for advanced runtime scripting, please visit the Script Editor.[/center][color=white][font_size=16]
+[font_size=16]The code ran here runs in a custom script class called 'CommandScript'.
+Extend this and override function 'custom' to execute custom code.
+Refrence your custom script and run it.
+
+[font_size=16][color=gray][center]For advanced runtime scripting, please visit the Script Editor.[/center][color=white][font_size=16]

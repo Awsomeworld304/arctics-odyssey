@@ -13,37 +13,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+class_name Note
 extends AnimatedSprite2D
+
+@export var key_name:StringName;
+@export var data:NoteData = NoteData.new();
+## The exact time in MS that the note was hit.
+var hit_time:float = 0;
+var frames:SpriteFrames = preload("res://Assets/sprite/note.tres");
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#self.apply_scale(Vector2(0.1,0.1))
-	#self.position.y = 1000*10;
-	var curName = self.animation.get_basename();
-	match curName:
-		"left":
-			self.position.x = $"../left".position.x;
-			pass;
-		"up":
-			self.position.x = $"../up".position.x;
-			pass;
-		"center":
-			self.position.x = 0;
-			pass
-		"down":
-			self.position.x = $"../down".position.x;
-			pass;
-		"right":
-			self.position.x = $"../right".position.x;
-			pass;
-		_:
-			self.position.x = 0;
-			pass;
-		
+	data.key_name = key_name;
+	sprite_frames = frames;
+	animation = key_name;
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	self.position.y -= 2000*delta;
+	if Conductor.is_playing: self.position.y -= Conductor.scroll_speed * (Conductor.bpm / 60.0) * delta;
 	pass

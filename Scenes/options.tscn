@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://6d3ioa3fqdj2"]
 
-[ext_resource type="Script" path="res://Scripts/options.gd" id="1_8l66q"]
+[ext_resource type="Script" uid="uid://b2x1e7p8svle3" path="res://Scripts/options.gd" id="1_8l66q"]
 [ext_resource type="PackedScene" uid="uid://bs1l0mns6uorv" path="res://Scenes/Objects/notes_parallax_bg_alt.tscn" id="2_5mb8v"]
 [ext_resource type="PackedScene" uid="uid://dmcv72611vxps" path="res://Scenes/Objects/DevMenu.tscn" id="3_b5nib"]
 [ext_resource type="StyleBox" uid="uid://dyystfptfnk6a" path="res://Assets/Editor/Panel.tres" id="3_iqibs"]
@@ -54,7 +54,7 @@ script/source = "extends TabBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.add
+	#self.add
 	pass # Replace with function body.
 
 
@@ -142,9 +142,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ko1p"]
 _data = {
-"RESET": SubResource("Animation_a8bis"),
-"fade_in": SubResource("Animation_6h1ku"),
-"fade_out": SubResource("Animation_m1u6l")
+&"RESET": SubResource("Animation_a8bis"),
+&"fade_in": SubResource("Animation_6h1ku"),
+&"fade_out": SubResource("Animation_m1u6l")
 }
 
 [node name="options" type="Node2D"]
@@ -341,6 +341,7 @@ offset_bottom = 24.2342
 theme = ExtResource("9_j2wfu")
 item_count = 3
 popup/item_0/text = "1280 x 720 (720p)"
+popup/item_0/id = 0
 popup/item_1/text = "1920 x 1080 (1080p)"
 popup/item_1/id = 1
 popup/item_2/text = "2560 x 1440 (2K)"
@@ -398,7 +399,7 @@ visible = false
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_2ko1p")
+&"": SubResource("AnimationLibrary_2ko1p")
 }
 autoplay = "fade_in"
 

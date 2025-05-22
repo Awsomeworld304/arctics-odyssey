@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjqoeju3yisxe"]
+[gd_scene load_steps=3 format=3 uid="uid://cjqoeju3yisxe"]
 
 [ext_resource type="SpriteFrames" uid="uid://fmavbj1lj3rp" path="res://Assets/sprite/note_frame.tres" id="1_6y72g"]
+[ext_resource type="Script" uid="uid://bdsgwhsl0upf7" path="res://Scripts/Objects/strum.gd" id="2_p11ru"]
 
-[node name="Strum" type="AnimatedSprite2D"]
+[node name="Strum" type="AnimatedSprite2D" groups=["strum"]]
 sprite_frames = ExtResource("1_6y72g")
 animation = &"center"
+script = ExtResource("2_p11ru")
+
+[node name="point" type="Node2D" parent="."]
