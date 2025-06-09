@@ -1,4 +1,4 @@
-# Copyright (C) 2024 JamesTech4849
+# Copyright (C) 2024 - 2025 JamesTech4849
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -21,6 +21,11 @@ enum {
 	EVENT, ## The event script type.
 	GENRAL ## The general script type.[br] This is used for campaign scripting and custom single use cases.
 }
+
+## DEV: Array obj packet = obj,hash
+var REGISTERED_EVENTS:Array[Array]:
+	get: return [];
+	set(value): pass;
 
 signal saved_script(script_name);
 signal loaded_script(script_name);
@@ -85,3 +90,13 @@ func save_script(script:Dictionary, path := "res://Assets/") -> Error:
 	save_write.close();
 	saved_script.emit(script.name as String);
 	return OK;
+
+## DEV: False is fail.
+func validate_script(script:String) -> bool:
+	
+	return false;
+
+func register_event(event:Event) -> void:
+	
+	pass
+	

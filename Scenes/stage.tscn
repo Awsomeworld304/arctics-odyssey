@@ -1,13 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://biju1tr65vey"]
+[gd_scene load_steps=9 format=3 uid="uid://biju1tr65vey"]
 
 [ext_resource type="Script" uid="uid://d1h7h7lu0i3wx" path="res://Scripts/stage.gd" id="1_427rr"]
-[ext_resource type="PackedScene" uid="uid://cjv12k5egq6xv" path="res://Scenes/Objects/strumline.tscn" id="2_gkhib"]
-[ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/test100bpm.wav" id="3_xjxsv"]
+[ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/beat_test.wav" id="3_xjxsv"]
 [ext_resource type="FontFile" uid="uid://ba6m1p7270i6y" path="res://Assets/Fonts/FiraCode/FiraCode-Retina.ttf" id="4_ui3h8"]
+[ext_resource type="PackedScene" uid="uid://xniwcwhllhj1" path="res://Scenes/Gameplay/player_controller.tscn" id="5_7nmha"]
 [ext_resource type="FontFile" uid="uid://o4opdh3o6c12" path="res://Assets/Fonts/FiraCode/FiraCode-Bold.ttf" id="5_kkt71"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_th3sq"]
-bg_color = Color(0.300781, 0.300781, 0.300781, 0.772549)
+bg_color = Color(0.301961, 0.301961, 0.301961, 0)
+
+[sub_resource type="Gradient" id="Gradient_7nmha"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0, 0.304349, 0.0446472, 0.519531, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i28uy"]
+gradient = SubResource("Gradient_7nmha")
+use_hdr = true
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+metadata/_snap_enabled = true
 
 [node name="stage" type="Node2D"]
 script = ExtResource("1_427rr")
@@ -19,6 +30,7 @@ bus = &"Music"
 [node name="main" type="CanvasLayer" parent="."]
 
 [node name="bg_color" type="ColorRect" parent="main"]
+visible = false
 z_index = -2
 offset_right = 640.0
 offset_bottom = 360.0
@@ -26,7 +38,8 @@ color = Color(0.0627451, 0.0627451, 0.0627451, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="debuginfo" type="RichTextLabel" parent="main"]
-offset_right = 192.0
+offset_left = 440.0
+offset_right = 632.0
 offset_bottom = 360.0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("4_ui3h8")
@@ -48,13 +61,25 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -96.0
-offset_right = 96.0
+offset_left = -256.0
+offset_top = 16.0
+offset_right = -64.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_th3sq")
 metadata/_edit_use_anchors_ = true
 
-[node name="Strumline" parent="hud" instance=ExtResource("2_gkhib")]
-position = Vector2(320, 32)
+[node name="bg" type="TextureRect" parent="hud/player"]
+layout_mode = 0
+offset_left = -8.0
+offset_right = 200.0
+offset_bottom = 144.0
+texture = SubResource("GradientTexture2D_i28uy")
+
+[node name="PlayerController" parent="hud/player" instance=ExtResource("5_7nmha")]
+offset_left = 96.0
+offset_top = 34.0
+offset_right = 96.0
+offset_bottom = 34.0

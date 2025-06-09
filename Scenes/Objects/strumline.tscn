@@ -7,7 +7,7 @@
 script = ExtResource("1_018d1")
 
 [node name="left" parent="." instance=ExtResource("1_02syc")]
-position = Vector2(-72, 0)
+position = Vector2(-68, 0)
 animation = &"left"
 
 [node name="down" parent="." instance=ExtResource("1_02syc")]
@@ -21,5 +21,5 @@ position = Vector2(34, 0)
 animation = &"up"
 
 [node name="right" parent="." instance=ExtResource("1_02syc")]
-position = Vector2(72, 0)
+position = Vector2(68, 0)
 animation = &"right"

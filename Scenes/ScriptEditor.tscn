@@ -1,0 +1,1243 @@
+[gd_scene load_steps=25 format=3 uid="uid://dbhd1cumsb4n3"]
+
+[ext_resource type="Script" uid="uid://ceiucso4cejro" path="res://Scripts/ScriptEditor.gd" id="1_d4361"]
+[ext_resource type="SpriteFrames" uid="uid://co68xf08xn207" path="res://Assets/sprite/note.tres" id="2_h34ll"]
+[ext_resource type="Script" uid="uid://de1g2meg243e0" path="res://Scripts/StoryEditor.gd" id="3_telbn"]
+[ext_resource type="FontFile" uid="uid://ba6m1p7270i6y" path="res://Assets/Fonts/FiraCode/FiraCode-Retina.ttf" id="4_nv240"]
+[ext_resource type="FontFile" uid="uid://1xqr3kf645fc" path="res://Assets/Fonts/FiraCode/FiraCode-Regular.ttf" id="8_3cg2f"]
+[ext_resource type="StyleBox" uid="uid://ccch5fwxyqrwo" path="res://Assets/Editor/exit_button_focus.tres" id="9_trrrm"]
+[ext_resource type="Script" uid="uid://bc82a3dopojuc" path="res://Scripts/Objects/GDEditor.gd" id="9_xcl0p"]
+[ext_resource type="StyleBox" uid="uid://hpsn6k77t6ai" path="res://Assets/Editor/exit_button_hover.tres" id="10_r8phu"]
+[ext_resource type="StyleBox" uid="uid://c51vlkpcx7kne" path="res://Assets/Editor/exit_button_pressed.tres" id="11_m6o5w"]
+[ext_resource type="StyleBox" uid="uid://b76h87gmgi7lu" path="res://Assets/Editor/exit_button.tres" id="12_fd017"]
+[ext_resource type="FontFile" uid="uid://o4opdh3o6c12" path="res://Assets/Fonts/FiraCode/FiraCode-Bold.ttf" id="13_fi2hm"]
+
+[sub_resource type="GDScript" id="GDScript_v70dk"]
+resource_name = "autoscroll"
+script/source = "extends ParallaxBackground
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	#scroll_offset = Vector2(scroll_offset.x - (10)*delta, scroll_offset.y -(10)*delta);
+	#reset_physics_interpolation();
+	scroll_offset.x -= 60*delta;
+	scroll_offset.y -= 60*delta;
+	pass
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkflf"]
+bg_color = Color(0.0734863, 0.126825, 0.21875, 0.839216)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o387c"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.839216)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfs8x"]
+bg_color = Color(0.160156, 0.160156, 0.160156, 0.839216)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klxr6"]
+bg_color = Color(0.0234375, 0.0234375, 0.0234375, 0.839216)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kcxg0"]
+bg_color = Color(0.09375, 0.09375, 0.09375, 0.839216)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lqw6"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 0.85098)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_eryw6"]
+font_size = 24
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_ywwwt"]
+number_color = Color(0.631373, 1, 0.878431, 1)
+symbol_color = Color(0.670588, 0.788235, 1, 1)
+function_color = Color(0.341176, 0.701961, 1, 1)
+member_variable_color = Color(0.737255, 0.878431, 1, 1)
+keyword_colors = {
+"Control": Color(0.258824, 1, 0.760784, 1),
+"Node": Color(0.258824, 1, 0.760784, 1),
+"Object": Color(0.258824, 1, 0.760784, 1),
+"StoryScript": Color(0.258824, 1, 0.760784, 1),
+"as": Color(1, 0.439216, 0.521569, 1),
+"assert": Color(1, 0.439216, 0.521569, 1),
+"await": Color(1, 0.439216, 0.521569, 1),
+"break": Color(1, 0.439216, 0.521569, 1),
+"case": Color(1, 0.439216, 0.521569, 1),
+"class": Color(1, 0.439216, 0.521569, 1),
+"class_name": Color(1, 0.439216, 0.521569, 1),
+"const": Color(1, 0.439216, 0.521569, 1),
+"continue": Color(1, 0.439216, 0.521569, 1),
+"default": Color(1, 0.439216, 0.521569, 1),
+"do": Color(1, 0.439216, 0.521569, 1),
+"elif": Color(1, 0.439216, 0.521569, 1),
+"else": Color(1, 0.439216, 0.521569, 1),
+"enum": Color(1, 0.439216, 0.521569, 1),
+"extends": Color(1, 0.439216, 0.521569, 1),
+"for": Color(1, 0.439216, 0.521569, 1),
+"func": Color(1, 0.439216, 0.521569, 1),
+"if": Color(1, 0.439216, 0.521569, 1),
+"in": Color(1, 0.439216, 0.521569, 1),
+"is": Color(1, 0.439216, 0.521569, 1),
+"load": Color(1, 0.439216, 0.521569, 1),
+"match": Color(1, 0.439216, 0.521569, 1),
+"pass": Color(1, 0.439216, 0.521569, 1),
+"preload": Color(1, 0.439216, 0.521569, 1),
+"return": Color(1, 0.439216, 0.521569, 1),
+"self": Color(1, 0.439216, 0.521569, 1),
+"signal": Color(1, 0.439216, 0.521569, 1),
+"static": Color(1, 0.439216, 0.521569, 1),
+"super": Color(1, 0.439216, 0.521569, 1),
+"var": Color(1, 0.439216, 0.521569, 1),
+"void": Color(0.258824, 1, 0.760784, 1),
+"while": Color(1, 0.439216, 0.521569, 1),
+"yield": Color(1, 0.439216, 0.521569, 1)
+}
+color_regions = {
+"\" \"": Color(1, 0.929412, 0.631373, 1),
+"\"\"\" \"\"\"": Color(1, 0.929412, 0.631373, 1),
+"#": Color(0.811765, 0.815686, 0.819608, 0.501961),
+"##": Color(0.811765, 0.815686, 0.819608, 0.501961)
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2hbg"]
+bg_color = Color(0, 0, 0, 0.87451)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 8.0
+expand_margin_right = 8.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_1rwqw"]
+font_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eykvq"]
+bg_color = Color(0.0664063, 0.0664063, 0.0664063, 0.85098)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="GDScript" id="GDScript_bujqu"]
+resource_name = "editor_opt_menu"
+script/source = "extends Window
+
+
+func _on_close_requested() -> void:
+	self.visible = false;
+	pass # Replace with function body.
+"
+
+[node name="ScriptEditor" type="Node2D"]
+script = ExtResource("1_d4361")
+
+[node name="bg" type="CanvasLayer" parent="."]
+physics_interpolation_mode = 1
+
+[node name="parallax_bg" type="ParallaxBackground" parent="bg"]
+physics_interpolation_mode = 1
+layer = -1
+scale = Vector2(3, 3)
+transform = Transform2D(3, 0, 0, 3, 0, 0)
+script = SubResource("GDScript_v70dk")
+
+[node name="bg_color" type="ColorRect" parent="bg/parallax_bg"]
+z_index = -2
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.321569, 0.113725, 0.4, 1)
+
+[node name="main" type="ParallaxLayer" parent="bg/parallax_bg"]
+physics_interpolation_mode = 1
+z_as_relative = false
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main2" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(16, 60)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main2"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main3" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(32, 120)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main3"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main4" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(16, 180)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main4"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main5" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(32, 240)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main5"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main6" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(16, 296)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main6"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+physics_interpolation_mode = 1
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("2_h34ll")
+
+[node name="shader" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.592157)
+metadata/_edit_lock_ = true
+
+[node name="editor" type="CanvasLayer" parent="."]
+script = ExtResource("3_telbn")
+
+[node name="bar" type="Panel" parent="editor"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -74.0
+offset_right = 960.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kkflf")
+metadata/_edit_lock_ = true
+
+[node name="exit" type="Button" parent="editor/bar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 10.0
+offset_right = 144.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("8_3cg2f")
+theme_override_styles/focus = ExtResource("9_trrrm")
+theme_override_styles/hover = ExtResource("10_r8phu")
+theme_override_styles/pressed = ExtResource("11_m6o5w")
+theme_override_styles/normal = ExtResource("12_fd017")
+text = "Exit To Menu"
+
+[node name="editor_opt" type="Button" parent="editor/bar"]
+visible = false
+layout_mode = 0
+offset_left = 1768.0
+offset_top = 10.0
+offset_right = 1914.0
+offset_bottom = 66.0
+theme_override_fonts/font = ExtResource("8_3cg2f")
+theme_override_styles/focus = SubResource("StyleBoxFlat_o387c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tfs8x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_klxr6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kcxg0")
+text = "Editor Options"
+
+[node name="edit" type="Panel" parent="editor"]
+clip_children = 2
+offset_right = 1152.0
+offset_bottom = 1006.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0lqw6")
+metadata/_edit_lock_ = true
+
+[node name="title" type="Label" parent="editor/edit"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 34.0
+text = "SCRIPT EDITOR"
+label_settings = SubResource("LabelSettings_eryw6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bg" type="ColorRect" parent="editor/edit/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 34.0
+color = Color(0, 0, 0, 0.411765)
+
+[node name="editor" type="CodeEdit" parent="editor/edit"]
+layout_mode = 0
+offset_top = 110.0
+offset_right = 1154.0
+offset_bottom = 1006.0
+theme_override_fonts/font = ExtResource("8_3cg2f")
+theme_override_font_sizes/font_size = 24
+text = "extends StoryScript
+
+# This gets ran first.
+func script() -> void:
+	# Use add_line(\"\") to add a line!
+	# Use add_event(event) to add an event!
+	# Please note that you have to program your events here.
+	add_line(\"Test run!\");
+	add_event(example_event);
+	# This is very important!
+	# If you forget this, your script will be ignored!
+	register(); 
+	pass
+
+func example_event() -> void:
+	print(\"Event ran!\");
+	pass"
+syntax_highlighter = SubResource("CodeHighlighter_ywwwt")
+highlight_all_occurrences = true
+highlight_current_line = true
+draw_tabs = true
+symbol_lookup_on_click = true
+gutters_draw_breakpoints_gutter = true
+gutters_draw_bookmarks = true
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
+gutters_draw_fold_gutter = true
+code_completion_enabled = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+script = ExtResource("9_xcl0p")
+
+[node name="file" type="Label" parent="editor/edit"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = 224.0
+offset_bottom = 97.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_m2hbg")
+text = "Current File: untitled (Unsaved)"
+label_settings = SubResource("LabelSettings_1rwqw")
+vertical_alignment = 1
+
+[node name="load_script" type="Button" parent="editor/edit"]
+layout_mode = 0
+offset_left = 832.0
+offset_top = 48.0
+offset_right = 954.0
+offset_bottom = 94.0
+text = "Load Script"
+
+[node name="save_script" type="Button" parent="editor/edit"]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 48.0
+offset_right = 1106.0
+offset_bottom = 94.0
+text = "Save Script"
+
+[node name="reload_code" type="Button" parent="editor/edit"]
+layout_mode = 0
+offset_left = 680.0
+offset_top = 48.0
+offset_right = 802.0
+offset_bottom = 94.0
+text = "Parse Code"
+
+[node name="stats" type="Panel" parent="editor"]
+clip_children = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -768.0
+offset_bottom = 1006.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eykvq")
+metadata/_edit_lock_ = true
+
+[node name="title" type="Label" parent="editor/stats"]
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 34.0
+text = "STATUS PANEL"
+label_settings = SubResource("LabelSettings_eryw6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bg" type="ColorRect" parent="editor/stats/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 34.0
+color = Color(0, 0, 0, 0.411765)
+
+[node name="static_stuff" type="RichTextLabel" parent="editor/stats"]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 382.0
+offset_bottom = 574.0
+theme_override_fonts/normal_font = ExtResource("8_3cg2f")
+theme_override_fonts/mono_font = ExtResource("4_nv240")
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+text = "Code Status:
+Error: "
+
+[node name="code_stat" type="RichTextLabel" parent="editor/stats"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 34.0
+offset_right = 768.0
+offset_bottom = 80.0
+theme_override_fonts/normal_font = ExtResource("8_3cg2f")
+theme_override_fonts/mono_font = ExtResource("4_nv240")
+theme_override_fonts/bold_font = ExtResource("13_fi2hm")
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "[color=gray]Unknown"
+fit_content = true
+scroll_active = false
+scroll_following = true
+
+[node name="cur_err" type="RichTextLabel" parent="editor/stats"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 65.0
+offset_right = 768.0
+offset_bottom = 185.0
+theme_override_fonts/normal_font = ExtResource("4_nv240")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=green]No Error[/color]"
+
+[node name="load_dialog" type="FileDialog" parent="editor"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(400, 600)
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+file_mode = 0
+root_subfolder = "res://Assets/"
+filters = PackedStringArray("*.script")
+show_hidden_files = true
+
+[node name="save_dialog" type="FileDialog" parent="editor"]
+auto_translate_mode = 1
+title = "Save a Script"
+initial_position = 2
+size = Vector2i(400, 600)
+dialog_hide_on_ok = true
+show_hidden_files = true
+
+[node name="editor_options" type="Window" parent="editor"]
+title = "Editor Options"
+initial_position = 1
+size = Vector2i(400, 600)
+visible = false
+popup_window = true
+min_size = Vector2i(400, 400)
+keep_title_visible = true
+theme_override_fonts/title_font = ExtResource("8_3cg2f")
+script = SubResource("GDScript_bujqu")
+
+[node name="auto_parse" type="CheckButton" parent="editor/editor_options"]
+offset_right = 400.0
+offset_bottom = 31.0
+tooltip_text = "Every time you edit in the code editor, the code will be checked.
+This can be resource intensive when working with big scripts!"
+text = "Auto Parse Code on Edit"
+
+[connection signal="button_up" from="editor/bar/exit" to="." method="_on_exit_button_up"]
+[connection signal="button_up" from="editor/bar/editor_opt" to="." method="_on_editor_opt_button_up"]
+[connection signal="code_completion_requested" from="editor/edit/editor" to="editor/edit/editor" method="_on_code_completion_requested"]
+[connection signal="text_changed" from="editor/edit/editor" to="." method="_on_editor_text_changed"]
+[connection signal="button_up" from="editor/edit/load_script" to="." method="_on_load_script_button_up"]
+[connection signal="button_up" from="editor/edit/save_script" to="." method="_on_save_script_button_up"]
+[connection signal="button_up" from="editor/edit/reload_code" to="." method="_on_reload_code_button_up"]
+[connection signal="file_selected" from="editor/load_dialog" to="." method="_on_load_dialog_file_selected"]
+[connection signal="canceled" from="editor/save_dialog" to="." method="_on_save_dialog_canceled"]
+[connection signal="file_selected" from="editor/save_dialog" to="." method="_on_save_dialog_file_selected"]
+[connection signal="close_requested" from="editor/editor_options" to="editor/editor_options" method="_on_close_requested"]
+[connection signal="toggled" from="editor/editor_options/auto_parse" to="." method="_on_auto_parse_toggled"]

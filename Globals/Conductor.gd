@@ -36,13 +36,17 @@ signal sixteenth_will_pass(beat:int, fract:int); # Step
 @export var audio_offset_ms:int = 0;
 @export var visual_offset_ms:int = 0;
 
+## Song position in seconds.
 var position:float = 0.0;
-var scroll_speed:int = 100;
+## Scroll speed modifier.
+var scroll_speed:float = 4;
+## Scroll speed multiplier, do not touch this!
+var _offset_scroll_modifier:int = 100;
 
 @onready var player:AudioStreamPlayer;
 
-# Caching this since getting output latency is expensive. This value doesn't
-# change, so we only need to lookup once
+# Caching this since getting output latency is expensive.
+# This value does not change so looking it up once is fine.
 var _cached_latency:float = AudioServer.get_output_latency();
 var _num_beats_in_song:int = 0;
 var _prev_time_seconds:float = 0;
@@ -56,6 +60,8 @@ var _eighth_will_pass_incrementor:BeatIncrementor = BeatIncrementor.new(eighth_w
 var _twelth_will_pass_incrementor:BeatIncrementor = BeatIncrementor.new(twelth_will_pass, 3);
 var _sixteenth_will_pass_incrementor:BeatIncrementor = BeatIncrementor.new(sixteenth_will_pass, 4);
 
+## First run boolean.
+var _activated:bool = false;
 
 class BeatIncrementor:
 	var _fract_mod:int;
@@ -93,11 +99,12 @@ func _ready() -> void:
 
 func play() -> void:
 	if player == null: return;
+	_activated = true;
 	_prev_time_seconds = -_cached_latency - 0.001;
 	curr_beat = _prev_time_seconds / 60 * bpm;
 	_loops = 0;
 	_num_beats_in_song = round(player.stream.get_length() / 60 * bpm);
-	await get_tree().create_timer(3).timeout;
+	#await get_tree().create_timer(3).timeout;
 	player.play();
 	is_playing = true;
 	pass

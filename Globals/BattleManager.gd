@@ -24,32 +24,32 @@ var entities = [
 ];
 
 # Player
-var PlayerHealth = 100;
-var PlayerMaxHealth = 100;
-var PlayerMana = 50;
-var PlayerMaxMana = 50;
+var PlayerHealth:int = 100;
+var PlayerMaxHealth:int = 100;
+var PlayerMana:int = 50;
+var PlayerMaxMana:int = 50;
 
 # Enemy
-var EnemyHealth = 100;
-var EnemyMaxHealth = 100;
-var EnemyMana = 50;
-var EnemyMaxMana = 50;
-var isBoss = false;
+var EnemyHealth:int = 100;
+var EnemyMaxHealth:int = 100;
+var EnemyMana:int = 50;
+var EnemyMaxMana:int = 50;
+var isBoss:bool = false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-func attack():
+func attack() -> void:
 	pass
 
-func block():
+func block() -> void:
 	pass
 
-func add_mana(_amount:int, _entity:String = "player"):
+func add_mana(_amount:int, _entity:String = "player") -> void:
 	pass
 	
-func add_health(_amount:int):
+func add_health(_amount:int) -> void:
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

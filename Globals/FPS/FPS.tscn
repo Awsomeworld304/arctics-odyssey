@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7vo1cumaqnpj"]
+
+[ext_resource type="Script" uid="uid://ct774ubway4qu" path="res://Globals/FPS/fps.gd" id="1_sn0bp"]
+[ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="1_w8epf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sn0bp"]
+bg_color = Color(0, 0, 0, 0.733333)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="Fps" type="Control"]
+top_level = true
+z_index = 1000
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sn0bp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="DebugPanel" type="Panel" parent="CanvasLayer"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 96.0
+offset_bottom = 40.0
+theme = ExtResource("1_w8epf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_sn0bp")
+
+[node name="RichData" type="RichTextLabel" parent="CanvasLayer/DebugPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 88.0
+offset_bottom = 32.0
+theme = ExtResource("1_w8epf")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "FPS: {FPS}
+MEM: {Gb|Mb}"
+scroll_active = false
+shortcut_keys_enabled = false

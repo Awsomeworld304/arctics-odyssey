@@ -1,12 +1,37 @@
-[gd_scene load_steps=13 format=3 uid="uid://dobkulb7xcfar"]
+[gd_scene load_steps=23 format=3 uid="uid://dobkulb7xcfar"]
 
 [ext_resource type="Script" uid="uid://bamkw10fyf8p8" path="res://Scripts/chart_editor.gd" id="1_67anw"]
-[ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/test100bpm.wav" id="3_akv22"]
+[ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/beat_test.wav" id="3_akv22"]
+[ext_resource type="SpriteFrames" uid="uid://cnw0fag4xxki" path="res://Assets/sprite/note-alt.tres" id="3_gv8ua"]
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_qsohv"]
+[ext_resource type="FontFile" uid="uid://byffkjoo7jpvl" path="res://Assets/Fonts/Pixel/Pixellari.ttf" id="4_dy15n"]
 [ext_resource type="FontFile" uid="uid://o4opdh3o6c12" path="res://Assets/Fonts/FiraCode/FiraCode-Bold.ttf" id="5_6envu"]
 [ext_resource type="Script" uid="uid://byhh3wexdca1b" path="res://Scripts/Objects/strumline.gd" id="5_gk37r"]
 [ext_resource type="Script" uid="uid://bnru5lmcpyjia" path="res://Scripts/Objects/grid_panel.gd" id="5_lelxc"]
 [ext_resource type="PackedScene" uid="uid://cjqoeju3yisxe" path="res://Scenes/Objects/strum.tscn" id="6_6btys"]
+[ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="6_iqyyb"]
+[ext_resource type="StyleBox" uid="uid://b8uta3fal6kwk" path="res://Assets/Editor/DefaultButton/Btn-Focus.tres" id="7_da5q0"]
+[ext_resource type="StyleBox" uid="uid://bfppjw3b4oygn" path="res://Assets/Editor/DefaultButton/Btn-Hover-Pressed.tres" id="8_dy15n"]
+[ext_resource type="StyleBox" uid="uid://dhb2dhrhi04x" path="res://Assets/Editor/DefaultButton/Btn-Hover.tres" id="9_w15xo"]
+[ext_resource type="StyleBox" uid="uid://s5trp4ljd7d5" path="res://Assets/Editor/DefaultButton/Btn-Pressed.tres" id="10_dia0i"]
+[ext_resource type="StyleBox" uid="uid://bbcm74hpo08oy" path="res://Assets/Editor/DefaultButton/Btn-Normal.tres" id="11_2i7kg"]
+
+[sub_resource type="GDScript" id="GDScript_gv8ua"]
+resource_name = "a"
+script/source = "extends ParallaxBackground
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	scroll_offset.x += 30*delta;
+	scroll_offset.y += 30*delta;
+	pass
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_506um"]
 content_margin_left = 8.0
@@ -41,8 +66,10 @@ anti_aliasing = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1vlv"]
 bg_color = Color(0, 0.0452271, 0.152344, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_5k2l8"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31dnc"]
-bg_color = Color(0.257812, 0.17926, 0.17926, 0.772549)
+bg_color = Color(0.25, 0.0820312, 0.0820312, 1)
 
 [node name="ChartEditor" type="Node2D"]
 script = ExtResource("1_67anw")
@@ -51,9 +78,693 @@ script = ExtResource("1_67anw")
 stream = ExtResource("3_akv22")
 bus = &"Music"
 
+[node name="bg" type="CanvasLayer" parent="."]
+
+[node name="parallax_bg" type="ParallaxBackground" parent="bg"]
+layer = -1
+script = SubResource("GDScript_gv8ua")
+
+[node name="bg_color" type="ColorRect" parent="bg/parallax_bg"]
+z_index = -2
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.321569, 0.113725, 0.4, 1)
+
+[node name="main" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main"]
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main/main9"]
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main2" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(16, 60)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main2"]
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main2"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main2/main9"]
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main3" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(32, 120)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main3"]
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main3"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main3/main9"]
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main4" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(16, 180)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main4"]
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main4"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main4/main9"]
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main5" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(32, 240)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main5"]
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main5"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main5/main9"]
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main6" type="ParallaxLayer" parent="bg/parallax_bg"]
+z_as_relative = false
+position = Vector2(16, 296)
+motion_offset = Vector2(0, -80)
+motion_mirroring = Vector2(640, 360)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(592, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(528, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(464, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(400, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(336, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(272, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(208, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(144, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(80, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main6"]
+z_as_relative = false
+position = Vector2(16, 16)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="main9" type="ParallaxLayer" parent="bg/parallax_bg/main6"]
+modulate = Color(0.254902, 0.254902, 0.254902, 1)
+show_behind_parent = true
+z_index = -84
+position = Vector2(24, 24)
+motion_mirroring = Vector2(1960, 1020)
+
+[node name="note1" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note2" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(576, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note3" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(512, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note4" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(448, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note5" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(384, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note6" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(320, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note7" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(256, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note8" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(192, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note9" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(128, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
+[node name="note10" type="AnimatedSprite2D" parent="bg/parallax_bg/main6/main9"]
+z_as_relative = false
+position = Vector2(64, 0)
+sprite_frames = ExtResource("3_gv8ua")
+
 [node name="main" type="CanvasLayer" parent="."]
 
 [node name="bg_color" type="ColorRect" parent="main"]
+visible = false
 z_index = -2
 offset_right = 640.0
 offset_bottom = 360.0
@@ -61,24 +772,25 @@ color = Color(0.0627451, 0.0627451, 0.0627451, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="debuginfo" type="RichTextLabel" parent="main"]
-anchors_preset = -1
-anchor_right = 0.05
-offset_right = 192.0
+offset_left = 16.0
+offset_top = 64.0
+offset_right = 224.0
 offset_bottom = 360.0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_fonts/normal_font = ExtResource("3_qsohv")
+theme_override_fonts/normal_font = ExtResource("4_dy15n")
 theme_override_fonts/mono_font = ExtResource("3_qsohv")
 theme_override_fonts/bold_font = ExtResource("5_6envu")
-theme_override_font_sizes/bold_italics_font_size = 32
-theme_override_font_sizes/italics_font_size = 32
-theme_override_font_sizes/mono_font_size = 32
-theme_override_font_sizes/normal_font_size = 32
-theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
 bbcode_enabled = true
 text = "Song information will be displayed here.
 
-If the song information does not load, the conductor has not started and an error has likley occured."
-metadata/_edit_use_anchors_ = true
+If the song information does not load, the conductor has not started and an error has likley occured.
+
+If this is a release build, contact the developers."
 
 [node name="ChartMenu" type="TabContainer" parent="main"]
 offset_left = 416.0
@@ -96,6 +808,57 @@ current_tab = 0
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_d1vlv")
 metadata/_tab_index = 0
+
+[node name="_ChartName" type="Label" parent="main/ChartMenu/Chart"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 13.0
+offset_right = 48.0
+offset_bottom = 26.0
+theme = ExtResource("6_iqyyb")
+text = "Chart: "
+label_settings = SubResource("LabelSettings_5k2l8")
+vertical_alignment = 1
+
+[node name="ChartName" type="Label" parent="main/ChartMenu/Chart"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 27.0
+offset_right = 77.0
+offset_bottom = 43.0
+theme = ExtResource("6_iqyyb")
+text = "{CHART NAME}"
+vertical_alignment = 1
+
+[node name="ReloadChart" type="Button" parent="main/ChartMenu/Chart"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 9.0
+offset_right = 218.0
+offset_bottom = 31.0
+tooltip_text = "Reloads the current selected chart from disk."
+theme = ExtResource("6_iqyyb")
+theme_override_styles/focus = ExtResource("7_da5q0")
+theme_override_styles/hover_pressed = ExtResource("8_dy15n")
+theme_override_styles/hover = ExtResource("9_w15xo")
+theme_override_styles/pressed = ExtResource("10_dia0i")
+theme_override_styles/normal = ExtResource("11_2i7kg")
+text = "Reload Chart"
+
+[node name="SaveChart" type="Button" parent="main/ChartMenu/Chart"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 35.0
+offset_right = 218.0
+offset_bottom = 57.0
+tooltip_text = "Saves the current chart to disk."
+theme = ExtResource("6_iqyyb")
+theme_override_styles/focus = ExtResource("7_da5q0")
+theme_override_styles/hover_pressed = ExtResource("8_dy15n")
+theme_override_styles/hover = ExtResource("9_w15xo")
+theme_override_styles/pressed = ExtResource("10_dia0i")
+theme_override_styles/normal = ExtResource("11_2i7kg")
+text = "Save Chart"
 
 [node name="Note" type="Panel" parent="main/ChartMenu"]
 visible = false
@@ -117,47 +880,54 @@ grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_31dnc")
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="GridPanel" type="Control" parent="hud/player"]
 visible = false
 anchors_preset = 0
-offset_left = 8.0
+offset_left = 12.0
 offset_top = 16.0
-offset_right = 48.0
+offset_right = 44.0
 offset_bottom = 56.0
 script = ExtResource("5_lelxc")
-grid_width = 11
-grid_height = 32
-pri_grid_color = Color(0.449219, 0.150909, 0.150909, 1)
-sec_grid_color = Color(0.175781, 0.115356, 0.115356, 1)
+grid_width = 5
+grid_height = 12
+grid_color = Color(0.628906, 0.0958099, 0.0958099, 1)
+grid_color_sec = Color(0.390625, 0.0274658, 0.0274658, 1)
 metadata/_custom_type_script = "uid://bnru5lmcpyjia"
 
 [node name="Strumline" type="Node2D" parent="hud/player"]
 position = Vector2(96, 32)
 script = ExtResource("5_gk37r")
+metadata/_edit_lock_ = true
 
 [node name="left" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
-position = Vector2(-72, 0)
+position = Vector2(-68, 0)
 animation = &"left"
 key_name = &"left"
+metadata/_edit_lock_ = true
 
 [node name="down" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
 position = Vector2(-34, 0)
 animation = &"down"
 key_name = &"down"
+metadata/_edit_lock_ = true
 
 [node name="center" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
 key_name = &"center"
+metadata/_edit_lock_ = true
 
 [node name="up" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
 position = Vector2(34, 0)
 animation = &"up"
 key_name = &"up"
+metadata/_edit_lock_ = true
 
 [node name="right" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
-position = Vector2(72, 0)
+position = Vector2(68, 0)
 animation = &"right"
 key_name = &"right"
+metadata/_edit_lock_ = true
 
 [node name="Line2D" type="Line2D" parent="hud/player/Strumline"]
 visible = false
@@ -172,10 +942,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -76.0
-offset_right = 29.0
-offset_bottom = -53.0
+offset_left = -96.0
+offset_top = -92.0
+offset_right = 96.0
+offset_bottom = -66.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -184,5 +954,6 @@ theme_override_font_sizes/font_size = 32
 text = "{Rating}"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]

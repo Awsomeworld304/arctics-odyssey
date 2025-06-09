@@ -16,15 +16,23 @@
 class_name Note
 extends AnimatedSprite2D
 
-@export var key_name:StringName;
-@export var data:NoteData = NoteData.new();
+### --- SAVED DATA ---
+## The name of the note: ["left", "down", "center", "up", "right"].
+@export var key_name:StringName = "";
+## Note type, currently only normal exists.
+@export var type:StringName = "normal";
+## Note position in the song ms.
+@export var time:float = 0.0;
+## Events do not matter yet.
+#@export var events:Array[StringName] = [];
+### --- END SAVED DATA ---
+
 ## The exact time in MS that the note was hit.
 var hit_time:float = 0;
 var frames:SpriteFrames = preload("res://Assets/sprite/note.tres");
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	data.key_name = key_name;
 	sprite_frames = frames;
 	animation = key_name;
 	pass # Replace with function body.
@@ -32,5 +40,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Conductor.is_playing: self.position.y -= Conductor.scroll_speed * (Conductor.bpm / 60.0) * delta;
+	if Conductor.is_playing: self.position.y -= (Conductor._offset_scroll_modifier * Conductor.scroll_speed) * (Conductor.bpm / 60.0) * delta;
 	pass

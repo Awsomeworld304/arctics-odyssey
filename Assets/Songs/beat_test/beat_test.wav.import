@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bh6mxbcgjcbt5"
-path="res://.godot/imported/test100bpm.wav-90a509c16f21398276bb1d86b32422a0.sample"
+path="res://.godot/imported/beat_test.wav-3a88323b404dd160a4035e1c5c0b3181.sample"
 
 [deps]
 
-source_file="res://Assets/Songs/beat_test/test100bpm.wav"
-dest_files=["res://.godot/imported/test100bpm.wav-90a509c16f21398276bb1d86b32422a0.sample"]
+source_file="res://Assets/Songs/beat_test/beat_test.wav"
+dest_files=["res://.godot/imported/beat_test.wav-3a88323b404dd160a4035e1c5c0b3181.sample"]
 
 [params]
 

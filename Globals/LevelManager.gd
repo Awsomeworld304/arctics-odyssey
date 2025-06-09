@@ -18,7 +18,7 @@ extends Node
 var current_scene:String = "";
 var previous_scene:String = "";
 
-@onready var trans_anim:AnimationPlayer = $"../TransitionLayer".get_node("anim") as AnimationPlayer;
+@onready var trans_anim:AnimationPlayer = $"../TransitionLayer/main".get_node("anim") as AnimationPlayer;
 
 signal level_changed;
 
@@ -79,13 +79,23 @@ func quit(code:int = 0) -> void:
 func trans(level:String, global:bool = false, _trans:String = "default") -> void:
 	match _trans:
 		_:
-			trans_anim.play("default");
+			FPS.fix_scale();
+			TransitionLayer.down();
 			await trans_anim.animation_finished;
 			change_level(level, false, global);
 			await level_changed;
-			trans_anim.play_backwards("default");
+			TransitionLayer.up();
 			await trans_anim.animation_finished;
 			pass
+	pass
+
+## Custom scene loader for Arctic's Odyssey.[br]
+## Use this instead of change_level or trans.[br]
+## Paramaters:[br]
+## level (String) - The file name of the level.[br]
+## global = false (Bool) - Specifies if the loaded scene is a global scene.
+func load_scene(level:String, global:bool = false) -> void:
+	trans(level, global);
 	pass
 
 func error(msg:String = "Unknown Fatal Error!") -> void:
