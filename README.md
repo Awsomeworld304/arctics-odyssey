@@ -1,5 +1,5 @@
 # Arctic's Odyssey
-[![stability-wip](https://img.shields.io/badge/stability-wip-lightgrey.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#work-in-progress)
+[![stability-wip](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#work-in-progress)
 [![Godot 4.4](https://img.shields.io/badge/Godot-v4.4-%23478cbf?logo=godot-engine&logoColor=white)](https://godotengine.org)\
 A side scrolling, story packed, rhythm game.
 <!-- A high paced story-rhythm game featuring bosses and battles as you fight your way through.\ -->
