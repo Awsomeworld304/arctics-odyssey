@@ -108,6 +108,10 @@ func setup() -> void:
 	curr_beat = _prev_time_seconds / 60 * bpm;
 	_loops = 0;
 	_num_beats_in_song = round(player.stream.get_length() / 60 * bpm);
+	player.play();
+	player.stream_paused = true;
+	is_paused = true;
+	is_playing = false;
 	pass
 
 func play() -> void:
@@ -123,6 +127,7 @@ func stop(clear_song:bool = false) -> void:
 	if player == null: return;
 	player.stop();
 	is_playing = false;
+	is_paused = false;
 	_activated = false;
 	if clear_song: setup();
 	pass
@@ -132,8 +137,8 @@ func stop(clear_song:bool = false) -> void:
 func pause() -> bool:
 	if player == null: return false;
 	is_paused = !is_paused;
-	player.stream_paused = is_paused;
 	is_playing = !is_paused;
+	player.stream_paused = is_paused;
 	return is_paused;
 
 func get_beat_time() -> float:
@@ -141,8 +146,11 @@ func get_beat_time() -> float:
 
 ## Set the position of the song in seconds.
 func set_song_position(pos:float) -> void:
-	player.seek(pos);
-	Conductor.position = pos;
+	player.play(pos)
+	player.stream_paused = is_paused;
+	await get_tree().process_frame;
+	position = (player.get_playback_position() + AudioServer.get_time_since_last_mix() - _cached_latency - audio_offset_ms / 1000.0);
+	_prev_time_seconds = position - 1;
 	pass
 
 func _process(_delta:float) -> void:
@@ -152,7 +160,7 @@ func _process(_delta:float) -> void:
 	
 	var time_seconds:float = (player.get_playback_position() + AudioServer.get_time_since_last_mix() - _cached_latency - audio_offset_ms / 1000.0);
 	
-	# Validation
+	# Validation0
 	if not _is_valid_update(time_seconds): return;
 
 	position = time_seconds;
@@ -210,8 +218,9 @@ func _process(_delta:float) -> void:
 	
 	# Keep track of the previous frame's time.
 	_prev_time_seconds = time_seconds;
+	pass
 
-
+## Verifys the update is valid. True if the update is valid.
 func _is_valid_update(time_seconds:float) -> bool:
 	return (
 		# Web issue fix.

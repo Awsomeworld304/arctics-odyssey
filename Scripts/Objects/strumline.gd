@@ -26,11 +26,11 @@ class_name Strumline
 var hit_notes:int = 0;
 var hit_window:float = 0.128; # 64ms
 
-@onready var left:AnimatedSprite2D = $left as AnimatedSprite2D;
-@onready var down:AnimatedSprite2D = $down as AnimatedSprite2D;
-@onready var center:AnimatedSprite2D = $center as AnimatedSprite2D;
-@onready var up:AnimatedSprite2D = $up as AnimatedSprite2D;
-@onready var right:AnimatedSprite2D = $right as AnimatedSprite2D;
+@onready var left:Strum = $left as Strum;
+@onready var down:Strum = $down as Strum;
+@onready var center:Strum = $center as Strum;
+@onready var up:Strum = $up as Strum;
+@onready var right:Strum = $right as Strum;
 @onready var ui_RATING:Label = $Rating as Label; 
 
 signal note_hit(note:Note);
@@ -45,7 +45,7 @@ func px_to_sec(px:float) -> float:
 func beat_to_sec(beats: float) -> float:
 	return (beats * 60.0) / Conductor.bpm;
 
-func add_note(note:Note) -> void:
+func add_note(_note:Note) -> void:
 	pass
 
 func remove_note(note:Note = null, index:int = -1) -> void:
@@ -62,31 +62,31 @@ func remove_note(note:Note = null, index:int = -1) -> void:
 		push_error("Strumline -> Remove Note: Can't remove a note without an instance or an index.");
 	pass
 
-func load_chart(chart:Chart) -> void:
-	if Chart.validate_chart(chart):
-		self.chart = chart;
+func load_chart(new_chart:Chart) -> void:
+	if Chart.validate_chart(new_chart):
+		self.chart = new_chart;
 		pass
 	else:
 		printerr("Chart -> Chart is not valid!");
 		return;
 		
 	# Chart data is parsed, now to calculate the positions of each note.
-	for note in self.chart.notes:
+	for note:Note in self.chart.notes:
 		match(note.key_name):
 			"left":
-				note.add_to_group("left");
+				note.add_to_group("bot_left" if bot_strumline else "left");
 				left.add_child(note);
 			"down":
-				note.add_to_group("down");
+				note.add_to_group("bot_down" if bot_strumline else "down");
 				down.add_child(note);
 			"center":
-				note.add_to_group("center");
+				note.add_to_group("bot_center" if bot_strumline else "center");
 				center.add_child(note);
 			"up":
-				note.add_to_group("up");
+				note.add_to_group("bot_up" if bot_strumline else "up");
 				up.add_child(note);
 			"right":
-				note.add_to_group("right");
+				note.add_to_group("bot_right" if bot_strumline else "right");
 				right.add_child(note);
 		note.position.y = sec_to_px(note);
 		pass
@@ -111,19 +111,21 @@ func reset() -> void:
 	for note:Note in right.get_children() as Array[Note]:
 		if note is Note: note.queue_free();
 		pass
+	var path:String = chart.chart_path;
 	chart = null;
+	load_chart(Chart._parse_chart(path));
 	pass
 
 func update_chart() -> void:
 	pass
 
 func bot_input() -> void:
-	# Input notes.
+	if chart == null or chart.notes.size() == 0: return;
 	for note:Note in chart.notes:
-		if note.time == Conductor.position:
-			print("Bot hitting note %s at %s" % [note.key_name, Conductor.position]);
+		if note.visible and note.hit_time == -32 and abs(note.time - Conductor.position) <= 0.016:
+			print("BOT calculate_note called for note at time: ", note.time);
 			Input.action_press("bot_" + note.key_name);
-			pass
+			Input.action_release("bot_" + note.key_name);
 		pass
 	
 	# Detect note presses.
@@ -146,17 +148,16 @@ func bot_input() -> void:
 
 func _ready() -> void:
 	ui_RATING.modulate = Color.TRANSPARENT;
+	if bot_strumline:
+		left.toggle_bot();
+		down.toggle_bot();
+		center.toggle_bot();
+		up.toggle_bot();
+		right.toggle_bot();
+		self.set_process_input(false);
 	pass
 
 func _input(event: InputEvent) -> void:
-	if bot_strumline:
-		Input.action_release("bot_left");
-		Input.action_release("bot_down");
-		Input.action_release("bot_center");
-		Input.action_release("bot_up");
-		Input.action_release("bot_right");
-		return;
-
 	# Player Input
 	if event.is_action_pressed("left"): _left_pressed();
 	if event.is_action_pressed("down"): _down_pressed();
@@ -188,52 +189,70 @@ func calculate_note(note:Note, hit_time:float) -> void:
 		
 	ui_RATING.text = rating;
 	ui_RATING.create_tween().stop();
-	ui_RATING.modulate = Color.WHITE;
+	var color:Color = Color.WHITE if !bot_strumline else Color.CRIMSON;
+	var tcolor:Color = color;
+	tcolor.a = 0;
+	ui_RATING.modulate = color;
 	
 	# Neg if too late, pos if too early.
 	#var hit_offset:float = note.time - hit_time;
-	hit_notes += 1;
-	
+	if !bot_strumline: hit_notes += 1;
 	note_hit.emit(note);
 	
 	##note.queue_free();
 	note.visible = false;
 	#note.modulate = Color.TRANSPARENT;
 	# Rating
-	get_tree().create_tween().tween_property(ui_RATING, "modulate", Color.TRANSPARENT, 0.25);
+	var _t:PropertyTweener = get_tree().create_tween().tween_property(ui_RATING, "modulate", tcolor, 0.25);
 	pass
 
 # -------- Handler Functions --------
-func _check_note_press(note_group:String = "none") -> void:
+func _check_note_press(note_group:StringName = "none") -> void:
 	for note:Note in get_tree().get_nodes_in_group(note_group) as Array[Note]:
 		if note is Note:
-			print("Possible note hit.");
 			var ht:float = Conductor.position;
 			if note_is_in_range(note, ht):
 				calculate_note(note, ht);
 				pass
+			# Note is not hit.
 			else:
 				#if note.position.y < (-5*Conductor.scroll_speed): note.visible = false;
 				pass
 			pass
-		else: print("found thing that is not a note. %s" % note);
+		pass
+	pass
+
+## The bot version of _check_note_press. Makes sure it's only hitting bot notes.
+func _bot_note_press(note_group:StringName = "none") -> void:
+	for note:Note in get_tree().get_nodes_in_group("bot_" + note_group) as Array[Note]:
+		if note is Note and bot_strumline:
+			var ht:float = Conductor.position;
+			if note_is_in_range(note, ht):
+				calculate_note(note, ht);
+				pass
+			pass
 		pass
 	pass
 
 func _left_pressed() -> void:
-	_check_note_press("left");
+	if bot_strumline: _bot_note_press("left");
+	else: _check_note_press("left");
 	pass
 func _down_pressed() -> void:
-	_check_note_press("down");
+	if bot_strumline: _bot_note_press("down");
+	else: _check_note_press("down");
 	pass
 func _center_pressed() -> void:
-	_check_note_press("center");
+	if bot_strumline: _bot_note_press("center");
+	else: _check_note_press("center");
 	pass
 func _up_pressed() -> void:
-	_check_note_press("up");
+	if bot_strumline: _bot_note_press("up");
+	else: _check_note_press("up");
 	pass
 func _right_pressed() -> void:
-	_check_note_press("right");
+	if bot_strumline: _bot_note_press("right");
+	else: _check_note_press("right");
 	pass
 
 func _on_tree_exiting() -> void:

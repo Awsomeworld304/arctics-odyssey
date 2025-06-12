@@ -11,6 +11,7 @@ class_name Stage
 
 # ---- RHYTHM ----
 @onready var player_strum:Strumline = $"PlayerController/Strumline" as Strumline;
+@onready var opp_strum:Strumline = $"OpponentStrumline" as Strumline;
 
 # ---- DEVELOPER MENU ----
 @onready var dev_songName:Label = $"DevMenu/songname" as Label;
@@ -28,7 +29,10 @@ func load_song(chart_path:String) -> void:
 	chartData = Chart._parse_chart(chart_path);
 	Conductor.bpm = chartData.song_bpm;
 	Conductor.scroll_speed = chartData.note_speed;
+	
 	player_strum.load_chart(chartData);
+	opp_strum.load_chart(Chart._parse_chart(chart_path));
+	
 	Conductor.stop();
 	dev_songName.text = chartData.song.capitalize();
 	Conductor.play();
@@ -73,7 +77,17 @@ func _on_tree_exiting() -> void:
 
 # -------- TESTING! REMOVE AFTER DEV! --------
 var is_dragging:bool = false;
-func drag_started() -> void: is_dragging = true;
+var prev_paused:bool = false;
+
+func drag_started() -> void:
+	if Conductor.is_playing:
+		prev_paused = false;
+		Conductor.pause();
+		dev_state.text = "Paused";
+		pass
+	elif Conductor.is_paused: prev_paused = true;
+	is_dragging = true;
+	pass
 
 func format_time(seconds:float) -> String:
 	return "%d:%02d" % [(int(seconds) / 60), (int(seconds) % 60)];
@@ -84,8 +98,16 @@ func update_dev_menu() -> void:
 	pass
 
 func _on_time_slider_drag_ended(value_changed: bool) -> void:
-	is_dragging = false;
+	# Set the position.
 	Conductor.set_song_position(dev_timeSlider.value);
+	is_dragging = false;
+	# Position is updated, so update UI to match.
+	dev_timeSlider.value = Conductor.position;
+	
+	if !prev_paused:
+		Conductor.pause();
+		dev_state.text = "Playing";
+		pass
 	pass
 
 func _on_play_button_up() -> void:
@@ -104,10 +126,18 @@ func _on_pause_button_up() -> void:
 	pass
 
 func _on_stop_button_up() -> void:
-	Conductor.stop();
+	dev_timeSlider.value = Conductor.position;
+	Conductor.stop(true);
 	player_strum.reset();
-	load_song("");
-	if Conductor.is_playing: dev_state.text = "Playing";
-	elif Conductor.is_paused: dev_state.text = "Paused";
-	else: dev_state.text = "Stopped";
+	opp_strum.reset();
+	is_dragging = false;
+	prev_paused = false;
+	dev_state.text = "Stopped";
+	dev_timeSlider.value = 0;
 	pass
+
+
+func _on_time_slider_value_changed(value: float) -> void:
+	if Conductor.is_playing and !Conductor.is_paused: return;
+	Conductor.position = value;
+	pass # Replace with function body.

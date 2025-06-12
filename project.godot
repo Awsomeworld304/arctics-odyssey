@@ -75,6 +75,11 @@ up="UP NOTE"
 center="CENTER NOTE"
 right="RIGHT NOTE"
 strum="STRUM KEY"
+bot_left=""
+bot_up=""
+bot_center=""
+bot_down=""
+bot_right=""
 
 [input]
 

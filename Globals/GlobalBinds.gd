@@ -1,4 +1,4 @@
-# Copyright (C) 2024 JamesTech4849
+# Copyright (C) 2024 - 2025 JamesTech4849
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -16,19 +16,18 @@
 extends Node
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN);
-	pass # Replace with function body.
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN);
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if Input.is_action_pressed("fullscreen"):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("fullscreen"):
 		if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN);
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
-		print("FULLSCREEN");
-		
+		if Settings.debug: print("FULLSCREEN");
+	pass
+
+func _process(_delta):
 	pass

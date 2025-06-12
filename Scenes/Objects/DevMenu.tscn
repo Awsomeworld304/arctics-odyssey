@@ -26,6 +26,11 @@ func _on_scripteditor_button_up() -> void:
 func _on_charteditor_button_up() -> void:
 	LevelManager.load_scene(\"ChartEditor\");
 	pass # Replace with function body.
+
+
+func _on_teststage_button_up() -> void:
+	LevelManager.load_scene(\"test_stage\", false, true);
+	pass # Replace with function body.
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnptj"]
@@ -116,6 +121,23 @@ text = "-- Scenes --"
 label_settings = SubResource("LabelSettings_svfpo")
 horizontal_alignment = 1
 
+[node name="teststage" type="Button" parent="menu/scenes"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 68.0
+offset_top = 76.3692
+offset_right = 164.0
+offset_bottom = 100.369
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_u0o8h")
+theme_override_font_sizes/font_size = 16
+text = "Test Stage"
+
 [node name="scripteditor" type="Button" parent="menu/scenes"]
 layout_mode = 1
 anchors_preset = 8
@@ -124,9 +146,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 68.0
-offset_top = 84.4
+offset_top = 116.523
 offset_right = 164.0
-offset_bottom = 108.4
+offset_bottom = 140.523
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_u0o8h")
@@ -141,14 +163,15 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 68.0
-offset_top = 124.554
+offset_top = 156.677
 offset_right = 164.0
-offset_bottom = 148.554
+offset_bottom = 180.677
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_u0o8h")
 theme_override_font_sizes/font_size = 16
 text = "Chart Editor"
 
+[connection signal="button_up" from="menu/scenes/teststage" to="." method="_on_teststage_button_up"]
 [connection signal="button_up" from="menu/scenes/scripteditor" to="." method="_on_scripteditor_button_up"]
 [connection signal="button_up" from="menu/scenes/charteditor" to="." method="_on_charteditor_button_up"]
