@@ -1,11 +1,10 @@
 class_name Chart
 extends Node
 
+## The notes in the chart.
+@export var notes:Array[Note];
 ## The path to the chart.
 @export var chart_path:String;
-var _chart:Dictionary;
-var notes:Array[Note];
-
 ## The song name.
 @export var song:String = "";
 ## Chart Characters
@@ -25,7 +24,14 @@ var notes:Array[Note];
 
 func _init(chart_path:String = "") -> void:
 	if chart_path != "":
-		#_chart = _parse_chart(chart_path);
+		var _chart:Chart = Chart._parse_chart(chart_path);
+		song = _chart.song;
+		song_bpm = _chart.song_bpm;
+		events = _chart.events;
+		chart_format_version = _chart.chart_format_version;
+		chart_version = _chart.chart_version;
+		note_speed = _chart.note_speed;
+		notes = _chart.notes;
 		pass
 	pass
 
@@ -126,23 +132,30 @@ static func _parse_chart(path:String) -> Chart:
 	else: chart.song = "NULL";
 	
 	if chart.chart_format_version != parsed_data["chart_format_version"] as int:
-		push_error("Chart -> Parse: ERROR, CHART FORMAT IS NOT LATEST");
+		push_error("Chart -> Parse: CHART FORMAT IS NOT LATEST!");
 		pass
 	
-	chart.chart_version = parsed_data["chart_version"] as int;
+	if parsed_data["chart_version"] != null: chart.chart_version = parsed_data["chart_version"];
+	else: push_error("Chart -> Parse: Chart version is null!"); chart.chart_version = 0;
 	chart.chart_path = path;
+	
+	if parsed_data["song_bpm"] != null: chart.song_bpm = parsed_data["song_bpm"];
+	else: push_error("Chart -> Parse: Chart bpm is null!"); chart.song_bpm = 100;
+	
+	if parsed_data["note_speed"] != null: chart.note_speed = parsed_data["note_speed"];
+	else: push_error("Chart -> Parse: Chart note speed is null!"); chart.note_speed = 1;
 
+	if chart.notes == null: chart.notes = [];
 	if parsed_data["notes"] != null:
 		for note_data in parsed_data["notes"]:
-			print(note_data);
 			var note:Note = Note.new();
-			print(note_data);
 			note.time = note_data["time"] as float;
-			note.key_name = note_data["key_name"] as String;
-			note.type = note_data["type"] as String;
+			note.key_name = note_data["key_name"] as StringName;
+			note.type = note_data["type"] as StringName;
 			chart.notes.append(note);
 			pass
 		pass
+	else: push_error("Chart -> Parse: Notes are null!");
 	
 	if parsed_data["events"] != null:
 		for event_data in parsed_data["events"]:
@@ -175,6 +188,10 @@ func _save_chart(path:String = "") -> void:
 
 	var data:Dictionary = {
 		"song": song,
+		"song_bpm": song_bpm,
+		"note_speed": note_speed,
+		"chart_version": chart_version,
+		"chart_format_version": chart_format_version,
 		"characters": saved_chars,
 		"notes": notes_dict
 	};

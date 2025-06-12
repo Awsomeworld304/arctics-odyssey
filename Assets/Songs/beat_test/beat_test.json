@@ -2,22 +2,29 @@
 	"song": "Beat Test",
 	"chart_version": 0,
 	"chart_format_version": 0,
+	"song_bpm": 100,
+	"note_speed": 1,
 	"characters": ["none"],
 	"notes": [
 		{
 			"key_name": "left",
 			"type": "normal",
-			"time": 1.0
+			"time": 2.4
 		},
 		{
 			"key_name": "center",
 			"type": "normal",
-			"time": 2.0
+			"time": 3.0
 		},
 		{
 			"key_name": "up",
 			"type": "normal",
-			"time": 3.0
+			"time": 3.6
+		},
+		{
+			"key_name": "right",
+			"type": "normal",
+			"time": 4.2
 		}
 	],
 	"events": [
@@ -25,7 +32,7 @@
 			"event": "CameraFocus",
 			"speed": 2,
 			"character": "none",
-			"time": 1.0
+			"time": 2.4
 		}
 	]
 }

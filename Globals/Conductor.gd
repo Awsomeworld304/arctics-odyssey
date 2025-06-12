@@ -1,4 +1,4 @@
-# Copyright (C) 2024 JamesTech4849
+# Copyright (C) 2024 - 2025 JamesTech4849
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -28,21 +28,28 @@ signal eighth_will_pass(beat:int, fract:int); # 1/2 Step
 signal twelth_will_pass(beat:int, fract:int); # 3/4 Step
 signal sixteenth_will_pass(beat:int, fract:int); # Step
 
+## The current beat.
 @export var curr_beat:float = 0;
 @export var curr_beat_without_latency:float = 0;
+## Beats per minute for the current song.
 @export var bpm:float = 100;
+## Flag for status on if the song is playing.
 @export var is_playing:bool = false;
+## Flag for status on if the song is paused, but not stopped.
 @export var is_paused:bool = false;
+## The audio offset in milliseconds.
 @export var audio_offset_ms:int = 0;
+## The video offset in milliseconds.
 @export var visual_offset_ms:int = 0;
 
 ## Song position in seconds.
 var position:float = 0.0;
 ## Scroll speed modifier.
-var scroll_speed:float = 4;
+var scroll_speed:float = 1;
 ## Scroll speed multiplier, do not touch this!
 var _offset_scroll_modifier:int = 100;
 
+## The audio handle for the current song.
 @onready var player:AudioStreamPlayer;
 
 # Caching this since getting output latency is expensive.
@@ -90,30 +97,34 @@ class BeatIncrementor:
 			pass
 		pass
 	pass
-			
-
 
 func _ready() -> void:
 	pass
 
-
-func play() -> void:
+func setup() -> void:
 	if player == null: return;
 	_activated = true;
 	_prev_time_seconds = -_cached_latency - 0.001;
 	curr_beat = _prev_time_seconds / 60 * bpm;
 	_loops = 0;
 	_num_beats_in_song = round(player.stream.get_length() / 60 * bpm);
+	pass
+
+func play() -> void:
+	if player == null: return;
+	setup();
 	#await get_tree().create_timer(3).timeout;
 	player.play();
 	is_playing = true;
 	pass
 
 ## Stops the current song but does not flush variables.
-func stop() -> void:
+func stop(clear_song:bool = false) -> void:
 	if player == null: return;
 	player.stop();
 	is_playing = false;
+	_activated = false;
+	if clear_song: setup();
 	pass
 
 ## Pauses and resumes the song.
@@ -125,10 +136,14 @@ func pause() -> bool:
 	is_playing = !is_paused;
 	return is_paused;
 
-	
 func get_beat_time() -> float:
 	return 60 / bpm;
 
+## Set the position of the song in seconds.
+func set_song_position(pos:float) -> void:
+	player.seek(pos);
+	Conductor.position = pos;
+	pass
 
 func _process(_delta:float) -> void:
 	if player == null: return;

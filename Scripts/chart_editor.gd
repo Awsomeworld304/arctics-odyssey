@@ -1,22 +1,21 @@
 extends Node2D
 
+# Strumline Stuff
 @onready var player:AudioStreamPlayer = $"Player" as AudioStreamPlayer;
 @onready var strum:Strumline = $"hud/player/Strumline" as Strumline;
-"""
-@onready var s_LEFT:AnimatedSprite2D = $"hud/player/Strumline/left" as AnimatedSprite2D;
-@onready var s_DOWN:AnimatedSprite2D = $"hud/player/Strumline/down" as AnimatedSprite2D;
-@onready var s_CENTER:AnimatedSprite2D = $"hud/player/Strumline/center" as AnimatedSprite2D;
-@onready var s_UP:AnimatedSprite2D = $"hud/player/Strumline/up" as AnimatedSprite2D;
-@onready var s_RIGHT:AnimatedSprite2D = $"hud/player/Strumline/right" as AnimatedSprite2D;
-"""
-@onready var ui_RATING:Label = $"hud/Rating" as Label;
+@onready var ui_RATING:Label = $"hud/player/Strumline/Rating" as Label;
+
+# UI Stuff
+@onready var songName:Label = $main/ChartMenu/Chart/ChartName as Label;
 
 ## How many notes have been hit.
 var hit_notes:int = 0;
-var hit_window:float = 0.128; # 64ms
+
+## Path to current chart.
+var current_chart:String = "";
 
 func sec_to_px(note:Note) -> float:
-	return note.data.time * (Conductor.bpm/60) * (Conductor._offset_scroll_modifier * Conductor.scroll_speed);
+	return note.time * (Conductor.bpm/60) * (Conductor._offset_scroll_modifier * Conductor.scroll_speed);
 
 func px_to_sec(px:float) -> float:
 	return px / (Conductor.bpm/60) / (Conductor._offset_scroll_modifier * Conductor.scroll_speed);
@@ -29,6 +28,24 @@ func _enter_tree() -> void:
 	pass
 
 func on_hit_note(note:Note) -> void:
+	hit_notes += 1;
+	pass
+
+func load_song(chart_path:String) -> void:
+	var chartData:Chart = Chart.new();
+	
+	chartData = Chart._parse_chart(chart_path);
+	Conductor.bpm = chartData.song_bpm;
+	Conductor.scroll_speed = chartData.note_speed;
+	strum.load_chart(chartData);
+	Conductor.stop();
+	songName.text = chartData.song.capitalize();
+	Conductor.play();
+	Conductor.pause();
+	Conductor.position = 0;
+	pass
+
+func spawn_stage() -> void:
 	pass
 
 func _ready() -> void:
@@ -40,14 +57,7 @@ func _ready() -> void:
 	_s = Conductor.quarter_will_pass.connect(_beat_pass);
 	strum.note_hit.connect(on_hit_note);
 	
-	var chartData:Chart = Chart.new();
-	
-	chartData = chartData._parse_chart("user://Mods/Songs/beat_test/beat_test.json");
-	strum.load_chart(chartData);
-	print(chartData.notes);
-	
-	Conductor.play();
-	Conductor.pause();
+	load_song("user://Mods/Songs/beat_test/beat_test.json");
 	pass
 
 var total_beat:int = 0;

@@ -73,6 +73,7 @@ bg_color = Color(0.25, 0.0820312, 0.0820312, 1)
 
 [node name="ChartEditor" type="Node2D"]
 script = ExtResource("1_67anw")
+metadata/_edit_lock_ = true
 
 [node name="Player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_akv22")
@@ -899,7 +900,6 @@ metadata/_custom_type_script = "uid://bnru5lmcpyjia"
 [node name="Strumline" type="Node2D" parent="hud/player"]
 position = Vector2(96, 32)
 script = ExtResource("5_gk37r")
-metadata/_edit_lock_ = true
 
 [node name="left" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
 position = Vector2(-68, 0)
@@ -936,16 +936,16 @@ scale = Vector2(0.988889, 1)
 points = PackedVector2Array(-1.01123, 0, -90, 0, 87.9775, 0)
 width = 2.0
 
-[node name="Rating" type="Label" parent="hud"]
+[node name="Rating" type="Label" parent="hud/player/Strumline"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -96.0
-offset_top = -92.0
+offset_top = 56.0
 offset_right = 96.0
-offset_bottom = -66.0
+offset_bottom = 82.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

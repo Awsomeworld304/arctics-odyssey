@@ -28,17 +28,18 @@ extends AnimatedSprite2D
 ### --- END SAVED DATA ---
 
 ## The exact time in MS that the note was hit.
-var hit_time:float = 0;
+var hit_time:float = -32;
 var frames:SpriteFrames = preload("res://Assets/sprite/note.tres");
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sprite_frames = frames;
 	animation = key_name;
-	pass # Replace with function body.
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Conductor.is_playing: self.position.y -= (Conductor._offset_scroll_modifier * Conductor.scroll_speed) * (Conductor.bpm / 60.0) * delta;
+	self.position.y = (self.time - Conductor.position) * (Conductor.bpm / 60.0) * Conductor._offset_scroll_modifier * Conductor.scroll_speed;
+	
+	# Really hacky, find a better way.
+	if self.position.y <= -32: self.visible = false;
+	elif hit_time == -32: self.visible = true;
 	pass
