@@ -6,12 +6,18 @@ A side scrolling, story packed, rhythm game.
 The rhythm aspect is focused in five key StepMania like gameplay, with songs that you play through while managing enemies in battle scenarios.
 <!-- The story revolves around an arctic fox.\
 More story info is to be made available. (Don't want to spoil the story yet!)\ -->
-This project is quite ambitious and needs a lot more resources and work which needs to be worked out and planned accordingly.
+This project is quite ambitious and it's going to take a while to finish.
 
 ## Status
 Currently in pre-alpha.\
 LOTS of things are subject to change.\
 The base rhythm engine is being developed.
+UPDATE: I'm happy to report that the underlying note system is in working order and playable.
+
+## Contributing
+I'd be honoured if you want to help me!\
+If you want to fix a bug, fork this repo, fix it, and submit a PR.\
+If it's more complex than that, then just shoot me a message on Discord! (jamestech4849)
 
 ## Credits
-JamesTech4849 - Owner, Programmer, Pixel Artist. (jamesprototech, Awsomeworld304)
+JamesTech4849 - Owner, Programmer, Pixel Artist. (Awsomeworld304)
