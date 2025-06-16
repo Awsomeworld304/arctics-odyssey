@@ -55,7 +55,7 @@ func _ready() -> void:
 	
 	var _s:int = Conductor.sixteenth_will_pass.connect(_step_pass);
 	_s = Conductor.quarter_will_pass.connect(_beat_pass);
-	strum.note_hit.connect(on_hit_note);
+	_s = strum.note_hit.connect(on_hit_note);
 	
 	load_song("user://Mods/Songs/beat_test/beat_test.json");
 	pass

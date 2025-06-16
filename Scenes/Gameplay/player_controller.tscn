@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://xniwcwhllhj1"]
+[gd_scene load_steps=8 format=3 uid="uid://xniwcwhllhj1"]
 
 [ext_resource type="Script" uid="uid://byhh3wexdca1b" path="res://Scripts/Objects/strumline.gd" id="1_0a6f8"]
 [ext_resource type="PackedScene" uid="uid://cjqoeju3yisxe" path="res://Scenes/Objects/strum.tscn" id="2_1arbv"]
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_xs2hv"]
-[ext_resource type="Texture2D" uid="uid://ck0m1167l3ltb" path="res://Assets/Images/HUD/hp_bar.png" id="4_xs2hv"]
 [ext_resource type="Texture2D" uid="uid://c5fdgbinerd8f" path="res://Assets/Images/HUD/strum_top_bar.png" id="5_exkhd"]
+[ext_resource type="Texture2D" uid="uid://ryhsqf3ls83i" path="res://Assets/Images/HUD/hp_bar_under.png" id="5_lu5jg"]
+[ext_resource type="Texture2D" uid="uid://edfv4itm6vto" path="res://Assets/Images/HUD/hp_bar_over.png" id="6_nub22"]
+[ext_resource type="Texture2D" uid="uid://b485gp8o1e71b" path="res://Assets/Images/HUD/hp_bar_fill.png" id="7_6nbko"]
 
 [node name="PlayerController" type="Control"]
 layout_mode = 3
@@ -85,11 +87,19 @@ offset_right = 18.0
 offset_bottom = 56.0
 color = Color(0, 0, 0, 1)
 
-[node name="HpBar" type="Sprite2D" parent="."]
-position = Vector2(102, 40)
-scale = Vector2(2, 2)
-texture = ExtResource("4_xs2hv")
-
 [node name="StrumTopBar" type="Sprite2D" parent="."]
 position = Vector2(0, -32)
 texture = ExtResource("5_exkhd")
+
+[node name="HPBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 86.0
+offset_top = -24.0
+offset_right = 118.0
+offset_bottom = 104.0
+value = 50.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("5_lu5jg")
+texture_over = ExtResource("6_nub22")
+texture_progress = ExtResource("7_6nbko")

@@ -63,10 +63,10 @@ func _process(_delta: float) -> void:
 	update_dev_menu();
 	pass
 
-func _beat_pass(beat: int) -> void:
+func _beat_pass(_beat: int) -> void:
 	pass
 
-func _step_pass(beat:int, fract:int) -> void:
+func _step_pass(_beat:int, _fract:int) -> void:
 	pass
 
 func _on_tree_exiting() -> void:
