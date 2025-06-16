@@ -37,7 +37,7 @@ signal note_hit(note:Note);
 signal note_miss(note:Note);
 
 func _init(is_bot_strumline:bool = false) -> void:
-	is_bot_strumline = bot_strumline;
+	bot_strumline = is_bot_strumline;
 	pass
 
 func sec_to_px(note:Note) -> float:
