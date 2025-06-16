@@ -134,12 +134,12 @@ func stop(clear_song:bool = false) -> void:
 
 ## Pauses and resumes the song.
 ## Returns ```is_paused```.
-func pause() -> bool:
-	if player == null: return false;
+func pause() -> void:
+	if player == null: return;
 	is_paused = !is_paused;
 	is_playing = !is_paused;
 	player.stream_paused = is_paused;
-	return is_paused;
+	pass
 
 func get_beat_time() -> float:
 	return 60 / bpm;

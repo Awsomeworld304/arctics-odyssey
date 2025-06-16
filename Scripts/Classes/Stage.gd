@@ -20,7 +20,7 @@ class_name Stage
 @onready var dev_state:Label = $"DevMenu/playing_state" as Label;
 var dev_song_length:int = 0;
 
-func on_hit_note(note:Note) -> void:
+func on_hit_note(_note:Note) -> void:
 	pass
 
 func load_song(chart_path:String) -> void:
@@ -41,7 +41,7 @@ func load_song(chart_path:String) -> void:
 	
 	# ---- DEV ----
 	dev_timeSlider.max_value = player.stream.get_length();
-	dev_song_length = player.stream.get_length();
+	dev_song_length = int(player.stream.get_length());
 	pass
 
 func _ready() -> void:
@@ -49,16 +49,16 @@ func _ready() -> void:
 	
 	var _s:int = Conductor.sixteenth_will_pass.connect(_step_pass);
 	_s = Conductor.quarter_will_pass.connect(_beat_pass);
-	player_strum.note_hit.connect(on_hit_note);
+	_s = player_strum.note_hit.connect(on_hit_note);
 	
 	# ---- DEV
-	dev_timeSlider.drag_started.connect(drag_started);
+	_s = dev_timeSlider.drag_started.connect(drag_started);
 	# ----
 	
 	load_song("user://Mods/Songs/beat_test/beat_test.json");
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# ---- DEV ----
 	update_dev_menu();
 	pass
@@ -90,14 +90,14 @@ func drag_started() -> void:
 	pass
 
 func format_time(seconds:float) -> String:
-	return "%d:%02d" % [(int(seconds) / 60), (int(seconds) % 60)];
+	return "%d:%02d" % [(floor(seconds) / 60), floor(int(seconds) % 60)];
 
 func update_dev_menu() -> void:
 	if !is_dragging: dev_timeSlider.value = Conductor.position;
 	dev_timeLabel.text = "[%s / %s]" % [format_time(Conductor.position), format_time(dev_song_length)];
 	pass
 
-func _on_time_slider_drag_ended(value_changed: bool) -> void:
+func _on_time_slider_drag_ended(_value_changed: bool) -> void:
 	# Set the position.
 	Conductor.set_song_position(dev_timeSlider.value);
 	is_dragging = false;

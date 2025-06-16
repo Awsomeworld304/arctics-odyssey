@@ -185,11 +185,11 @@ func calculate_note(note:Note, hit_time:float) -> void:
 	var rating:String = "ERROR";
 	
 	var diff:float = abs(note.time - hit_time);
-	if diff <= 0.016: rating = "Marvelous";
+	if diff   <= 0.016: rating = "Marvelous";
 	elif diff <= 0.032: rating = "Perfect";
 	elif diff <= 0.064: rating = "Good";
 	elif diff <= 0.128: rating = "Bad";
-	else: rating = "What? " + var_to_str(diff);
+	else: rating = "What?\n" + var_to_str(diff);
 		
 	ui_RATING.text = rating;
 	ui_RATING.create_tween().stop();
@@ -198,14 +198,10 @@ func calculate_note(note:Note, hit_time:float) -> void:
 	tcolor.a = 0;
 	ui_RATING.modulate = color;
 	
-	# Neg if too late, pos if too early.
-	#var hit_offset:float = note.time - hit_time;
 	if !bot_strumline: hit_notes += 1;
 	note_hit.emit(note);
-	
-	##note.queue_free();
 	note.visible = false;
-	#note.modulate = Color.TRANSPARENT;
+
 	# Rating
 	var _t:PropertyTweener = get_tree().create_tween().tween_property(ui_RATING, "modulate", tcolor, 0.25);
 	pass
