@@ -14,9 +14,11 @@ func _process(delta: float) -> void:
 	pass
 
 func fix_scale() -> void:
-	cl.scale = Vector2(get_window().content_scale_size.x/640, get_window().content_scale_size.y/360);
-	cover.scale = Vector2(get_window().content_scale_size.x/640, get_window().content_scale_size.y/360);
-	cover.position.y = -cover.size.y;
+	if cl != null: 
+		cl.scale = Vector2(get_window().content_scale_size.x/640, get_window().content_scale_size.y/360);
+		cover.scale = Vector2(get_window().content_scale_size.x/640, get_window().content_scale_size.y/360);
+		cover.position.y = -cover.size.y;
+		pass
 	pass
 
 func get_anim() -> String:
@@ -27,7 +29,7 @@ func get_anim() -> String:
 
 func down() -> void:
 	fix_scale();
-	anim.play(get_anim());
+	if anim != null: anim.play(get_anim());
 	pass
 
 func up() -> void:

@@ -5,12 +5,25 @@ class_name Character
 @export var character_name:String = "";
 ## The primary color of the character for theming purposes.
 @export var character_color:Color = Color.WHITE;
+## Defines the character as a player.
+@export var isPlayer:bool = false;
+## Names for custom animations.
+@export var animation_names:Dictionary[String,String] = {
+	"idle": "idle",
+	"block": "block",
+	"attack": "attack"
+};
 
-# Called when the node enters the scene tree for the first time.
+@onready var sprite:AnimatedSprite2D = $"sprite" as AnimatedSprite2D;
+
+var frames:SpriteFrames;
+
+func _find_anim_paths() -> Dictionary[String,String]:
+	var anims:Dictionary[String,String] = animation_names.duplicate();
+	return anims;
+
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

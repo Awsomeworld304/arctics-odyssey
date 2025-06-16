@@ -138,7 +138,7 @@ grow_vertical = 0
 theme_override_fonts/normal_font = ExtResource("2_fw4gg")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[center][rainbow freq=0.2][wave amp=50.0 freq=10.0 connected=1] Version: 0.2
+text = "[center][rainbow freq=0.2][wave amp=50.0 freq=10.0 connected=1] Version: 0.0
 [center]Pre-Alpha"
 scroll_active = false
 

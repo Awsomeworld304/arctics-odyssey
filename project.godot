@@ -30,7 +30,6 @@ GlobalBinds="*res://Globals/GlobalBinds.gd"
 DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 StoryManager="*res://Globals/StoryManager.gd"
 BattleManager="*res://Globals/BattleManager.gd"
-AudioHandler="*res://Globals/AudioHandler.gd"
 ScriptManager="*res://Globals/ScriptManager.gd"
 CommandManager="*res://Globals/CommandManager.gd"
 CommandPrompt="*res://Globals/CommandPrompt.tscn"
@@ -38,6 +37,7 @@ TransitionLayer="*res://Globals/TransitionLayer.tscn"
 ErrorScene="*res://Globals/ErrorScene.tscn"
 Conductor="*res://Globals/Conductor.gd"
 FPS="*res://Globals/FPS/FPS.tscn"
+GlobalLoader="*res://Globals/GlobalLoader.gd"
 
 [debug]
 

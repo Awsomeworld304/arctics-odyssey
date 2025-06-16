@@ -16,42 +16,13 @@
 extends Node
 
 # General
-var inBattle = false;
+var in_battle = false;
+var current_battle:BattleInstance;
 
-var entities = [
-	"player",
-	"enemy"
-];
-
-# Player
-var PlayerHealth:int = 100;
-var PlayerMaxHealth:int = 100;
-var PlayerMana:int = 50;
-var PlayerMaxMana:int = 50;
-
-# Enemy
-var EnemyHealth:int = 100;
-var EnemyMaxHealth:int = 100;
-var EnemyMana:int = 50;
-var EnemyMaxMana:int = 50;
-var isBoss:bool = false;
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-func attack() -> void:
-	pass
-
-func block() -> void:
-	pass
-
-func add_mana(_amount:int, _entity:String = "player") -> void:
-	pass
+func start_battle(player:Character, opponent:Character) -> BattleInstance:
+	var new_battle:BattleInstance = BattleInstance.new();
 	
-func add_health(_amount:int) -> void:
-	pass
+	return new_battle;
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func end_battle() -> void:
 	pass

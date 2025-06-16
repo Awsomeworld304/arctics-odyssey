@@ -1,4 +1,4 @@
-# Copyright (C) 2024 JamesTech4849
+# Copyright (C) 2024 - 2025 JamesTech4849
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -16,7 +16,6 @@
 class_name Note
 extends AnimatedSprite2D
 
-### --- SAVED DATA ---
 ## The name of the note: ["left", "down", "center", "up", "right"].
 @export var key_name:StringName = "";
 ## Note type, currently only normal exists.
@@ -25,7 +24,6 @@ extends AnimatedSprite2D
 @export var time:float = 0.0;
 ## Events do not matter yet.
 #@export var events:Array[StringName] = [];
-### --- END SAVED DATA ---
 
 ## The exact time in MS that the note was hit.
 var hit_time:float = -32;
@@ -36,7 +34,11 @@ func _ready() -> void:
 	animation = key_name;
 	pass
 
-func _process(delta: float) -> void:
+func set_note(_name:String) -> void:
+	#nframes:SpriteFrames = load(res://)
+	pass
+
+func _process(_delta: float) -> void:
 	self.position.y = (self.time - Conductor.position) * (Conductor.bpm / 60.0) * Conductor._offset_scroll_modifier * Conductor.scroll_speed;
 	
 	# Really hacky, find a better way.

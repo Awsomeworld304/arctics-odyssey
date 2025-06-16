@@ -1,4 +1,4 @@
-# Copyright (C) 2024 JamesTech4849
+# Copyright (C) 2024 - 2025 JamesTech4849
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -16,14 +16,14 @@
 extends Node
 
 # Static Stuff
+const GAME_VERSION:int = 0;
+const chart_version:int = 0;
+## File Version - Used in case of the settings updating.
+const secret:int = 1;
+
 const save_file:String = "user://AO/EngineSettings.sav";
 const mod_file:String = "user://AO/ModSettings.sav";
 const save_dir:String = "user://AO/";
-
-const chart_version:int = 0;
-
-## File Version - Used in case of the settings updating.
-const secret:int = 1;
 
 var debug:bool = true;
 
@@ -167,24 +167,24 @@ func _load_mod_settings() -> Error:
 	return OK;
 
 func init_discord() -> void:
-	#DiscordRPC.app_id = 1276697909823279196;
-	#DiscordRPC.details = "In current developement." if debug else "In the Menus";
-	#DiscordRPC.state = ""
-	#DiscordRPC.large_image = "logo"
-	#DiscordRPC.large_image_text = ""
-	#DiscordRPC.small_image = ""
-	#DiscordRPC.small_image_text = "";
+	DiscordRPC.app_id = 1276697909823279196;
+	DiscordRPC.details = "In current developement." if debug else "In the Menus";
+	DiscordRPC.state = ""
+	DiscordRPC.large_image = "logo"
+	DiscordRPC.large_image_text = ""
+	DiscordRPC.small_image = ""
+	DiscordRPC.small_image_text = "";
 	pass
 
 ## Update the Discord RPC.[br]
 ## The defaut character [^] is used to indicate to keep using the previous config.
 func update_discord(details:String="^", state:String="^", l_img:String="^", l_img_txt:String="^", s_img:String="^", s_img_txt:String="^") -> void:
-	#DiscordRPC.details = details if !details.contains("^") else DiscordRPC.details;
-	#DiscordRPC.state = state if !state.contains("^") else DiscordRPC.state;
-	#DiscordRPC.large_image = l_img if !l_img.contains("^") else DiscordRPC.large_image;
-	#DiscordRPC.large_image_text = l_img if !l_img_txt.contains("^") else DiscordRPC.large_image_text;
-	#DiscordRPC.small_image = s_img if !s_img.contains("^") else DiscordRPC.small_image;
-	#DiscordRPC.small_image_text = s_img_txt if !s_img_txt.contains("^") else DiscordRPC.small_image_text;
+	DiscordRPC.details = details if !details.contains("^") else DiscordRPC.details;
+	DiscordRPC.state = state if !state.contains("^") else DiscordRPC.state;
+	DiscordRPC.large_image = l_img if !l_img.contains("^") else DiscordRPC.large_image;
+	DiscordRPC.large_image_text = l_img if !l_img_txt.contains("^") else DiscordRPC.large_image_text;
+	DiscordRPC.small_image = s_img if !s_img.contains("^") else DiscordRPC.small_image;
+	DiscordRPC.small_image_text = s_img_txt if !s_img_txt.contains("^") else DiscordRPC.small_image_text;
 	pass
 
 func change(key:String, value:String="", value2:String="", save_settings:bool=false) -> void:

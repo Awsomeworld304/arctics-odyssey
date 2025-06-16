@@ -71,7 +71,7 @@ layer = 4
 [node name="trans_color" type="ColorRect" parent="main"]
 offset_top = -360.0
 offset_right = 640.0
-color = Color(0.321569, 0.113725, 0.4, 1)
+color = Color(0.117647, 0.113725, 0.4, 1)
 
 [node name="anim" type="AnimationPlayer" parent="main"]
 root_node = NodePath("../..")

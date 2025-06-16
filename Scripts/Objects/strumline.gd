@@ -36,6 +36,10 @@ var hit_window:float = 0.128; # 64ms
 signal note_hit(note:Note);
 signal note_miss(note:Note);
 
+func _init(is_bot_strumline:bool = false) -> void:
+	is_bot_strumline = bot_strumline;
+	pass
+
 func sec_to_px(note:Note) -> float:
 	return note.time * (Conductor.bpm/60) * (Conductor._offset_scroll_modifier * Conductor.scroll_speed);
 
@@ -123,7 +127,7 @@ func bot_input() -> void:
 	if chart == null or chart.notes.size() == 0: return;
 	for note:Note in chart.notes:
 		if note.visible and note.hit_time == -32 and abs(note.time - Conductor.position) <= 0.016:
-			print("BOT calculate_note called for note at time: ", note.time);
+			#print("BOT calculate_note called for note at time: ", note.time);
 			Input.action_press("bot_" + note.key_name);
 			Input.action_release("bot_" + note.key_name);
 		pass
@@ -167,7 +171,7 @@ func _input(event: InputEvent) -> void:
 	pass
 
 func _process(_delta: float) -> void:
-	if bot_strumline: bot_input();
+	if bot_strumline and Conductor.is_playing: bot_input();
 	pass
 
 func note_is_in_range(note:Note, hit_time:float) -> bool:

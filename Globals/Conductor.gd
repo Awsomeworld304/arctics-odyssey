@@ -160,7 +160,7 @@ func _process(_delta:float) -> void:
 	
 	var time_seconds:float = (player.get_playback_position() + AudioServer.get_time_since_last_mix() - _cached_latency - audio_offset_ms / 1000.0);
 	
-	# Validation0
+	# Validation
 	if not _is_valid_update(time_seconds): return;
 
 	position = time_seconds;
@@ -174,8 +174,8 @@ func _process(_delta:float) -> void:
 		# inaccuracies with audio looping and the song itself
 		_prev_time_seconds -= _num_beats_in_song / bpm * 60;
 	
-	var beat = time_seconds / 60 * bpm;
-	var prev_beat = _prev_time_seconds / 60 * bpm;
+	var beat:float = time_seconds / 60 * bpm;
+	var prev_beat:float = _prev_time_seconds / 60 * bpm;
 	
 	# Now add additional beats from previous loops
 	beat += _loops * _num_beats_in_song;
@@ -201,7 +201,7 @@ func _process(_delta:float) -> void:
 	prev_beat += visual_offset_ms / 60000.0 * bpm;
 	
 	# Now adjust the time to be in the future
-	var latency_in_beats = _cached_latency / 60 * bpm;
+	var latency_in_beats:float = _cached_latency / 60 * bpm;
 	beat += latency_in_beats;
 	prev_beat += latency_in_beats;
 	
@@ -220,7 +220,7 @@ func _process(_delta:float) -> void:
 	_prev_time_seconds = time_seconds;
 	pass
 
-## Verifys the update is valid. True if the update is valid.
+## Verifies the update is valid. True if the update is valid.
 func _is_valid_update(time_seconds:float) -> bool:
 	return (
 		# Web issue fix.

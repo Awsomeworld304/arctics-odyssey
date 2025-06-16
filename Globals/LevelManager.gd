@@ -75,11 +75,12 @@ func reload(restart_to_main:bool = false) -> void:
 
 func quit(code:int = 0) -> void:
 	get_tree().quit(code);
+	pass
 
 func trans(level:String, global:bool = false, _trans:String = "default") -> void:
 	match _trans:
 		_:
-			FPS.fix_scale();
+			(FPS as Fps).fix_scale();
 			TransitionLayer.down();
 			await trans_anim.animation_finished;
 			change_level(level, false, global);

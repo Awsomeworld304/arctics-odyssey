@@ -1,4 +1,5 @@
 extends Control
+class_name Fps
 
 ## Prints more detailed information to the screen when enabled.
 @export var detailed_information:bool = false;
@@ -34,5 +35,5 @@ func _process(delta: float) -> void:
 	pass
 
 func fix_scale() -> void:
-	cl.scale = Vector2(get_window().content_scale_size.x/640, get_window().content_scale_size.y/360);
+	if cl != null: cl.scale = Vector2(get_window().content_scale_size.x/640, get_window().content_scale_size.y/360);
 	pass
