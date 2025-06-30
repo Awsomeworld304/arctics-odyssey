@@ -16,7 +16,7 @@
 extends Node
 
 # Static Stuff
-const GAME_VERSION:int = 0;
+const GAME_VERSION:String = "0.2";
 const chart_version:int = 0;
 ## File Version - Used in case of the settings updating.
 const secret:int = 1;
@@ -74,7 +74,7 @@ func _save_settings() -> Error:
 		if DirAccess.make_dir_absolute(save_dir) != OK: return DirAccess.get_open_error();
 	var save_write:FileAccess = FileAccess.open(save_file, FileAccess.WRITE);
 	var json_string:String = JSON.stringify(save_items);
-	save_write.store_line(json_string);
+	var _b:bool = save_write.store_line(json_string);
 	save_write.close();
 	if save_write.get_error() != OK && save_write.get_error() != null: return save_write.get_error();
 	elif save_write.get_error() == null: return FileAccess.get_open_error();
@@ -100,11 +100,11 @@ func _load_settings() -> Error:
 			var parse_result:Error = json.parse(json_pstring);
 			if not parse_result == OK:
 				print("JSON Parse Error: ", json.get_error_message(), " in ", json_pstring, " at line ", json.get_error_line());
-				#LevelManager.errCode = parse_result 
+				#LevelManager.errCode = parse_result
 				return parse_result;
-			
+
 			var parsed_data:Dictionary = json.get_data();
-			
+
 			# Check if save is the correct version.
 			if parsed_data["key"] != secret:
 				# Save file needs to update.
@@ -138,7 +138,7 @@ func _load_settings() -> Error:
 		2: DisplayServer.window_set_size(resolutions[2]);
 		3: DisplayServer.window_set_size(resolutions[3]);
 		_: DisplayServer.window_set_size(resolutions[0]);
-	
+
 	match fullscreen_mode:
 		0: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
 		1:
@@ -150,9 +150,9 @@ func _load_settings() -> Error:
 	match story_mode:
 		0: story = "Campaign";
 		_: story = "null";
-	
+
 	Engine.max_fps = max_framerate;
-	
+
 	# 0 DB Volume = Full volume. Higher than that will kill your ears. (100db, ouch).
 	if volume > 100:
 		volume = 100;
@@ -190,7 +190,7 @@ func update_discord(details:String="^", state:String="^", l_img:String="^", l_im
 func change(key:String, value:String="", value2:String="", save_settings:bool=false) -> void:
 	match key:
 		"max_framerate", "fps":
-			if value.is_empty() or int(value) <= 0: 
+			if value.is_empty() or int(value) <= 0:
 				max_framerate = 60;
 				Engine.max_fps = max_framerate;
 				printerr("Settings (change) -> Invalid Framerate! Using default. (60)");

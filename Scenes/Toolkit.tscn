@@ -1,0 +1,196 @@
+[gd_scene load_steps=6 format=3 uid="uid://bldflnb8g8wyt"]
+
+[ext_resource type="Script" uid="uid://b4yyu5qy1g77" path="res://Scripts/toolkit.gd" id="1_8moq3"]
+[ext_resource type="PackedScene" uid="uid://6e7l3l3q7g3h" path="res://Scenes/Objects/notes_parallax_bg.tscn" id="2_l2r27"]
+[ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="3_l2r27"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s3or5"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 0.705882)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2r27"]
+bg_color = Color(0.0820312, 0.0820312, 0.0820312, 1)
+
+[node name="Toolkit" type="Node2D"]
+script = ExtResource("1_8moq3")
+
+[node name="bg" parent="." instance=ExtResource("2_l2r27")]
+
+[node name="main" type="CanvasLayer" parent="."]
+
+[node name="mod_list" type="Panel" parent="main"]
+offset_right = 128.0
+offset_bottom = 360.0
+theme = ExtResource("3_l2r27")
+metadata/_edit_lock_ = true
+
+[node name="titlel" type="Label" parent="main/mod_list"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 32.0
+theme = ExtResource("3_l2r27")
+theme_override_font_sizes/font_size = 32
+text = "Mod List"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="bg" type="ColorRect" parent="main/mod_list/titlel"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 32.0
+color = Color(0, 0, 0, 0.65098)
+metadata/_edit_lock_ = true
+
+[node name="ProjectList" type="ItemList" parent="main/mod_list"]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 128.0
+offset_bottom = 184.0
+theme = ExtResource("3_l2r27")
+theme_override_styles/panel = SubResource("StyleBoxFlat_s3or5")
+metadata/_edit_lock_ = true
+
+[node name="PackList" type="ItemList" parent="main/mod_list"]
+layout_mode = 0
+offset_top = 184.0
+offset_right = 128.0
+offset_bottom = 360.0
+theme = ExtResource("3_l2r27")
+metadata/_edit_lock_ = true
+
+[node name="setup" type="Panel" parent="main"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_l2r27")
+metadata/_edit_lock_ = true
+
+[node name="title" type="Label" parent="main/setup"]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 32.0
+theme = ExtResource("3_l2r27")
+theme_override_font_sizes/font_size = 32
+text = "AO Mod Toolkit"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+metadata/_edit_lock_ = true
+
+[node name="bg" type="ColorRect" parent="main/setup/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 32.0
+color = Color(0, 0, 0, 0.65098)
+metadata/_edit_lock_ = true
+
+[node name="tool_menu" type="Panel" parent="main"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -140.0
+offset_right = 176.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_l2r27")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l2r27")
+metadata/_edit_lock_ = true
+
+[node name="bg" type="ColorRect" parent="main/tool_menu"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -144.0
+offset_top = -40.0
+offset_right = 496.0
+offset_bottom = 320.0
+color = Color(0, 0, 0, 0.690196)
+metadata/_edit_lock_ = true
+
+[node name="title" type="Label" parent="main/tool_menu"]
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 32.0
+theme = ExtResource("3_l2r27")
+theme_override_font_sizes/font_size = 32
+text = "Tool Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="bg" type="ColorRect" parent="main/tool_menu/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 32.0
+color = Color(0, 0, 0, 0.478431)
+metadata/_edit_lock_ = true
+
+[node name="hide" type="Button" parent="main/tool_menu"]
+layout_mode = 0
+offset_left = 320.0
+offset_right = 352.0
+offset_bottom = 32.0
+theme = ExtResource("3_l2r27")
+theme_override_font_sizes/font_size = 32
+text = "X"
+metadata/_edit_lock_ = true
+
+[node name="godot" type="Label" parent="main/tool_menu"]
+layout_mode = 0
+offset_top = 56.0
+offset_right = 124.0
+offset_bottom = 88.0
+theme = ExtResource("3_l2r27")
+theme_override_font_sizes/font_size = 32
+text = "Godot Editor 4.4"
+metadata/_edit_lock_ = true
+
+[node name="g_dl_progress" type="ProgressBar" parent="main/tool_menu/godot"]
+visible = false
+layout_mode = 0
+offset_left = 240.0
+offset_top = 8.0
+offset_right = 344.0
+offset_bottom = 25.0
+theme = ExtResource("3_l2r27")
+metadata/_edit_lock_ = true
+
+[node name="g_dl_button" type="Button" parent="main/tool_menu/godot"]
+visible = false
+layout_mode = 0
+offset_left = 240.0
+offset_top = 4.0
+offset_right = 344.0
+offset_bottom = 28.0
+text = "Download Godot"
+metadata/_edit_lock_ = true
+
+[node name="g_dl_label" type="Label" parent="main/tool_menu/godot"]
+visible = false
+layout_mode = 0
+offset_left = 240.0
+offset_top = 4.0
+offset_right = 344.0
+offset_bottom = 28.0
+text = "Godot Downloaded"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[connection signal="button_up" from="main/tool_menu/hide" to="." method="_on_hide_button_up"]
+[connection signal="button_up" from="main/tool_menu/godot/g_dl_button" to="." method="_on_g_dl_button_button_up"]

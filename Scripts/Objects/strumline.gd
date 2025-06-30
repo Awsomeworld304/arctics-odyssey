@@ -22,8 +22,13 @@ class_name Strumline
 ## The currently loaded chart.
 @export var chart:Chart = null;
 
+## The strumline ID.
+@export var strumline_id:StringName = &"";
+
 ## How many notes have been hit.
 var hit_notes:int = 0;
+
+## The timing window of each note.
 var hit_window:float = 0.128; # 64ms
 
 @onready var left:Strum = $left as Strum;
@@ -31,13 +36,36 @@ var hit_window:float = 0.128; # 64ms
 @onready var center:Strum = $center as Strum;
 @onready var up:Strum = $up as Strum;
 @onready var right:Strum = $right as Strum;
-@onready var ui_RATING:Label = $Rating as Label; 
+
+@onready var ui_RATING:Label = $Rating as Label;
+@onready var ui_SLID:Label = $slidLabel as Label;
 
 signal note_hit(note:Note);
 signal note_miss(note:Note);
 
+var strumline_bit_pile:PackedStringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
+## Generates a new StrumLine ID in the form of a StringName.
+func generate_strumline_id() -> StringName:
+	var ts:String = "";
+	for _i:int in range(4):
+		ts += strumline_bit_pile[randi_range(0, strumline_bit_pile.size()-1)];
+		pass
+	if Settings.debug: print("Strumline -> GSLID: New ID: %s" % ts);
+	return StringName(ts);
+
 func _init(is_bot_strumline:bool = false) -> void:
-	bot_strumline = is_bot_strumline;
+	self.bot_strumline = is_bot_strumline;
+	self.strumline_id = generate_strumline_id();
+	pass
+
+func _enter_tree() -> void:
+	if get_tree().has_group(&"strumline"):
+		for strum:Strumline in (get_tree().get_nodes_in_group("strumline") as Array[Strumline]):
+			if !(strum is Strumline): return;
+			if self.strumline_id == strum.strumline_id: self.strumline_id = generate_strumline_id();
+			pass
+		pass
+	self.add_to_group("strumline");
 	pass
 
 func sec_to_px(note:Note) -> float:
@@ -76,23 +104,45 @@ func load_chart(new_chart:Chart) -> void:
 		
 	# Chart data is parsed, now to calculate the positions of each note.
 	for note:Note in self.chart.notes:
+		if bot_strumline: note.add_to_group(strumline_id + ".bot_note");
+		else: 
+			note.add_to_group(strumline_id + ".note");
+			note.miss_note.connect(note_miss.emit);
 		match(note.key_name):
 			"left":
-				note.add_to_group("bot_left" if bot_strumline else "left");
+				note.add_to_group((strumline_id + ".bot_left") if bot_strumline else (strumline_id + ".left"));
 				left.add_child(note);
 			"down":
-				note.add_to_group("bot_down" if bot_strumline else "down");
+				note.add_to_group((strumline_id + ".bot_down") if bot_strumline else (strumline_id + ".down"));
 				down.add_child(note);
 			"center":
-				note.add_to_group("bot_center" if bot_strumline else "center");
+				note.add_to_group((strumline_id + ".bot_center") if bot_strumline else (strumline_id + ".center"));
 				center.add_child(note);
 			"up":
-				note.add_to_group("bot_up" if bot_strumline else "up");
+				note.add_to_group((strumline_id + ".bot_up") if bot_strumline else (strumline_id + ".up"));
 				up.add_child(note);
 			"right":
-				note.add_to_group("bot_right" if bot_strumline else "right");
+				note.add_to_group((strumline_id + ".bot_right") if bot_strumline else (strumline_id + ".right"));
 				right.add_child(note);
 		note.position.y = sec_to_px(note);
+		pass
+	pass
+
+## TODO: make a soft reset that removes hit times of each note and reverses them with delta
+
+## Reset notes back to their initial state without removing them.
+func reset_notes() -> void:
+	if bot_strumline:
+		for note:Note in get_tree().get_nodes_in_group(strumline_id + ".bot_note") as Array[Note]:
+			if !(note is Note): return;
+			note.hit_time = -32;
+			pass
+		pass
+	else:
+		for note:Note in get_tree().get_nodes_in_group(strumline_id + ".note") as Array[Note]:
+			if !(note is Note): return;
+			note.hit_time = -32;
+			pass
 		pass
 	pass
 
@@ -152,6 +202,10 @@ func bot_input() -> void:
 
 func _ready() -> void:
 	ui_RATING.modulate = Color.TRANSPARENT;
+	if Settings.debug:
+		ui_SLID.visible = true;
+		ui_SLID.text = "SLID: " + strumline_id;
+		pass
 	if bot_strumline:
 		left.toggle_bot();
 		down.toggle_bot();
@@ -159,6 +213,7 @@ func _ready() -> void:
 		up.toggle_bot();
 		right.toggle_bot();
 		self.set_process_input(false);
+		pass
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -208,7 +263,7 @@ func calculate_note(note:Note, hit_time:float) -> void:
 
 # -------- Handler Functions --------
 func _check_note_press(note_group:StringName = "none") -> void:
-	for note:Note in get_tree().get_nodes_in_group(note_group) as Array[Note]:
+	for note:Note in get_tree().get_nodes_in_group(("%s.%s" % [strumline_id, note_group])) as Array[Note]:
 		if note is Note:
 			var ht:float = Conductor.position;
 			if note_is_in_range(note, ht):
@@ -216,7 +271,7 @@ func _check_note_press(note_group:StringName = "none") -> void:
 				pass
 			# Note is not hit.
 			else:
-				#if note.position.y < (-5*Conductor.scroll_speed): note.visible = false;
+				if note.position.y < (-5*Conductor.scroll_speed): print("Strumline -> Did press! Missed note?");
 				pass
 			pass
 		pass
@@ -224,7 +279,7 @@ func _check_note_press(note_group:StringName = "none") -> void:
 
 ## The bot version of _check_note_press. Makes sure it's only hitting bot notes.
 func _bot_note_press(note_group:StringName = "none") -> void:
-	for note:Note in get_tree().get_nodes_in_group("bot_" + note_group) as Array[Note]:
+	for note:Note in get_tree().get_nodes_in_group((strumline_id + ".bot_" + note_group)) as Array[Note]:
 		if note is Note and bot_strumline:
 			var ht:float = Conductor.position;
 			if note_is_in_range(note, ht):
@@ -256,9 +311,12 @@ func _right_pressed() -> void:
 	pass
 
 func _on_tree_exiting() -> void:
+	self.remove_from_group("strumline");
+	"""
 	if Conductor.player != null:
 		Conductor.player = null;
 		Conductor.is_paused = false;
 		Conductor.is_playing = false;
 		pass
+	"""
 	pass

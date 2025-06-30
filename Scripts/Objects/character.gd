@@ -18,8 +18,12 @@ class_name Character
 
 var frames:SpriteFrames;
 
+func _init(name:String = "", color:Color = Color.WHITE, player:bool = false) -> void:
+	pass
+
 func _find_anim_paths() -> Dictionary[String,String]:
 	var anims:Dictionary[String,String] = animation_names.duplicate();
+	
 	return anims;
 
 func _ready() -> void:

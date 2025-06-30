@@ -34,7 +34,7 @@ func preload_all_assets() -> void:
 
 ## Preload a single asset, cache it, return error code.
 func _preload_asset(asset_path: String, type_hint: String) -> Error:
-	var res = ResourceLoader.load(asset_path, type_hint);
+	var res:Resource = ResourceLoader.load(asset_path, type_hint);
 	if res == null:
 		push_error("Failed to preload asset: %s (type_hint: %s)" % [asset_path, type_hint]);
 		return ERR_CANT_OPEN;
@@ -53,14 +53,14 @@ func scan_all_assets_under_res() -> Array[String]:
 ## Adds files from dir_path (and subdirectories) to result array.
 func _scan_dir_for_assets(dir_path:String) -> Array[String]:
 	var result:Array[String] = [];
-	var dir = DirAccess.open(dir_path);
+	var dir:DirAccess = DirAccess.open(dir_path);
 	if not dir: return result;
 	for file:String in dir.get_files():
 		if SUPPORTED_EXTS.has(file.get_extension().to_lower()):
 			result.append((dir_path.path_join(file) as String));
 		else: continue;
 	var subdirs:PackedStringArray = dir.get_directories();
-	for subdir in subdirs: result.append_array(_scan_dir_for_assets(dir_path.path_join(subdir)));
+	for subdir:String in subdirs: result.append_array(_scan_dir_for_assets(dir_path.path_join(subdir)));
 	return result;
 
 ## Scans all assets under "res://" and adds them to asset_list with default values.

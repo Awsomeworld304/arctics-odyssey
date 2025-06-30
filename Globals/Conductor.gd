@@ -75,15 +75,15 @@ class BeatIncrementor:
 	var _signal:Signal;
 	var _last_beat:int = -1;
 	var _last_fract:int;
-	
-	
+
+
 	func _init(sig:Signal, fract_mod:int = 1) -> void:
 		_fract_mod = fract_mod;
 		_signal = sig;
 		_last_fract = fract_mod - 1;
 		pass
-	
-	
+
+
 	func increment_to(beat:int, fract:int = 0) -> void:
 		while beat > _last_beat or fract > _last_fract:
 			_last_fract += 1;
@@ -91,7 +91,7 @@ class BeatIncrementor:
 				_last_beat += 1;
 				_last_fract = 0;
 				pass
-			
+
 			if _fract_mod == 1: _signal.emit(_last_beat);
 			else: _signal.emit(_last_beat, _last_fract);
 			pass
@@ -157,14 +157,14 @@ func _process(_delta:float) -> void:
 	if player == null: return;
 	if not player.playing: is_playing = false;
 	if not is_playing or is_paused: return;
-	
+
 	var time_seconds:float = (player.get_playback_position() + AudioServer.get_time_since_last_mix() - _cached_latency - audio_offset_ms / 1000.0);
-	
+
 	# Validation
 	if not _is_valid_update(time_seconds): return;
 
 	position = time_seconds;
-	
+
 	if time_seconds - _prev_time_seconds < -5:
 		print("big reverse: prev=", _prev_time_seconds, " curr=", time_seconds, " delta=", _prev_time_seconds - time_seconds);
 		# Loop happened!
@@ -173,49 +173,49 @@ func _process(_delta:float) -> void:
 		# recommended to use song length directly as there can be small
 		# inaccuracies with audio looping and the song itself
 		_prev_time_seconds -= _num_beats_in_song / bpm * 60;
-	
+
 	var beat:float = time_seconds / 60 * bpm;
 	var prev_beat:float = _prev_time_seconds / 60 * bpm;
-	
+
 	# Now add additional beats from previous loops
 	beat += _loops * _num_beats_in_song;
 	prev_beat += _loops * _num_beats_in_song;
-	
+
 	# Apply visual beat offset
 	beat -= visual_offset_ms / 60000.0 * bpm;
 	prev_beat -= visual_offset_ms / 60000.0 * bpm;
-	
+
 	# Signal the beats that are happening (with offset)
 	curr_beat = beat
 	if floor(beat) > floor(prev_beat):
-		_quarter_passed_incrementor.increment_to(floor(beat));
+		_quarter_passed_incrementor.increment_to(floori(beat));
 	if floor(beat*2) > floor(prev_beat*2):
-		_eighth_passed_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 2));
+		_eighth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 2));
 	if floor(beat*3) > floor(prev_beat*3):
-		_twelth_passed_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 3));
+		_twelth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 3));
 	if floor(beat*4) > floor(prev_beat*4):
-		_sixteenth_passed_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 4));
-	
+		_sixteenth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 4));
+
 	# Unapply visual beat offset
 	beat += visual_offset_ms / 60000.0 * bpm;
 	prev_beat += visual_offset_ms / 60000.0 * bpm;
-	
+
 	# Now adjust the time to be in the future
 	var latency_in_beats:float = _cached_latency / 60 * bpm;
 	beat += latency_in_beats;
 	prev_beat += latency_in_beats;
-	
+
 	# Signal the beats that will happen soon
 	curr_beat_without_latency = beat;
 	if floor(beat) > floor(prev_beat):
-		_quarter_will_pass_incrementor.increment_to(floor(beat));
+		_quarter_will_pass_incrementor.increment_to(floori(beat));
 	if floor(beat*2) > floor(prev_beat*2):
-		_eighth_will_pass_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 2));
+		_eighth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 2));
 	if floor(beat*3) > floor(prev_beat*3):
-		_twelth_will_pass_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 3));
+		_twelth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 3));
 	if floor(beat*4) > floor(prev_beat*4):
-		_sixteenth_will_pass_incrementor.increment_to(floor(beat), floor((beat - floor(beat)) * 4));
-	
+		_sixteenth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 4));
+
 	# Keep track of the previous frame's time.
 	_prev_time_seconds = time_seconds;
 	pass

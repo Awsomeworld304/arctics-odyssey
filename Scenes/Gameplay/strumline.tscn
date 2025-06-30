@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1lafek1u43gi"]
+[gd_scene load_steps=5 format=3 uid="uid://b1lafek1u43gi"]
 
 [ext_resource type="Script" uid="uid://byhh3wexdca1b" path="res://Scripts/Objects/strumline.gd" id="1_nmekb"]
 [ext_resource type="PackedScene" uid="uid://cjqoeju3yisxe" path="res://Scenes/Objects/strum.tscn" id="2_qnfw2"]
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_3svu2"]
+[ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="4_j3q2p"]
 
-[node name="OpponentStrumline" type="Node2D"]
+[node name="Strumline" type="Node2D"]
 script = ExtResource("1_nmekb")
 
 [node name="left" parent="." instance=ExtResource("2_qnfw2")]
@@ -41,6 +42,17 @@ position = Vector2(5.96046e-08, 0)
 scale = Vector2(0.988889, 1)
 points = PackedVector2Array(-1.01123, 0, -90, 0, 87.9775, 0)
 width = 2.0
+metadata/_edit_lock_ = true
+
+[node name="slidLabel" type="Label" parent="."]
+offset_left = -80.0
+offset_top = -36.0
+offset_right = 80.0
+offset_bottom = -23.0
+theme = ExtResource("4_j3q2p")
+text = "SLID: null"
+horizontal_alignment = 1
+vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="Rating" type="Label" parent="."]

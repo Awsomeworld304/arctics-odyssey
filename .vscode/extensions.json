@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "aaron-bond.better-comments",
+        "streetsidesoftware.code-spell-checker",
+        "geequlim.godot-tools",
+        "alfish.godot-files",
+        "christian-kohler.path-intellisense",
+        "minherz.copyright-inserter",
+        "editorconfig.editorconfig"
+    ]
+}

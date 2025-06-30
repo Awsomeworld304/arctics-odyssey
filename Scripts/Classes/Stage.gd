@@ -21,6 +21,11 @@ class_name Stage
 var dev_song_length:int = 0;
 
 func on_hit_note(_note:Note) -> void:
+	print("Stage -> Hit Note");
+	pass
+
+func on_miss_note(_note:Note) -> void:
+	print("Stage -> Miss Note");
 	pass
 
 func load_song(chart_path:String) -> void:
@@ -50,6 +55,7 @@ func _ready() -> void:
 	var _s:int = Conductor.sixteenth_will_pass.connect(_step_pass);
 	_s = Conductor.quarter_will_pass.connect(_beat_pass);
 	_s = player_strum.note_hit.connect(on_hit_note);
+	_s = player_strum.note_miss.connect(on_miss_note);
 	
 	# ---- DEV
 	_s = dev_timeSlider.drag_started.connect(drag_started);
@@ -70,9 +76,11 @@ func _step_pass(_beat:int, _fract:int) -> void:
 	pass
 
 func _on_tree_exiting() -> void:
-	Conductor.player = null;
-	Conductor.is_paused = false;
-	Conductor.is_playing = false;
+	if Conductor.player != null:
+		Conductor.player = null;
+		Conductor.is_paused = false;
+		Conductor.is_playing = false;
+		pass
 	pass
 
 # -------- TESTING! REMOVE AFTER DEV! --------

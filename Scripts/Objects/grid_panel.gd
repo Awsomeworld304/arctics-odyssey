@@ -16,6 +16,12 @@ class_name GridPanel
 		update_grid();
 		pass
 
+@export var grid_width_center:bool = false:
+	set(value):
+		grid_width_center = value;
+		update_grid();
+		pass
+
 ## First grid color.
 @export var grid_color:Color = Color.WEB_GRAY;
 ## Second grid color.
@@ -37,43 +43,45 @@ func _draw() -> void:
 	pass
 
 ## Updates grid panel. If value is 0, it'll default to the previously set size.
-func update_grid(width:int = 0, height:int = 0) -> void:
+func update_grid(_width:int = 0, _height:int = 0) -> void:
 	if self.get_child_count() > 0:
-		for child in self.get_children(): child.queue_free();
+		for child:Node in self.get_children(): child.queue_free();
 		pass
-	
+
 	# Vertical Grid
-	for i in range(grid_height):
+	for i:int in range(grid_height):
 		# H Grid
-		for j in range(grid_width):
-			
+		for j:int in range(grid_width):
 			if i == 0:
-				var panel:ColorRect = ColorRect.new();
-				panel.set_size(_tile_size);
-				panel.position.x = (_tile_size.x + tile_offset.x) * j;
-				panel.position.y = (_tile_size.y + tile_offset.y) * -1;
-				panel.color = Color.from_string("470606", Color.WEB_MAROON);
-				self.add_child(panel);
+				var wpanel:ColorRect = ColorRect.new();
+				wpanel.name = "grid_panel_" + str(i) + "_" + str(j);
+				wpanel.set_size(_tile_size);
+				wpanel.position.x = (_tile_size.x + tile_offset.x) * j;
+				wpanel.position.y = (_tile_size.y + tile_offset.y) * -1;
+				wpanel.color = Color.from_string("470606", Color.WEB_MAROON);
+				self.add_child(wpanel);
 				pass
-			
+
 			var panel:ColorRect = ColorRect.new();
-		
+			panel.name = "grid_panel_" + str(i) + "_" + str(j);
+
 			panel.set_size(_tile_size);
 			panel.position.x = (_tile_size.x + tile_offset.x) * j;
 			panel.position.y = (_tile_size.y + tile_offset.y) * i;
-		
+
 			if i % 2 == 0 && j % 2 != 0: panel.color = grid_color_sec;
 			elif i % 2 != 0 && j % 2 == 0: panel.color = grid_color_sec;
 			else: panel.color = grid_color;
-			
+
 			#var v:VisibleOnScreenEnabler2D = VisibleOnScreenEnabler2D.new();
 			#v.rect = panel.get_rect();
 			#v.enable_node_path = NodePath(panel.get_path());
 			#panel.add_child(v);
 			panel.add_child((VisibleOnScreenEnabler2D.new()));
-			(panel.get_child(0) as VisibleOnScreenEnabler2D).rect.size = panel.size - Vector2(2,2);
-			(panel.get_child(0) as VisibleOnScreenEnabler2D).rect.position += (panel.get_rect().size/2);
-			
+			(panel.get_child(0) as VisibleOnScreenEnabler2D).rect.size = panel.size;
+			(panel.get_child(0) as VisibleOnScreenEnabler2D).rect.position = Vector2(0,0);
+			(panel.get_child(0) as VisibleOnScreenEnabler2D).enable_node_path = NodePath(panel.get_path());
+
 			if grid_width == 5:
 				match j:
 					0: panel.add_to_group("g_left");
@@ -86,5 +94,7 @@ func update_grid(width:int = 0, height:int = 0) -> void:
 		pass
 	pass
 
-func _process(delta: float) -> void:
-		pass
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint(): return;
+	self.position.y = -16 + (-Conductor.position) * (Conductor.bpm / 60.0) * Conductor._offset_scroll_modifier * Conductor.scroll_speed;
+	pass

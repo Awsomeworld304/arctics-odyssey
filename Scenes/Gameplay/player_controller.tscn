@@ -1,8 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://xniwcwhllhj1"]
+[gd_scene load_steps=6 format=3 uid="uid://xniwcwhllhj1"]
 
-[ext_resource type="Script" uid="uid://byhh3wexdca1b" path="res://Scripts/Objects/strumline.gd" id="1_0a6f8"]
-[ext_resource type="PackedScene" uid="uid://cjqoeju3yisxe" path="res://Scenes/Objects/strum.tscn" id="2_1arbv"]
-[ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_xs2hv"]
+[ext_resource type="PackedScene" uid="uid://b1lafek1u43gi" path="res://Scenes/Gameplay/strumline.tscn" id="2_exkhd"]
 [ext_resource type="Texture2D" uid="uid://c5fdgbinerd8f" path="res://Assets/Images/HUD/strum_top_bar.png" id="5_exkhd"]
 [ext_resource type="Texture2D" uid="uid://ryhsqf3ls83i" path="res://Assets/Images/HUD/hp_bar_under.png" id="5_lu5jg"]
 [ext_resource type="Texture2D" uid="uid://edfv4itm6vto" path="res://Assets/Images/HUD/hp_bar_over.png" id="6_nub22"]
@@ -11,65 +9,6 @@
 [node name="PlayerController" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-
-[node name="Strumline" type="Node2D" parent="."]
-script = ExtResource("1_0a6f8")
-
-[node name="left" parent="Strumline" instance=ExtResource("2_1arbv")]
-position = Vector2(-68, 0)
-animation = &"left"
-key_name = &"left"
-metadata/_edit_lock_ = true
-
-[node name="down" parent="Strumline" instance=ExtResource("2_1arbv")]
-position = Vector2(-34, 0)
-animation = &"down"
-key_name = &"down"
-metadata/_edit_lock_ = true
-
-[node name="center" parent="Strumline" instance=ExtResource("2_1arbv")]
-key_name = &"center"
-metadata/_edit_lock_ = true
-
-[node name="up" parent="Strumline" instance=ExtResource("2_1arbv")]
-position = Vector2(34, 0)
-animation = &"up"
-key_name = &"up"
-metadata/_edit_lock_ = true
-
-[node name="right" parent="Strumline" instance=ExtResource("2_1arbv")]
-position = Vector2(68, 0)
-animation = &"right"
-key_name = &"right"
-metadata/_edit_lock_ = true
-
-[node name="debug_mark" type="Line2D" parent="Strumline"]
-visible = false
-position = Vector2(5.96046e-08, 0)
-scale = Vector2(0.988889, 1)
-points = PackedVector2Array(-1.01123, 0, -90, 0, 87.9775, 0)
-width = 2.0
-metadata/_edit_lock_ = true
-
-[node name="Rating" type="Label" parent="Strumline"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -34.0
-offset_top = 56.0
-offset_right = 46.0
-offset_bottom = 82.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("3_xs2hv")
-theme_override_font_sizes/font_size = 32
-text = "{Rating}"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="left_bar" type="ColorRect" parent="."]
 layout_mode = 0
@@ -90,6 +29,8 @@ color = Color(0, 0, 0, 1)
 [node name="StrumTopBar" type="Sprite2D" parent="."]
 position = Vector2(0, -32)
 texture = ExtResource("5_exkhd")
+
+[node name="Strumline" parent="." instance=ExtResource("2_exkhd")]
 
 [node name="HPBar" type="TextureProgressBar" parent="."]
 layout_mode = 0

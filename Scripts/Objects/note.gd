@@ -16,6 +16,8 @@
 class_name Note
 extends AnimatedSprite2D
 
+signal miss_note(note:Note);
+
 ## The name of the note: ["left", "down", "center", "up", "right"].
 @export var key_name:StringName = "";
 ## Note type, currently only normal exists.
@@ -28,6 +30,7 @@ extends AnimatedSprite2D
 ## The exact time in MS that the note was hit.
 var hit_time:float = -32;
 var frames:SpriteFrames = preload("res://Assets/sprite/note.tres");
+var _missed:bool = false;
 
 func _ready() -> void:
 	sprite_frames = frames;
@@ -42,6 +45,11 @@ func _process(_delta: float) -> void:
 	self.position.y = (self.time - Conductor.position) * (Conductor.bpm / 60.0) * Conductor._offset_scroll_modifier * Conductor.scroll_speed;
 	
 	# Really hacky, find a better way.
-	if self.position.y <= -32: self.visible = false;
+	if self.position.y <= -32:
+		self.visible = false;
+		if !_missed:
+			miss_note.emit(self);
+			_missed = true;
+			pass
 	elif hit_time == -32: self.visible = true;
 	pass

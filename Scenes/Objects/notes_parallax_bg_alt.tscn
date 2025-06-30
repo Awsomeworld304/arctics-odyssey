@@ -29,7 +29,7 @@ script = SubResource("GDScript_lgxvc")
 z_index = -2
 offset_right = 640.0
 offset_bottom = 360.0
-color = Color(0.321569, 0.113725, 0.4, 1)
+color = Color(0.276991, 0.113725, 0.4, 1)
 
 [node name="main" type="ParallaxLayer" parent="parallax_bg"]
 z_as_relative = false

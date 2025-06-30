@@ -69,17 +69,8 @@ enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg")
 
 [global_group]
 
-left="LEFT NOTE"
-down="DOWN NOTE"
-up="UP NOTE"
-center="CENTER NOTE"
-right="RIGHT NOTE"
 strum="STRUM KEY"
-bot_left=""
-bot_up=""
-bot_center=""
-bot_down=""
-bot_right=""
+strumline="All current strumlines."
 
 [input]
 

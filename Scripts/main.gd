@@ -17,8 +17,10 @@ extends Node2D
 
 @onready var devmenu:CanvasLayer = $DevMenu as CanvasLayer;
 @onready var anim:AnimationPlayer = $anim as AnimationPlayer;
+@onready var update_label:RichTextLabel = $menu/main/version as RichTextLabel;
 
 func _ready() -> void:
+	update_label.text = "[center][rainbow freq=0.2][wave amp=50.0 freq=10.0 connected=1] Version: %s\n[center]Pre-Alpha" % Settings.GAME_VERSION;
 	pass
 
 func _input(event: InputEvent) -> void:

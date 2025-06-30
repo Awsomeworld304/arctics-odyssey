@@ -87,14 +87,19 @@ offset_top = 50.0
 offset_right = 160.0
 offset_bottom = 50.0
 
+[node name="HPBar" parent="PlayerController" index="3"]
+step = 5.0
+value = 75.0
+
 [node name="OpponentStrumline" parent="." instance=ExtResource("9_gcius")]
 position = Vector2(480, 50)
 bot_strumline = true
 
 [node name="DevMenu" type="Panel" parent="."]
-offset_left = 448.0
-offset_right = 640.0
-offset_bottom = 192.0
+offset_left = 440.0
+offset_top = 136.0
+offset_right = 632.0
+offset_bottom = 328.0
 metadata/_edit_lock_ = true
 
 [node name="title" type="Label" parent="DevMenu"]
@@ -165,19 +170,19 @@ horizontal_alignment = 1
 [node name="_time_slider" type="Label" parent="DevMenu"]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 128.0
+offset_top = 136.0
 offset_right = 176.0
-offset_bottom = 144.0
+offset_bottom = 152.0
 theme = ExtResource("8_yysgk")
 text = "Song Position"
 horizontal_alignment = 1
 
 [node name="time_slider_bg" type="ColorRect" parent="DevMenu"]
 layout_mode = 0
-offset_left = -440.0
-offset_top = 336.0
-offset_right = 184.0
-offset_bottom = 352.0
+offset_left = -432.0
+offset_top = 200.0
+offset_right = 192.0
+offset_bottom = 216.0
 color = Color(0, 0, 0, 0.364706)
 
 [node name="bg2" type="ColorRect" parent="DevMenu/time_slider_bg"]
@@ -198,10 +203,10 @@ vertical_alignment = 1
 
 [node name="time_slider" type="HSlider" parent="DevMenu"]
 layout_mode = 0
-offset_left = -440.0
-offset_top = 336.0
-offset_right = 184.0
-offset_bottom = 352.0
+offset_left = -432.0
+offset_top = 200.0
+offset_right = 192.0
+offset_bottom = 216.0
 theme = ExtResource("8_yysgk")
 step = 0.1
 
