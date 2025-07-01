@@ -33,6 +33,10 @@ signal sixteenth_will_pass(beat:int, fract:int); # Step
 @export var curr_beat_without_latency:float = 0;
 ## Beats per minute for the current song.
 @export var bpm:float = 100;
+## Time signature numerator (beats per measure).
+@export var time_signature_numerator:int = 4;
+## Time signature denominator (note value that gets the beat).
+@export var time_signature_denominator:int = 4;
 ## Flag for status on if the song is playing.
 @export var is_playing:bool = false;
 ## Flag for status on if the song is paused, but not stopped.
@@ -58,6 +62,19 @@ var _cached_latency:float = AudioServer.get_output_latency();
 var _num_beats_in_song:int = 0;
 var _prev_time_seconds:float = 0;
 var _loops:int = 0;
+
+# Time signature change management
+var _time_signature_changes:Array[TimeSignatureChange] = [];
+
+class TimeSignatureChange:
+	var beat:float
+	var numerator:int
+	var denominator:int
+	
+	func _init(beat_pos:float, num:int, denom:int):
+		beat = beat_pos
+		numerator = num
+		denominator = denom
 var _quarter_passed_incrementor:BeatIncrementor = BeatIncrementor.new(quarter_passed);
 var _eighth_passed_incrementor:BeatIncrementor = BeatIncrementor.new(eighth_passed, 2);
 var _twelth_passed_incrementor:BeatIncrementor = BeatIncrementor.new(twelth_passed, 3);
@@ -97,6 +114,123 @@ class BeatIncrementor:
 			pass
 		pass
 	pass
+
+## Add a time signature change at a specific beat position.
+func add_time_signature_change(beat:float, numerator:int, denominator:int) -> void:
+	var change = TimeSignatureChange.new(beat, numerator, denominator)
+	_time_signature_changes.append(change)
+	# Sort by beat position to ensure proper order
+	_time_signature_changes.sort_custom(func(a, b): return a.beat < b.beat)
+
+## Clear all time signature changes.
+func clear_time_signature_changes() -> void:
+	_time_signature_changes.clear()
+
+## Get the current time signature at a given beat position.
+func get_time_signature_at_beat(beat:float) -> Array[int]:
+	var current_numerator = time_signature_numerator
+	var current_denominator = time_signature_denominator
+	
+	for change in _time_signature_changes:
+		if change.beat <= beat:
+			current_numerator = change.numerator
+			current_denominator = change.denominator
+		else:
+			break
+	
+	return [current_numerator, current_denominator]
+
+## Get the current measure number at a given beat position.
+func get_measure_at_beat(beat:float) -> float:
+	var measure = 0.0
+	var current_beat = 0.0
+	var current_numerator = time_signature_numerator
+	
+	# Add initial time signature change if none exists at beat 0
+	var changes = _time_signature_changes.duplicate()
+	if changes.is_empty() or changes[0].beat > 0:
+		changes.insert(0, TimeSignatureChange.new(0, time_signature_numerator, time_signature_denominator))
+	
+	for i in range(changes.size()):
+		var change = changes[i]
+		var next_beat = beat if i == changes.size() - 1 else min(beat, changes[i + 1].beat)
+		
+		if current_beat < next_beat:
+			var beats_in_section = next_beat - current_beat
+			measure += beats_in_section / current_numerator
+			current_beat = next_beat
+		
+		if current_beat >= beat:
+			break
+			
+		current_numerator = change.numerator
+	
+	return measure
+
+## Convert beats to measures using current time signature.
+func beats_to_measures(beats:float) -> float:
+	return get_measure_at_beat(beats)
+
+## Convert measures to beats using current time signature.
+func measures_to_beats(measures:float) -> float:
+	var beat = 0.0
+	var current_measure = 0.0
+	var current_numerator = time_signature_numerator
+	
+	# Add initial time signature change if none exists at beat 0
+	var changes = _time_signature_changes.duplicate()
+	if changes.is_empty() or changes[0].beat > 0:
+		changes.insert(0, TimeSignatureChange.new(0, time_signature_numerator, time_signature_denominator))
+	
+	for i in range(changes.size()):
+		var change = changes[i]
+		var beats_per_measure = current_numerator
+		var measures_in_section = measures - current_measure
+		
+		if i < changes.size() - 1:
+			var next_change = changes[i + 1]
+			var next_measure = current_measure + (next_change.beat - beat) / current_numerator
+			if next_measure <= measures:
+				measures_in_section = next_measure - current_measure
+		
+		beat += measures_in_section * beats_per_measure
+		current_measure += measures_in_section
+		
+		if current_measure >= measures:
+			break
+			
+		current_numerator = change.numerator
+	
+	return beat
+
+## Get beats per measure for the current time signature at given beat.
+func get_beats_per_measure_at_beat(beat:float) -> int:
+	var time_sig = get_time_signature_at_beat(beat)
+	return time_sig[0]
+
+## Get note value for the current time signature at given beat.
+func get_note_value_at_beat(beat:float) -> int:
+	var time_sig = get_time_signature_at_beat(beat)
+	return time_sig[1]
+
+## Get subdivision multipliers for current time signature at given beat.
+## Returns array of [eighth_mult, twelfth_mult, sixteenth_mult] relative to quarter notes.
+func _get_subdivision_multipliers_at_beat(beat:float) -> Array[int]:
+	var time_sig = get_time_signature_at_beat(beat)
+	var denominator = time_sig[1]
+	
+	# For different denominators, adjust subdivisions
+	match denominator:
+		2:  # Half note gets the beat (2/2, 3/2, etc.)
+			return [1, 2, 2]  # Eighths become quarters, twelfths become halves
+		4:  # Quarter note gets the beat (standard: 4/4, 3/4, etc.)
+			return [2, 3, 4]  # Standard subdivisions
+		8:  # Eighth note gets the beat (6/8, 9/8, 12/8, etc.)
+			return [4, 6, 8]  # Double the subdivisions since eighth gets beat
+		16: # Sixteenth note gets the beat (rare)
+			return [8, 12, 16] # Quadruple the subdivisions
+		_:  # Default to quarter note subdivisions
+			return [2, 3, 4]
 
 func _ready() -> void:
 	pass
@@ -187,14 +321,21 @@ func _process(_delta:float) -> void:
 
 	# Signal the beats that are happening (with offset)
 	curr_beat = beat
+	
+	# Get subdivision multipliers for current time signature
+	var multipliers = _get_subdivision_multipliers_at_beat(beat)
+	var eighth_mult = multipliers[0]
+	var twelfth_mult = multipliers[1] 
+	var sixteenth_mult = multipliers[2]
+	
 	if floor(beat) > floor(prev_beat):
 		_quarter_passed_incrementor.increment_to(floori(beat));
-	if floor(beat*2) > floor(prev_beat*2):
-		_eighth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 2));
-	if floor(beat*3) > floor(prev_beat*3):
-		_twelth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 3));
-	if floor(beat*4) > floor(prev_beat*4):
-		_sixteenth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 4));
+	if floor(beat*eighth_mult) > floor(prev_beat*eighth_mult):
+		_eighth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * eighth_mult));
+	if floor(beat*twelfth_mult) > floor(prev_beat*twelfth_mult):
+		_twelth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * twelfth_mult));
+	if floor(beat*sixteenth_mult) > floor(prev_beat*sixteenth_mult):
+		_sixteenth_passed_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * sixteenth_mult));
 
 	# Unapply visual beat offset
 	beat += visual_offset_ms / 60000.0 * bpm;
@@ -207,14 +348,21 @@ func _process(_delta:float) -> void:
 
 	# Signal the beats that will happen soon
 	curr_beat_without_latency = beat;
+	
+	# Get subdivision multipliers for current time signature (future beat)
+	var future_multipliers = _get_subdivision_multipliers_at_beat(beat)
+	var future_eighth_mult = future_multipliers[0]
+	var future_twelfth_mult = future_multipliers[1]
+	var future_sixteenth_mult = future_multipliers[2]
+	
 	if floor(beat) > floor(prev_beat):
 		_quarter_will_pass_incrementor.increment_to(floori(beat));
-	if floor(beat*2) > floor(prev_beat*2):
-		_eighth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 2));
-	if floor(beat*3) > floor(prev_beat*3):
-		_twelth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 3));
-	if floor(beat*4) > floor(prev_beat*4):
-		_sixteenth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * 4));
+	if floor(beat*future_eighth_mult) > floor(prev_beat*future_eighth_mult):
+		_eighth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * future_eighth_mult));
+	if floor(beat*future_twelfth_mult) > floor(prev_beat*future_twelfth_mult):
+		_twelth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * future_twelfth_mult));
+	if floor(beat*future_sixteenth_mult) > floor(prev_beat*future_sixteenth_mult):
+		_sixteenth_will_pass_incrementor.increment_to(floori(beat), floori((beat - floori(beat)) * future_sixteenth_mult));
 
 	# Keep track of the previous frame's time.
 	_prev_time_seconds = time_seconds;
