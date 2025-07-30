@@ -28,8 +28,13 @@ signal eighth_will_pass(beat:int, fract:int); # 1/2 Step
 signal twelth_will_pass(beat:int, fract:int); # 3/4 Step
 signal sixteenth_will_pass(beat:int, fract:int); # Step
 
+# BPM and Time Signature changes
+signal bpm_change(bpm:float);
+signal time_signature_change(num:int, den:int);
+
 ## The current beat.
 @export var curr_beat:float = 0;
+## The current beat without latency.
 @export var curr_beat_without_latency:float = 0;
 ## Beats per minute for the current song.
 @export var bpm:float = 100;
@@ -42,6 +47,8 @@ signal sixteenth_will_pass(beat:int, fract:int); # Step
 ## The video offset in milliseconds.
 @export var visual_offset_ms:int = 0;
 
+## The current time signature.
+var curr_time_signature:TimeSignature = TimeSignature.new(4,4);
 ## Song position in seconds.
 var position:float = 0.0;
 ## Scroll speed modifier.
@@ -70,19 +77,27 @@ var _sixteenth_will_pass_incrementor:BeatIncrementor = BeatIncrementor.new(sixte
 ## First run boolean.
 var _activated:bool = false;
 
+class TimeSignature:
+	var numerator:int = 4;
+	var denominator:int = 4;
+
+	func _init(num:int = 4, den:int = 4) -> void:
+		numerator = num;
+		denominator = den;
+		pass
+	pass
+
 class BeatIncrementor:
 	var _fract_mod:int;
 	var _signal:Signal;
 	var _last_beat:int = -1;
 	var _last_fract:int;
 
-
 	func _init(sig:Signal, fract_mod:int = 1) -> void:
 		_fract_mod = fract_mod;
 		_signal = sig;
 		_last_fract = fract_mod - 1;
 		pass
-
 
 	func increment_to(beat:int, fract:int = 0) -> void:
 		while beat > _last_beat or fract > _last_fract:
@@ -133,11 +148,18 @@ func stop(clear_song:bool = false) -> void:
 	pass
 
 ## Pauses and resumes the song.
+## Conductor can be forced to paused to ensure a definite paused state.
 ## Returns ```is_paused```.
-func pause() -> void:
+func pause(force_pause:bool = false) -> void:
 	if player == null: return;
-	is_paused = !is_paused;
-	is_playing = !is_paused;
+	if force_pause:
+		is_paused = true;
+		is_playing = false;
+		pass
+	else:
+		is_paused = !is_paused;
+		is_playing = !is_paused;
+		pass
 	player.stream_paused = is_paused;
 	pass
 

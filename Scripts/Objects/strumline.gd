@@ -16,6 +16,12 @@
 extends Node2D
 class_name Strumline
 
+"""
+A note about the strumline, to access any child group, use its ID.
+It's usually in a format like this ```xxxx.{your_group}```.
+The ID is 4 characters long. (a-f)(0-9).
+"""
+
 ## Set the strumline to AI, ignoring any player input and scoring.
 @export var bot_strumline:bool = false;
 
@@ -46,19 +52,20 @@ signal note_miss(note:Note);
 var strumline_bit_pile:PackedStringArray = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
 ## Generates a new StrumLine ID in the form of a StringName.
 func generate_strumline_id() -> StringName:
-	var ts:String = "";
+	var new_id:String = "";
 	for _i:int in range(4):
-		ts += strumline_bit_pile[randi_range(0, strumline_bit_pile.size()-1)];
+		new_id += strumline_bit_pile[randi_range(0, strumline_bit_pile.size()-1)];
 		pass
-	if Settings.debug: print("Strumline -> GSLID: New ID: %s" % ts);
-	return StringName(ts);
+	if Settings.debug: print("Strumline -> GSLID: New ID: %s" % new_id);
+	return StringName(new_id);
 
-func _init(is_bot_strumline:bool = false) -> void:
+func _init(is_bot_strumline:bool = false, in_editor:bool = false) -> void:
 	self.bot_strumline = is_bot_strumline;
-	self.strumline_id = generate_strumline_id();
+	self.strumline_id = generate_strumline_id() if !in_editor else &"edit";
 	pass
 
 func _enter_tree() -> void:
+	if self.strumline_id == "edit": return;
 	if get_tree().has_group(&"strumline"):
 		for strum:Strumline in (get_tree().get_nodes_in_group("strumline") as Array[Strumline]):
 			if !(strum is Strumline): return;
@@ -101,11 +108,11 @@ func load_chart(new_chart:Chart) -> void:
 	else:
 		printerr("Chart -> Chart is not valid!");
 		return;
-		
+
 	# Chart data is parsed, now to calculate the positions of each note.
 	for note:Note in self.chart.notes:
 		if bot_strumline: note.add_to_group(strumline_id + ".bot_note");
-		else: 
+		else:
 			note.add_to_group(strumline_id + ".note");
 			note.miss_note.connect(note_miss.emit);
 		match(note.key_name):
@@ -181,7 +188,7 @@ func bot_input() -> void:
 			Input.action_press("bot_" + note.key_name);
 			Input.action_release("bot_" + note.key_name);
 		pass
-	
+
 	# Detect note presses.
 	if Input.is_action_just_pressed("bot_left"):
 		_left_pressed();
@@ -238,21 +245,21 @@ func note_is_in_range(note:Note, hit_time:float) -> bool:
 func calculate_note(note:Note, hit_time:float) -> void:
 	#print("Note in range and is hit.");
 	var rating:String = "ERROR";
-	
+
 	var diff:float = abs(note.time - hit_time);
 	if diff   <= 0.016: rating = "Marvelous";
 	elif diff <= 0.032: rating = "Perfect";
 	elif diff <= 0.064: rating = "Good";
 	elif diff <= 0.128: rating = "Bad";
 	else: rating = "What?\n" + var_to_str(diff);
-		
+
 	ui_RATING.text = rating;
 	ui_RATING.create_tween().stop();
 	var color:Color = Color.WHITE if !bot_strumline else Color.CRIMSON;
 	var tcolor:Color = color;
 	tcolor.a = 0;
 	ui_RATING.modulate = color;
-	
+
 	if !bot_strumline: hit_notes += 1;
 	note_hit.emit(note);
 	note.visible = false;

@@ -25,7 +25,7 @@ var error_end:String = "[/bgcolor][p]\n[center][color=white]Please contact the d
 func _ready() -> void:
 	self.visible = false;
 	($fallback_bg as CanvasLayer).visible = false;
-	($fallback_bg/parallax_bg as ParallaxBackground).visible = false;
+	($fallback_bg/bg as CanvasLayer).visible = false;
 	pass
 
 func change_error(msg:String="Unknown Fatal Error!") -> void:
@@ -33,12 +33,12 @@ func change_error(msg:String="Unknown Fatal Error!") -> void:
 	text.text = error_start + error + error_end;
 	self.visible = true;
 	($fallback_bg as CanvasLayer).visible = true;
-	($fallback_bg/parallax_bg as ParallaxBackground).visible = true;
+	($fallback_bg/bg as CanvasLayer).visible = true;
 
 
 func _on_exit_button_up() -> void:
 	LevelManager.trans("Main");
 	self.visible = false;
 	($fallback_bg as CanvasLayer).visible = false;
-	($fallback_bg/parallax_bg as ParallaxBackground).visible = false;
+	($fallback_bg/bg as CanvasLayer).visible = false;
 	pass # Replace with function body.

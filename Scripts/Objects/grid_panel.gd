@@ -1,4 +1,3 @@
-@tool
 extends Control
 class_name GridPanel
 
@@ -52,6 +51,7 @@ func update_grid(_width:int = 0, _height:int = 0) -> void:
 	for i:int in range(grid_height):
 		# H Grid
 		for j:int in range(grid_width):
+			"""
 			if i == 0:
 				var wpanel:ColorRect = ColorRect.new();
 				wpanel.name = "grid_panel_" + str(i) + "_" + str(j);
@@ -61,26 +61,29 @@ func update_grid(_width:int = 0, _height:int = 0) -> void:
 				wpanel.color = Color.from_string("470606", Color.WEB_MAROON);
 				self.add_child(wpanel);
 				pass
+			"""
 
 			var panel:ColorRect = ColorRect.new();
 			panel.name = "grid_panel_" + str(i) + "_" + str(j);
 
 			panel.set_size(_tile_size);
 			panel.position.x = (_tile_size.x + tile_offset.x) * j;
-			panel.position.y = (_tile_size.y + tile_offset.y) * i;
+			panel.position.y = (_tile_size.y + tile_offset.y + 8) * i;
 
 			if i % 2 == 0 && j % 2 != 0: panel.color = grid_color_sec;
 			elif i % 2 != 0 && j % 2 == 0: panel.color = grid_color_sec;
 			else: panel.color = grid_color;
 
-			#var v:VisibleOnScreenEnabler2D = VisibleOnScreenEnabler2D.new();
+			var v:VisibleOnScreenEnabler2D = VisibleOnScreenEnabler2D.new();
+			v.name = "vis_enabler_" + str(i) + "_" + str(j);
 			#v.rect = panel.get_rect();
 			#v.enable_node_path = NodePath(panel.get_path());
 			#panel.add_child(v);
-			panel.add_child((VisibleOnScreenEnabler2D.new()));
-			(panel.get_child(0) as VisibleOnScreenEnabler2D).rect.size = panel.size;
-			(panel.get_child(0) as VisibleOnScreenEnabler2D).rect.position = Vector2(0,0);
-			(panel.get_child(0) as VisibleOnScreenEnabler2D).enable_node_path = NodePath(panel.get_path());
+			self.add_child(panel);
+			if v != null && !panel.get_path().is_empty(): panel.add_child(v);
+			v.rect.size = panel.size;
+			v.rect.position = Vector2(0,0);
+			v.enable_node_path = NodePath(panel.get_path());
 
 			if grid_width == 5:
 				match j:
@@ -90,11 +93,16 @@ func update_grid(_width:int = 0, _height:int = 0) -> void:
 					3: panel.add_to_group("g_up");
 					4: panel.add_to_group("g_right");
 					pass
-			self.add_child(panel);
 		pass
+	pass
+
+func make_grid() -> void:
+	var song_measures:int = Conductor._num_beats_in_song / Conductor.curr_time_signature.numerator;
+	var time_per_measure:float = (Conductor.curr_time_signature.numerator / Conductor.bpm) * 60;
+	var dist:int = time_per_measure * (Conductor._offset_scroll_modifier * Conductor.scroll_speed);
 	pass
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint(): return;
-	self.position.y = -16 + (-Conductor.position) * (Conductor.bpm / 60.0) * Conductor._offset_scroll_modifier * Conductor.scroll_speed;
+	self.position.y = -16 + (-Conductor.position) * (Conductor.bpm / 60.0) * (Conductor._offset_scroll_modifier * Conductor.scroll_speed);
 	pass

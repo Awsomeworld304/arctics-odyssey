@@ -24,7 +24,6 @@ script = ExtResource("1_sn0bp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
-visible = false
 
 [node name="DebugPanel" type="Panel" parent="CanvasLayer"]
 offset_left = 8.0

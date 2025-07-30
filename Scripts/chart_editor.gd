@@ -34,7 +34,7 @@ func beat_to_sec(beats: float) -> float:
 func _enter_tree() -> void:
 	pass
 
-func on_hit_note(note:Note) -> void:
+func on_hit_note(_note:Note) -> void:
 	hit_notes += 1;
 	pass
 
@@ -44,6 +44,8 @@ func load_song(chart_path:String) -> void:
 	chartData = Chart._parse_chart(chart_path);
 	Conductor.bpm = chartData.song_bpm;
 	Conductor.scroll_speed = chartData.note_speed;
+	strum.strumline_id = &"edit";
+	strum.ui_SLID.text = "SLID: edit";
 	strum.load_chart(chartData);
 	Conductor.stop();
 	songName.text = chartData.song.capitalize();
@@ -51,7 +53,8 @@ func load_song(chart_path:String) -> void:
 	Conductor.pause();
 	Conductor.position = 0;
 
-	editorGrid.grid_height = Conductor._num_beats_in_song * editorGrid.note_snap;
+	editorGrid.tile_offset.y = floori(Conductor.get_beat_time() * (float(Conductor.scroll_speed) * Conductor._offset_scroll_modifier));
+	editorGrid.grid_height = Conductor._num_beats_in_song;
 	timeSlider.max_value = player.stream.get_length();
 	pass
 
@@ -75,9 +78,9 @@ var total_beat:int = 0;
 var total_fract:int = 0;
 func _song_info() -> void:
 	text = "Cached Latency: " + var_to_str(Conductor._cached_latency) + "\n";
-	text += "Measure: " + var_to_str((total_beat/4)+1) + "\n";
-	text += "Beat: " + var_to_str((total_beat % 4) +1) + " (" +var_to_str(total_beat+1) + ")\n";
-	text += "Step: " + var_to_str((((total_beat%4)*4)+total_fract) +1) + " (" + var_to_str((total_beat*4)+total_fract+1) + ")\n";
+	text += "Measure: " + var_to_str(int(float(total_beat)/4)+1) + "\n";
+	text += "Beat: " + var_to_str((total_beat % Conductor.curr_time_signature.numerator) +1) + " (" +var_to_str(total_beat+1) + ")\n";
+	text += "Step: " + var_to_str((((total_beat % Conductor.curr_time_signature.numerator)*4)+total_fract) +1) + " (" + var_to_str((total_beat*4)+total_fract+1) + ")\n";
 	text += "Total beats: " + var_to_str(Conductor._num_beats_in_song) + "\n";
 	text += "Offset (ms): " + var_to_str(Conductor.audio_offset_ms) + "\n";
 	text += "Prev. time (sec): \n" + var_to_str(Conductor._prev_time_seconds) + "\n";
@@ -101,7 +104,7 @@ func _beat_pass(beat: int) -> void:
 	total_beat = beat;
 	pass
 
-func _step_pass(beat:int, fract:int) -> void:
+func _step_pass(_beat:int, fract:int) -> void:
 	total_fract = fract;
 	pass
 

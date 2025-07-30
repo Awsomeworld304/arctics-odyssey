@@ -22,9 +22,9 @@ extends Node
 ## The chart version.
 @export var chart_version:int = 0;
 
-func _init(chart_path:String = "") -> void:
-	if chart_path != "":
-		var _chart:Chart = Chart._parse_chart(chart_path);
+func _init(new_chart_path:String = "") -> void:
+	if new_chart_path != "":
+		var _chart:Chart = Chart._parse_chart(new_chart_path);
 		song = _chart.song;
 		song_bpm = _chart.song_bpm;
 		events = _chart.events;
@@ -32,6 +32,7 @@ func _init(chart_path:String = "") -> void:
 		chart_version = _chart.chart_version;
 		note_speed = _chart.note_speed;
 		notes = _chart.notes;
+		chart_path = new_chart_path;
 		pass
 	pass
 
@@ -45,8 +46,7 @@ func add_note(note:Note) -> void:
 static func validate_chart(chart:Chart) -> bool:
 	var valid:bool = true;
 	var valid_keys:Array = ["left","down","up","right","center"];
-	
-	# Validate chart
+
 	if chart == null:
 		push_error("Chart -> Validation: Chart is null!");
 		valid = false;
@@ -54,7 +54,6 @@ static func validate_chart(chart:Chart) -> bool:
 		chart.notes = [];
 		pass
 
-	# Validate chart meta
 	if typeof(chart.song) != TYPE_STRING or chart.song=="":
 		push_error("Chart -> Validation: 'song' must be a non-empty string.");
 		valid = false;
@@ -72,9 +71,8 @@ static func validate_chart(chart:Chart) -> bool:
 		valid = false;
 		pass
 
-	# Validate notes
-	for i in chart.notes.size():
-		var note = chart.notes[i];
+	for i:int in chart.notes.size():
+		var note:Note = chart.notes[i];
 		if not note.key_name != null or typeof(note.key_name) != TYPE_STRING_NAME or not valid_keys.has(note.key_name):
 			push_error("Chart -> Validation: Note %d has invalid or missing 'key_name'." % i);
 			valid = false;
@@ -85,69 +83,66 @@ static func validate_chart(chart:Chart) -> bool:
 			pass
 		pass
 
-	# Validate events, if present
 	if chart.events != null and typeof(chart.events) == TYPE_ARRAY:
-		for j in chart.events.size():
-			var event = chart.events[j];
-			if not event.has("script") or event.script == null or event.script == "":
+		for j:int in chart.events.size():
+			var event:Event = chart.events[j];
+			if event.eventscript == null or event.eventscript.to_string() == "":
 				push_error("Chart -> Validation: Event %d is missing a valid 'script' in Event.script." % j);
 				valid = false;
 				pass
 			pass
 		pass
-	
+
 	# Return check.
 	return valid;
 
-func _load_from_json(data:String) -> Chart:
+func _load_from_json(_data:String) -> Chart:
 	return Chart.new();
 
 # Load JSON Chart
 static func _parse_chart(path:String) -> Chart:
 	var chart:Chart = Chart.new();
-	# Null Check 1
-	if not FileAccess.file_exists(path): 
+
+	if not FileAccess.file_exists(path):
 		push_error("Chart -> Chart does not exist! " + path);
 		return chart;
 	var file:FileAccess = FileAccess.open(path, FileAccess.READ);
 
-	# Null Check 2
 	if file == null or file.get_error() != OK or FileAccess.get_open_error() != OK:
 		push_error("Chart -> FileAccess error: " + var_to_str(file.get_error()) + " " + var_to_str(FileAccess.get_open_error()));
 		return chart;
-	
-	# Check JSON
+
 	var json_pstring:String = file.get_as_text();
 	var json:JSON = JSON.new();
 	var parse_result:Error = json.parse(json_pstring);
 	if not parse_result == OK:
 		push_warning("Chart -> JSON Parse Error: ", json.get_error_message(), " in ", json_pstring, " at line ", json.get_error_line());
 		return chart;
-	# We got our data.
+
 	var parsed_data:Dictionary = json.get_data();
-	
+
 	if parsed_data["song"] != null:
 		chart.song = str(parsed_data["song"]);
 		pass
 	else: chart.song = "NULL";
-	
-	if chart.chart_format_version != parsed_data["chart_format_version"] as int:
+
+	if chart.chart_format_version != parsed_data["chart_format_version"]:
 		push_error("Chart -> Parse: CHART FORMAT IS NOT LATEST!");
 		pass
-	
+
 	if parsed_data["chart_version"] != null: chart.chart_version = parsed_data["chart_version"];
 	else: push_error("Chart -> Parse: Chart version is null!"); chart.chart_version = 0;
 	chart.chart_path = path;
-	
+
 	if parsed_data["song_bpm"] != null: chart.song_bpm = parsed_data["song_bpm"];
 	else: push_error("Chart -> Parse: Chart bpm is null!"); chart.song_bpm = 100;
-	
+
 	if parsed_data["note_speed"] != null: chart.note_speed = parsed_data["note_speed"];
 	else: push_error("Chart -> Parse: Chart note speed is null!"); chart.note_speed = 1;
 
 	if chart.notes == null: chart.notes = [];
 	if parsed_data["notes"] != null:
-		for note_data in parsed_data["notes"]:
+		for note_data:Dictionary in parsed_data["notes"]:
 			var note:Note = Note.new();
 			note.time = note_data["time"] as float;
 			note.key_name = note_data["key_name"] as StringName;
@@ -156,17 +151,17 @@ static func _parse_chart(path:String) -> Chart:
 			pass
 		pass
 	else: push_error("Chart -> Parse: Notes are null!");
-	
+
 	if parsed_data["events"] != null:
-		for event_data in parsed_data["events"]:
+		for event_data:Dictionary in parsed_data["events"]:
 			print("Chart -> Parse: Found event %s in chart %s" % [event_data["event"], chart.song]);
 			pass
 		pass
-	
+
 	if parsed_data["characters"] != null:
-		for char in parsed_data["characters"]:
+		for cchar:String in parsed_data["characters"] as Array[String]:
 			var nchar:Character = Character.new();
-			nchar.character_name = str(char);
+			nchar.character_name = str(cchar);
 			chart.characters.append(nchar);
 		pass
 	return chart;
@@ -179,11 +174,11 @@ func _save_chart(path:String = "") -> void:
 		return;
 
 	var notes_dict:Array = [];
-	
+
 	var saved_chars:Array[String] = [];
 
-	for char in characters:
-		saved_chars.append(char.character_name);
+	for cchar:Character in characters:
+		saved_chars.append(cchar.character_name);
 		pass
 
 	var data:Dictionary = {
@@ -196,7 +191,7 @@ func _save_chart(path:String = "") -> void:
 		"notes": notes_dict
 	};
 
-	for note in notes:
+	for note:Note in notes:
 		var note_dict:Dictionary = {};
 
 		# Ensure key_name exists, or use a default value
@@ -205,7 +200,7 @@ func _save_chart(path:String = "") -> void:
 			push_warning("Chart -> Note missing key_name, setting to 'unknown'.");
 			note_dict.get_or_add("key_name", "unknown");
 			pass
-		
+
 		# The note type
 		if note.type != null: note_dict.get_or_add("type", note.type);
 		else:
@@ -221,12 +216,12 @@ func _save_chart(path:String = "") -> void:
 
 		notes_dict.append(note_dict);
 		pass
-	
+
 	var json_string:String = JSON.stringify(data, "\t"); # Pretty print with tabs
 	var file:FileAccess = FileAccess.open(save_path, FileAccess.WRITE);
-	
+
 	if file == null: push_error("Chart -> Could not open file for writing: " + save_path); return;
-		
+
 	if file.get_error() != OK or FileAccess.get_open_error() != OK:
 		push_error("Chart -> FileAccess error while writing: " + var_to_str(file.get_error()) + " " + var_to_str(FileAccess.get_open_error()));
 		return;
