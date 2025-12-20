@@ -1,6 +1,6 @@
 # Arctic's Odyssey
 [![stability-wip](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#work-in-progress)
-[![Godot 4.4](https://img.shields.io/badge/Godot-v4.4-%23478cbf?logo=godot-engine&logoColor=white)](https://godotengine.org/download/archive/4.4-stable)\
+[![Godot 4.4](https://img.shields.io/badge/Godot-v4.5-%23478cbf?logo=godot-engine&logoColor=white)](https://godotengine.org/download/archive/4.5-stable)\
 A side scrolling, story packed, rhythm game.
 <!-- A high paced story-rhythm game featuring bosses and battles as you fight your way through.\ -->
 The rhythm aspect is focused in five key StepMania like gameplay, with songs that you play through while managing enemies in battle scenarios.
@@ -20,4 +20,4 @@ If you want to fix a bug, fork this repo, fix it, and submit a PR.\
 If it's more complex than that, then just shoot me a message on Discord! (jamestech4849)
 
 ## Credits
-JamesTech4849 - Owner, Programmer, Pixel Artist. (Awsomeworld304)
+JamesTech4849 - Owner, Programmer, Artist.

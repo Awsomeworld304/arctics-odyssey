@@ -130,8 +130,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -140.0
-offset_top = -68.0
+offset_left = -112.0
+offset_top = -56.0
 offset_right = -7.0
 offset_bottom = -8.0
 grow_horizontal = 0
@@ -139,8 +139,8 @@ grow_vertical = 0
 theme_override_fonts/normal_font = ExtResource("2_fw4gg")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "[center][rainbow freq=0.2][wave amp=50.0 freq=10.0 connected=1] Version: 0.0
-[center]Pre-Alpha"
+text = "[center][rainbow freq=0.2][wave amp=50.0 freq=10.0 connected=1] V: 0.0.0a
+[center][font_size=16]Pre-Alpha"
 scroll_active = false
 
 [node name="start" type="Button" parent="menu/main"]
@@ -197,6 +197,47 @@ theme_override_fonts/font = ExtResource("2_fw4gg")
 theme_override_font_sizes/font_size = 32
 text = "QUIT"
 
+[node name="freeplay" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="main" type="Panel" parent="freeplay"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -148.0
+offset_right = 256.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_egptu")
+
+[node name="title" type="Label" parent="freeplay/main"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -190.0
+offset_right = 190.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_fw4gg")
+theme_override_font_sizes/font_size = 14
+text = "Freeplay (DEV)"
+label_settings = SubResource("LabelSettings_rf6d1")
+horizontal_alignment = 1
+
+[node name="song_list" type="ItemList" parent="freeplay/main"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 448.0
+offset_bottom = 256.0
+theme_override_fonts/font = ExtResource("2_fw4gg")
+theme_override_font_sizes/font_size = 16
+
 [node name="DevMenu" parent="." instance=ExtResource("3_slqtq")]
 visible = false
 
@@ -209,4 +250,5 @@ autoplay = "fade_in"
 [connection signal="button_up" from="menu/main/start" to="." method="_on_start_button_up"]
 [connection signal="button_up" from="menu/main/opt" to="." method="_on_opt_button_up"]
 [connection signal="button_up" from="menu/main/quit" to="." method="_on_quit_button_up"]
+[connection signal="item_selected" from="freeplay/main/song_list" to="." method="_on_song_list_item_selected"]
 [connection signal="visibility_changed" from="DevMenu" to="." method="_on_dev_menu_visibility_changed"]

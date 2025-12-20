@@ -8,10 +8,16 @@
 [font_size=32][color=white][center]---- Global Commands ----[/center][color=white][font_size=16]
 [font_size=16][b]Settings[/b][/font_size]
 [indent][b]change(key:String, value:String, value2:String, save_settings:Bool)[/b][/indent]
-[indent][font_size=16][color=gray]Available keys: [code]max_framerate (fps), resolution (res)[/code][font_size=16][color=white]
+[indent][font_size=16][color=gray]Available keys: [code]max_framerate (fps), resolution (res)[/code][font_size=16][color=white][/indent]
 Example 1: [font_size=16][code]Settings.change("fps", "60");[/code][font_size=16]
 Example 2: [font_size=16][code]Settings.change("res", Settings.change("res", "1280", "720");[/code][font_size=16]
 Allows you to change settings from the command line.
+
+[font_size=16][b]LevelManager[/b][/font_size]
+[indent][b]load_scene(scene_path:String)[/b][/indent]
+Example 1: [font_size=16][code]LevelManager.load_scene("main");[/code][font_size=16]
+Allows you to load any scene in-game.
+
 
 [font_size=32][color=blue][center]---- Advanced Scripting ----[/center][color=white][font_size=16]
 

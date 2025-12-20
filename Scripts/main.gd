@@ -18,9 +18,17 @@ extends Node2D
 @onready var devmenu:CanvasLayer = $DevMenu as CanvasLayer;
 @onready var anim:AnimationPlayer = $anim as AnimationPlayer;
 @onready var update_label:RichTextLabel = $menu/main/version as RichTextLabel;
+@onready var song_list:ItemList = $freeplay/main/song_list as ItemList;
+
+var songs:Dictionary[String, String];
 
 func _ready() -> void:
-	update_label.text = "[center][rainbow freq=0.2][wave amp=50.0 freq=10.0 connected=1] Version: %s\n[center]Pre-Alpha" % Settings.GAME_VERSION;
+	update_label.text = "[center][rainbow freq=0.2][wave amp=50.0 freq=10.0 connected=1] V: %s\n[center][font_size=16]Pre-Alpha" % Settings.GAME_VERSION;
+	
+	songs = ModLoader.find_songs();
+	
+	for song_name:String in songs.keys():
+		var _idx:int = song_list.add_item(song_name);
 	pass
 
 func _input(event: InputEvent) -> void:
@@ -29,21 +37,30 @@ func _input(event: InputEvent) -> void:
 		pass
 	pass
 
-func _on_start_button_up() -> void:
-	LevelManager.load_scene("test_stage", false, true);
+func _on_dev_menu_visibility_changed() -> void:
 	pass
 
+#region Main Menu
+func _on_start_button_up() -> void:
+	#LevelManager.load_scene("test_stage", false, true);
+	($freeplay as CanvasLayer).visible = true;
+	pass
 
 func _on_opt_button_up() -> void:
 	LevelManager.load_scene("options");
 	pass
-
 
 func _on_quit_button_up() -> void:
 	anim.play("fade_out");
 	await anim.animation_finished;
 	LevelManager.quit();
 	pass # Replace with function body.
+#endregion
 
-func _on_dev_menu_visibility_changed() -> void:
-	pass # Replace with function body.
+#region Freeplay
+func _on_song_list_item_selected(index: int) -> void:
+	if songs.keys().get(index) != null and songs.get(songs.keys()[index]) != null:
+		print("Valid song chosen at: %s" % songs.keys()[index]);
+		pass
+	pass
+#endregion

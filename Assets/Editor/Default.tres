@@ -195,6 +195,7 @@ border_color = Color(0.333333, 0.333333, 0.333333, 1)
 anti_aliasing = false
 
 [resource]
+Button/constants/h_separation = 16
 Button/font_sizes/font_size = 16
 Button/fonts/font = ExtResource("1_5lgff")
 Button/styles/focus = ExtResource("1_y6vk5")

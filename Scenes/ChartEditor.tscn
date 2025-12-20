@@ -18,14 +18,11 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31dnc"]
 bg_color = Color(0.25, 0.0820312, 0.0820312, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_506um"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_la6po"]
 content_margin_left = 8.0
 content_margin_top = 2.0
 content_margin_right = 8.0
 bg_color = Color(0.140625, 0.140625, 0.140625, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 anti_aliasing = false
@@ -39,11 +36,14 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_la6po"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_506um"]
 content_margin_left = 8.0
 content_margin_top = 2.0
 content_margin_right = 8.0
 bg_color = Color(0.140625, 0.140625, 0.140625, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 anti_aliasing = false
@@ -90,7 +90,6 @@ position = Vector2(96, 32)
 script = ExtResource("5_gk37r")
 
 [node name="GridPanel" type="Control" parent="hud/player/Strumline"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -84.0
@@ -151,22 +150,32 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="Rating" type="Label" parent="hud/player/Strumline"]
+[node name="Rating" type="RichTextLabel" parent="hud/player/Strumline"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -96.0
-offset_top = 56.0
-offset_right = 96.0
-offset_bottom = 82.0
+offset_left = -84.0
+offset_top = 24.0
+offset_right = 84.0
+offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("3_qsohv")
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/normal_font = ExtResource("3_qsohv")
+theme_override_fonts/bold_font = ExtResource("3_qsohv")
+theme_override_fonts/bold_italics_font = ExtResource("3_qsohv")
+theme_override_fonts/italics_font = ExtResource("3_qsohv")
+theme_override_fonts/mono_font = ExtResource("3_qsohv")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
 text = "{Rating}"
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
@@ -180,13 +189,13 @@ offset_right = 224.0
 offset_bottom = 360.0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("4_dy15n")
-theme_override_fonts/mono_font = ExtResource("3_qsohv")
 theme_override_fonts/bold_font = ExtResource("5_6envu")
+theme_override_fonts/mono_font = ExtResource("3_qsohv")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
 theme_override_font_sizes/bold_italics_font_size = 16
 theme_override_font_sizes/italics_font_size = 16
 theme_override_font_sizes/mono_font_size = 16
-theme_override_font_sizes/normal_font_size = 16
-theme_override_font_sizes/bold_font_size = 16
 bbcode_enabled = true
 text = "Song information will be displayed here.
 
@@ -200,10 +209,10 @@ offset_right = 640.0
 offset_bottom = 360.0
 theme_override_fonts/font = ExtResource("3_qsohv")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/tab_focus = SubResource("StyleBoxFlat_506um")
-theme_override_styles/tab_selected = SubResource("StyleBoxFlat_506um")
-theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_8m0q2")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_la6po")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_8m0q2")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_506um")
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_506um")
 current_tab = 0
 
 [node name="Chart" type="Panel" parent="main/ChartMenu"]
@@ -238,13 +247,14 @@ offset_left = 144.0
 offset_top = 11.0
 offset_right = 218.0
 offset_bottom = 35.0
-tooltip_text = "Reloads the current selected chart from disk."
+tooltip_text = "Reloads the current selected chart from disk.
+WARNING: This will remove all unsaved progress."
 theme = ExtResource("6_iqyyb")
-theme_override_styles/focus = ExtResource("7_da5q0")
-theme_override_styles/hover_pressed = ExtResource("8_dy15n")
-theme_override_styles/hover = ExtResource("9_w15xo")
-theme_override_styles/pressed = ExtResource("10_dia0i")
 theme_override_styles/normal = ExtResource("11_2i7kg")
+theme_override_styles/pressed = ExtResource("10_dia0i")
+theme_override_styles/hover = ExtResource("9_w15xo")
+theme_override_styles/hover_pressed = ExtResource("8_dy15n")
+theme_override_styles/focus = ExtResource("7_da5q0")
 text = "Reload Chart"
 
 [node name="SaveChart" type="Button" parent="main/ChartMenu/Chart"]
@@ -255,11 +265,11 @@ offset_right = 218.0
 offset_bottom = 67.0
 tooltip_text = "Saves the current chart to disk."
 theme = ExtResource("6_iqyyb")
-theme_override_styles/focus = ExtResource("7_da5q0")
-theme_override_styles/hover_pressed = ExtResource("8_dy15n")
-theme_override_styles/hover = ExtResource("9_w15xo")
-theme_override_styles/pressed = ExtResource("10_dia0i")
 theme_override_styles/normal = ExtResource("11_2i7kg")
+theme_override_styles/pressed = ExtResource("10_dia0i")
+theme_override_styles/hover = ExtResource("9_w15xo")
+theme_override_styles/hover_pressed = ExtResource("8_dy15n")
+theme_override_styles/focus = ExtResource("7_da5q0")
 text = "Save Chart"
 
 [node name="PlayChart" type="Button" parent="main/ChartMenu/Chart"]
@@ -270,11 +280,11 @@ offset_right = 218.0
 offset_bottom = 99.0
 tooltip_text = "Plays and pauses the chart."
 theme = ExtResource("6_iqyyb")
-theme_override_styles/focus = ExtResource("7_da5q0")
-theme_override_styles/hover_pressed = ExtResource("8_dy15n")
-theme_override_styles/hover = ExtResource("9_w15xo")
-theme_override_styles/pressed = ExtResource("10_dia0i")
 theme_override_styles/normal = ExtResource("11_2i7kg")
+theme_override_styles/pressed = ExtResource("10_dia0i")
+theme_override_styles/hover = ExtResource("9_w15xo")
+theme_override_styles/hover_pressed = ExtResource("8_dy15n")
+theme_override_styles/focus = ExtResource("7_da5q0")
 text = "Play/Pause"
 
 [node name="StopChart" type="Button" parent="main/ChartMenu/Chart"]
@@ -285,11 +295,11 @@ offset_right = 218.0
 offset_bottom = 131.0
 tooltip_text = "Stops and resets the chart."
 theme = ExtResource("6_iqyyb")
-theme_override_styles/focus = ExtResource("7_da5q0")
-theme_override_styles/hover_pressed = ExtResource("8_dy15n")
-theme_override_styles/hover = ExtResource("9_w15xo")
-theme_override_styles/pressed = ExtResource("10_dia0i")
 theme_override_styles/normal = ExtResource("11_2i7kg")
+theme_override_styles/pressed = ExtResource("10_dia0i")
+theme_override_styles/hover = ExtResource("9_w15xo")
+theme_override_styles/hover_pressed = ExtResource("8_dy15n")
+theme_override_styles/focus = ExtResource("7_da5q0")
 text = "Stop Chart"
 
 [node name="Note" type="Panel" parent="main/ChartMenu"]
@@ -339,7 +349,39 @@ offset_bottom = 352.0
 theme = ExtResource("6_iqyyb")
 step = 0.1
 
+[node name="ErrorPopup" type="ConfirmationDialog" parent="main"]
+canvas_item_default_texture_filter = 0
+oversampling_override = 1.0
+title = "Chart Error"
+initial_position = 2
+size = Vector2i(400, 400)
+min_size = Vector2i(400, 400)
+max_size = Vector2i(400, 400)
+content_scale_mode = 2
+content_scale_aspect = 1
+content_scale_stretch = 1
+theme = ExtResource("6_iqyyb")
+
+[node name="ErrTxt" type="Label" parent="main/ErrorPopup"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 392.0
+offset_bottom = 369.0
+theme = ExtResource("6_iqyyb")
+theme_override_font_sizes/font_size = 32
+text = "An error has occured while loading the chart:
+{CHART_NAME}
+{CHART_PATH}
+
+In mod:
+{MOD_NAME}
+
+The default chart has been loaded.
+If this keeps happening, your chart is most likley corrupted."
+autowrap_mode = 3
+
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="button_up" from="main/ChartMenu/Chart/ReloadChart" to="." method="_on_reload_chart_button_up"]
 [connection signal="button_up" from="main/ChartMenu/Chart/PlayChart" to="." method="_on_play_chart_button_up"]
 [connection signal="button_up" from="main/ChartMenu/Chart/StopChart" to="." method="_on_stop_chart_button_up"]
 [connection signal="drag_ended" from="main/TimeSlider" to="." method="_on_time_slider_drag_ended"]

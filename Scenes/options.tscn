@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://6d3ioa3fqdj2"]
+[gd_scene load_steps=36 format=3 uid="uid://6d3ioa3fqdj2"]
 
 [ext_resource type="Script" uid="uid://b2x1e7p8svle3" path="res://Scripts/options.gd" id="1_8l66q"]
 [ext_resource type="PackedScene" uid="uid://bs1l0mns6uorv" path="res://Scenes/Objects/notes_parallax_bg_alt.tscn" id="2_5mb8v"]
@@ -17,6 +17,7 @@
 [ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="9_j2wfu"]
 [ext_resource type="StyleBox" uid="uid://bbjybuk4u5wt4" path="res://Assets/Editor/TabBar/tab_sel.tres" id="9_sut4s"]
 [ext_resource type="StyleBox" uid="uid://b0mjcae6s8slv" path="res://Assets/Editor/TabBar/tab_disabled.tres" id="10_sut4s"]
+[ext_resource type="SpriteFrames" uid="uid://fmavbj1lj3rp" path="res://Assets/sprite/note_frame.tres" id="17_o88n5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5rq3"]
 bg_color = Color(0, 0, 0, 0.505882)
@@ -74,7 +75,9 @@ font = ExtResource("3_wag1g")
 bg_color = Color(0, 0.495605, 0.546875, 0.419608)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvrgx"]
-bg_color = Color(0.50415, 0.546875, 0, 0.419608)
+bg_color = Color(1, 1, 1, 0.047000002)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o88n5"]
 
 [sub_resource type="Animation" id="Animation_a8bis"]
 length = 0.001
@@ -152,10 +155,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -252.0
-offset_top = -146.5
-offset_right = 252.0
-offset_bottom = 146.5
+offset_left = -256.0
+offset_top = -146.0
+offset_right = 256.0
+offset_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_iqibs")
@@ -167,7 +170,6 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -146.5
-offset_right = -506.0
 offset_bottom = -113.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -181,7 +183,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -232.0
 offset_top = 0.5
-offset_right = 240.0
+offset_right = 232.0
 offset_bottom = 31.5
 grow_horizontal = 2
 text = "Options"
@@ -193,17 +195,17 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 38.5
-offset_bottom = 59.5
+offset_bottom = 62.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_wag1g")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/button_highlight = ExtResource("5_033dp")
-theme_override_styles/button_pressed = ExtResource("6_fpdr8")
 theme_override_styles/tab_unselected = ExtResource("7_r103k")
 theme_override_styles/tab_hovered = ExtResource("8_r103k")
 theme_override_styles/tab_selected = ExtResource("9_sut4s")
 theme_override_styles/tab_disabled = ExtResource("10_sut4s")
 theme_override_styles/tab_focus = ExtResource("8_sut4s")
+theme_override_styles/button_pressed = ExtResource("6_fpdr8")
+theme_override_styles/button_highlight = ExtResource("5_033dp")
 current_tab = 0
 tab_alignment = 1
 scrolling_enabled = false
@@ -249,10 +251,10 @@ offset_right = 99.0
 offset_bottom = 280.5
 theme_override_fonts/font = ExtResource("3_wag1g")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/focus = ExtResource("5_00htj")
-theme_override_styles/hover_pressed = ExtResource("6_d3j4e")
-theme_override_styles/hover = ExtResource("7_3xwud")
 theme_override_styles/normal = ExtResource("8_tuycc")
+theme_override_styles/hover = ExtResource("7_3xwud")
+theme_override_styles/hover_pressed = ExtResource("6_d3j4e")
+theme_override_styles/focus = ExtResource("5_00htj")
 text = "Save & Close"
 
 [node name="close" type="Button" parent="menu/main"]
@@ -264,10 +266,10 @@ offset_right = 197.0
 offset_bottom = 280.5
 theme_override_fonts/font = ExtResource("3_wag1g")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/focus = ExtResource("5_00htj")
-theme_override_styles/hover_pressed = ExtResource("6_d3j4e")
-theme_override_styles/hover = ExtResource("7_3xwud")
 theme_override_styles/normal = ExtResource("8_tuycc")
+theme_override_styles/hover = ExtResource("7_3xwud")
+theme_override_styles/hover_pressed = ExtResource("6_d3j4e")
+theme_override_styles/focus = ExtResource("5_00htj")
 text = "Close"
 clip_text = true
 
@@ -275,15 +277,15 @@ clip_text = true
 visible = false
 layout_mode = 0
 offset_top = 62.2658
-offset_right = 506.0
-offset_bottom = 250.266
+offset_right = 512.0
+offset_bottom = 250.26602
 theme_override_styles/panel = SubResource("StyleBoxFlat_047hm")
 
 [node name="Gameplay" type="Panel" parent="menu/main"]
 layout_mode = 0
 offset_top = 62.2658
-offset_right = 506.0
-offset_bottom = 250.266
+offset_right = 512.0
+offset_bottom = 250.26602
 theme_override_styles/panel = SubResource("StyleBoxFlat_46ff0")
 
 [node name="DeleteSave" type="Button" parent="menu/main/Gameplay"]
@@ -336,8 +338,8 @@ theme = ExtResource("9_j2wfu")
 visible = false
 layout_mode = 0
 offset_top = 62.2658
-offset_right = 506.0
-offset_bottom = 250.266
+offset_right = 512.0
+offset_bottom = 250.26602
 theme_override_styles/panel = SubResource("StyleBoxFlat_lknhe")
 
 [node name="ResolutionLabel" type="Label" parent="menu/main/Graphics"]
@@ -400,17 +402,148 @@ text = "Set Defaults"
 visible = false
 layout_mode = 0
 offset_top = 62.2658
-offset_right = 506.0
-offset_bottom = 250.266
+offset_right = 512.0
+offset_bottom = 250.26602
 theme_override_styles/panel = SubResource("StyleBoxFlat_dcquk")
 
 [node name="Input" type="Panel" parent="menu/main"]
 visible = false
 layout_mode = 0
 offset_top = 62.2658
-offset_right = 506.0
-offset_bottom = 250.266
+offset_right = 512.0
+offset_bottom = 250.26602
 theme_override_styles/panel = SubResource("StyleBoxFlat_nvrgx")
+
+[node name="left" type="AnimatedSprite2D" parent="menu/main/Input" groups=["strum"]]
+position = Vector2(188, 23.7342)
+sprite_frames = ExtResource("17_o88n5")
+animation = &"left"
+
+[node name="key_lbl" type="Label" parent="menu/main/Input/left"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("3_wag1g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="lftchange" type="Button" parent="menu/main/Input/left"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o88n5")
+
+[node name="down" type="AnimatedSprite2D" parent="menu/main/Input" groups=["strum"]]
+position = Vector2(222, 23.7342)
+sprite_frames = ExtResource("17_o88n5")
+animation = &"down"
+
+[node name="key_lbl" type="Label" parent="menu/main/Input/down"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("3_wag1g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="dwnchange" type="Button" parent="menu/main/Input/down"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o88n5")
+
+[node name="center" type="AnimatedSprite2D" parent="menu/main/Input" groups=["strum"]]
+position = Vector2(256, 23.7342)
+sprite_frames = ExtResource("17_o88n5")
+animation = &"center"
+
+[node name="key_lbl" type="Label" parent="menu/main/Input/center"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("3_wag1g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="cntchange" type="Button" parent="menu/main/Input/center"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o88n5")
+
+[node name="up" type="AnimatedSprite2D" parent="menu/main/Input" groups=["strum"]]
+position = Vector2(290, 23.7342)
+sprite_frames = ExtResource("17_o88n5")
+animation = &"up"
+
+[node name="key_lbl" type="Label" parent="menu/main/Input/up"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("3_wag1g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="upchange" type="Button" parent="menu/main/Input/up"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o88n5")
+
+[node name="right" type="AnimatedSprite2D" parent="menu/main/Input" groups=["strum"]]
+position = Vector2(324, 23.7342)
+sprite_frames = ExtResource("17_o88n5")
+animation = &"right"
+
+[node name="key_lbl" type="Label" parent="menu/main/Input/right"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("3_wag1g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="rhtchange" type="Button" parent="menu/main/Input/right"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o88n5")
+
+[node name="input_defaults" type="Button" parent="menu/main/Input"]
+layout_mode = 0
+offset_left = 402.0
+offset_top = 155.0
+offset_right = 486.0
+offset_bottom = 175.0
+theme = ExtResource("9_j2wfu")
+theme_override_fonts/font = ExtResource("3_wag1g")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/hover = SubResource("StyleBoxFlat_2hi08")
+text = "Defaults"
+
+[node name="input_screen" type="PopupMenu" parent="menu/main/Input"]
+oversampling_override = 1.0
+title = "Enter Input"
+initial_position = 1
+size = Vector2i(320, 180)
+
+[node name="Label" type="Label" parent="menu/main/Input/input_screen"]
+offset_right = 320.0
+offset_bottom = 180.0
+focus_behavior_recursive = 1
+text = "Enter your key now."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DevMenu" parent="." instance=ExtResource("3_b5nib")]
 visible = false
@@ -425,3 +558,10 @@ autoplay = "fade_in"
 [connection signal="button_up" from="menu/main/save-close" to="." method="_on_saveclose_button_up"]
 [connection signal="button_up" from="menu/main/close" to="." method="_on_close_button_up"]
 [connection signal="button_up" from="menu/main/Gameplay/DeleteSave" to="." method="_on_delete_save_button_up"]
+[connection signal="button_up" from="menu/main/Input/left/lftchange" to="." method="_on_lftchange_button_up"]
+[connection signal="button_up" from="menu/main/Input/down/dwnchange" to="." method="_on_dwnchange_button_up"]
+[connection signal="button_up" from="menu/main/Input/center/cntchange" to="." method="_on_cntchange_button_up"]
+[connection signal="button_up" from="menu/main/Input/up/upchange" to="." method="_on_upchange_button_up"]
+[connection signal="button_up" from="menu/main/Input/right/rhtchange" to="." method="_on_rhtchange_button_up"]
+[connection signal="button_up" from="menu/main/Input/input_defaults" to="." method="_on_input_defaults_button_up"]
+[connection signal="window_input" from="menu/main/Input/input_screen" to="." method="_on_input_screen_window_input"]

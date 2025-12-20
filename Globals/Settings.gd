@@ -16,19 +16,22 @@
 extends Node
 
 # Static Stuff
-const GAME_VERSION:String = "0.2";
+const GAME_VERSION:String = "0.2.0a";
 const chart_version:int = 0;
 ## File Version - Used in case of the settings updating.
 const secret:int = 1;
 
-const save_file:String = "user://AO/EngineSettings.sav";
-const mod_file:String = "user://AO/ModSettings.sav";
-const save_dir:String = "user://AO/";
+const save_file:String = "user://EngineSettings.sav";
+const mod_file:String = "user://ModSettings.sav";
+const save_dir:String = "user://";
 
 var debug:bool = true;
+## If enabled, the engine will save each chart as a packed chart instead of a text chart.[br]
+## Text charts are chosen by default.
+var prefer_bin_charts:bool = false;
 
 ## A flag that triggers a function to save in some conditions.[br]
-## Do NOT manually set this flag! You will absolutely throw the engine off and permanently destroy the engine save files!
+## Do NOT manually set this flag! You will absolutely throw the engine off and may destroy the engine save files!
 var _save_flag:bool = false;
 
 # Error Stuff
@@ -40,7 +43,7 @@ var errormsg:String = "";
 var fullscreen_mode:int = 0;
 var resolutions:Array[Vector2i]  = [Vector2i(640, 360), Vector2i(1280, 720), Vector2i(1920, 1080), Vector2i(2560, 1080)];
 var resolution_mode:int = 2;
-var max_framerate:int = 144;
+var max_framerate:int = 180;
 
 # Gameplay
 var story_mode:int = 0;

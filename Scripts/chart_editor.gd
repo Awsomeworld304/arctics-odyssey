@@ -1,15 +1,19 @@
 extends Node2D
 
+const err_msg_template:String = "An error has occured while loading the chart: %s\n%s\n\nIn mod:\n%s\n\nThe default chart has been loaded.\nIf this keeps happening, your chart is most likley corrupted.";
+
 # Strumline Stuff
 @onready var player:AudioStreamPlayer = $"Player" as AudioStreamPlayer;
 @onready var strum:Strumline = $"hud/player/Strumline" as Strumline;
-@onready var ui_RATING:Label = $"hud/player/Strumline/Rating" as Label;
+@onready var ui_RATING:RichTextLabel = $"hud/player/Strumline/Rating" as RichTextLabel;
 
 # UI Stuff
 @onready var songName:Label = $main/ChartMenu/Chart/ChartName as Label;
 @onready var editorGrid:GridPanel = $"hud/player/Strumline/GridPanel" as GridPanel;
 @onready var timeSlider:HSlider = $"main/TimeSlider" as HSlider;
 @onready var timeLabel:Label = $"main/SongTime" as Label;
+@onready var errBox:ConfirmationDialog = $main/ErrorPopup as ConfirmationDialog;
+@onready var errTxt:Label = $main/ErrorPopup/ErrTxt as Label;
 
 ## How many notes have been hit.
 var hit_notes:int = 0;
@@ -38,16 +42,22 @@ func on_hit_note(_note:Note) -> void:
 	hit_notes += 1;
 	pass
 
-func load_song(chart_path:String) -> void:
+func new_chart() -> void:
 	var chartData:Chart = Chart.new();
+	pass
 
+func load_song(chart_path:String) -> Error:
+	var chartData:Chart = Chart.new();
 	chartData = Chart._parse_chart(chart_path);
+	if chartData == null: return Error.ERR_FILE_CANT_READ;
 	Conductor.bpm = chartData.song_bpm;
 	Conductor.scroll_speed = chartData.note_speed;
 	strum.strumline_id = &"edit";
 	strum.ui_SLID.text = "SLID: edit";
-	strum.load_chart(chartData);
+	strum.reset();
+	var err:Error = strum.load_chart(chartData);
 	Conductor.stop();
+	if err != Error.OK: return err;
 	songName.text = chartData.song.capitalize();
 	Conductor.play();
 	Conductor.pause();
@@ -56,14 +66,14 @@ func load_song(chart_path:String) -> void:
 	editorGrid.tile_offset.y = floori(Conductor.get_beat_time() * (float(Conductor.scroll_speed) * Conductor._offset_scroll_modifier));
 	editorGrid.grid_height = Conductor._num_beats_in_song;
 	timeSlider.max_value = player.stream.get_length();
-	pass
+	return Error.OK;
 
+#???? :sob:
 func spawn_stage() -> void:
 	pass
 
 func _ready() -> void:
 	#strum.bot_strumline = true;
-	ui_RATING.modulate = Color.TRANSPARENT;
 	Conductor.player = player;
 
 	var _s:int = Conductor.sixteenth_will_pass.connect(_step_pass);
@@ -71,7 +81,10 @@ func _ready() -> void:
 	_s = strum.note_hit.connect(on_hit_note);
 	_s = timeSlider.drag_started.connect(drag_started);
 
-	load_song("user://Mods/Songs/beat_test/beat_test.json");
+	if load_song("user://Mods/Songs/beat_test/beat_test.json") != OK:
+		errBox.visible = true;
+		errTxt.text = err_msg_template % ["Beat Test", "user://Mods/Songs/beat_test/beat_test.json", "???"];
+		pass
 	pass
 
 var total_beat:int = 0;
@@ -98,7 +111,6 @@ func _process(_delta: float) -> void:
 	if !timeSlider_is_dragging: timeSlider.value = Conductor.position;
 	timeLabel.text = "[%s / %s]" % [format_time(Conductor.position), format_time(int(player.stream.get_length()))];
 	pass
-
 
 func _beat_pass(beat: int) -> void:
 	total_beat = beat;
@@ -141,13 +153,18 @@ func _on_tree_exiting() -> void:
 func _on_stop_chart_button_up() -> void:
 	timeSlider.value = Conductor.position;
 	Conductor.stop(true);
-	strum.reset();
+	strum.reset_notes();
 	timeSlider_is_dragging = false;
 	timeSlider_prev_paused = false;
 	timeSlider.value = 0;
 	pass
 
 func _on_play_chart_button_up() -> void:
+	Conductor.pause();
+	pass
+
+func _on_reload_chart_button_up() -> void:
+	load_song(strum.chart.chart_path);
 	pass
 
 func _on_time_slider_value_changed(value: float) -> void:

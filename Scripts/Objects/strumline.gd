@@ -43,7 +43,7 @@ var hit_window:float = 0.128; # 64ms
 @onready var up:Strum = $up as Strum;
 @onready var right:Strum = $right as Strum;
 
-@onready var ui_RATING:Label = $Rating as Label;
+@onready var ui_RATING:RichTextLabel = $Rating as RichTextLabel;
 @onready var ui_SLID:Label = $slidLabel as Label;
 
 signal note_hit(note:Note);
@@ -90,24 +90,38 @@ func add_note(_note:Note) -> void:
 func remove_note(note:Note = null, index:int = -1) -> void:
 	# Handle index.
 	if note == null and index >= 0:
+		for i:int in len(self.chart.notes):
+			if i == index: self.chart.notes[i].queue_free();
+			pass
 		pass
 	# Handle instance.
 	elif note != null and index == -1:
+		for known_note:Note in self.chart.notes:
+			if known_note == note: known_note.queue_free();
+			pass
 		pass
 	# Handle both.
 	elif note != null and index >= 0:
+		for i:int in len(self.chart.notes):
+			if index == i and note == self.chart.notes[i]:
+				self.chart.notes[i].queue_free();
+				pass
+			pass
 		pass
+	# No note or index.
 	else:
 		push_error("Strumline -> Remove Note: Can't remove a note without an instance or an index.");
+		pass
 	pass
 
-func load_chart(new_chart:Chart) -> void:
-	if Chart.validate_chart(new_chart):
+func load_chart(new_chart:Chart) -> Error:
+	var _chart_error:Error = Chart.validate_chart(new_chart);
+	if _chart_error == 0:
 		self.chart = new_chart;
 		pass
 	else:
 		printerr("Chart -> Chart is not valid!");
-		return;
+		return _chart_error;
 
 	# Chart data is parsed, now to calculate the positions of each note.
 	for note:Note in self.chart.notes:
@@ -133,11 +147,15 @@ func load_chart(new_chart:Chart) -> void:
 				right.add_child(note);
 		note.position.y = sec_to_px(note);
 		pass
-	pass
+	return Error.OK;
 
 ## TODO: make a soft reset that removes hit times of each note and reverses them with delta
+func note_visual_reset() -> void:
+	reset_notes();
+	pass
 
 ## Reset notes back to their initial state without removing them.
+## Note: this does not set the note positions.
 func reset_notes() -> void:
 	if bot_strumline:
 		for note:Note in get_tree().get_nodes_in_group(strumline_id + ".bot_note") as Array[Note]:
@@ -172,7 +190,7 @@ func reset() -> void:
 	for note:Note in right.get_children() as Array[Note]:
 		if note is Note: note.queue_free();
 		pass
-	var path:String = chart.chart_path;
+	var path:String = chart.chart_path if (chart != null) else "";
 	chart = null;
 	load_chart(Chart._parse_chart(path));
 	pass
@@ -184,10 +202,11 @@ func bot_input() -> void:
 	if chart == null or chart.notes.size() == 0: return;
 	for note:Note in chart.notes:
 		if note.visible and note.hit_time == -32 and abs(note.time - Conductor.position) <= 0.016:
-			#print("BOT calculate_note called for note at time: ", note.time);
+			print("BOT calculate_note called for note at time: ", note.time);
 			Input.action_press("bot_" + note.key_name);
 			Input.action_release("bot_" + note.key_name);
 		pass
+	print("BOT actuially pressing");
 
 	# Detect note presses.
 	if Input.is_action_just_pressed("bot_left"):
@@ -213,6 +232,8 @@ func _ready() -> void:
 		ui_SLID.visible = true;
 		ui_SLID.text = "SLID: " + strumline_id;
 		pass
+	else: ui_SLID.visible = false;
+		
 	if bot_strumline:
 		left.toggle_bot();
 		down.toggle_bot();
@@ -251,8 +272,9 @@ func calculate_note(note:Note, hit_time:float) -> void:
 	elif diff <= 0.032: rating = "Perfect";
 	elif diff <= 0.064: rating = "Good";
 	elif diff <= 0.128: rating = "Bad";
-	else: rating = "What?\n" + var_to_str(diff);
-
+	else: rating = "What?\n" + var_to_str(diff); # Should NOT be able to hit this.
+	
+	if Settings.debug: rating += "\n[font_size=16]%s MS[/font_size]" % int((note.time - hit_time) * 1000);
 	ui_RATING.text = rating;
 	ui_RATING.create_tween().stop();
 	var color:Color = Color.WHITE if !bot_strumline else Color.CRIMSON;
@@ -291,6 +313,9 @@ func _bot_note_press(note_group:StringName = "none") -> void:
 			var ht:float = Conductor.position;
 			if note_is_in_range(note, ht):
 				calculate_note(note, ht);
+				pass
+			else:
+				if note.position.y < (-5*Conductor.scroll_speed): print("Strumline -> BOT Missed note?");
 				pass
 			pass
 		pass

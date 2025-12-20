@@ -13,7 +13,7 @@ config_version=5
 config/name="Arctic's Odyssey"
 config/version="0.1.0"
 run/main_scene="res://Scenes/Main.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=144
 config/icon="res://Assets/logo/FBLogo32x.png"
 
@@ -38,6 +38,7 @@ ErrorScene="*res://Globals/ErrorScene.tscn"
 Conductor="*res://Globals/Conductor.gd"
 FPS="*res://Globals/FPS/FPS.tscn"
 GlobalLoader="*res://Globals/GlobalLoader.gd"
+ModLoader="*res://Globals/ModLoader.gd"
 
 [debug]
 

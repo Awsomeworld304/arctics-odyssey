@@ -21,8 +21,10 @@ var current_battle:BattleInstance;
 
 func start_battle(player:Character, opponent:Character) -> BattleInstance:
 	var new_battle:BattleInstance = BattleInstance.new();
-	
+	in_battle = true;
 	return new_battle;
 
 func end_battle() -> void:
+	current_battle = null;
+	in_battle = false;
 	pass

@@ -2,9 +2,9 @@ class_name Chart
 extends Node
 
 ## The notes in the chart.
-@export var notes:Array[Note];
+@export var notes:Array[Note] = [];
 ## The path to the chart.
-@export var chart_path:String;
+@export var chart_path:String = "";
 ## The song name.
 @export var song:String = "";
 ## Chart Characters
@@ -19,11 +19,12 @@ extends Node
 @export var chart_format_version:int = Settings.chart_version:
 	set(value): push_warning("Chart -> Set: Cannot change the chart format version!");
 	get: return chart_format_version;
-## The chart version.
+## The user-set chart version.[br]
+## This is not the same as ```chart_format_version```.
 @export var chart_version:int = 0;
 
 func _init(new_chart_path:String = "") -> void:
-	if new_chart_path != "":
+	if FileAccess.file_exists(new_chart_path):
 		var _chart:Chart = Chart._parse_chart(new_chart_path);
 		song = _chart.song;
 		song_bpm = _chart.song_bpm;
@@ -34,6 +35,17 @@ func _init(new_chart_path:String = "") -> void:
 		notes = _chart.notes;
 		chart_path = new_chart_path;
 		pass
+	# Init chart
+	else:
+		song = "Untitled";
+		if new_chart_path != "":
+			chart_path = new_chart_path;
+			pass
+		else:
+			chart_path = "user://Mods/Songs/%s/%s.%s" % [song, song, "tac" if !Settings.prefer_bin_charts else "pac"];
+			pass
+		pass
+		
 	pass
 
 func _ready() -> void:
@@ -43,43 +55,43 @@ func add_note(note:Note) -> void:
 	notes.append(note);
 	pass
 
-static func validate_chart(chart:Chart) -> bool:
-	var valid:bool = true;
+static func validate_chart(chart:Chart) -> Error:
+	var _err:Error = OK;
 	var valid_keys:Array = ["left","down","up","right","center"];
 
 	if chart == null:
 		push_error("Chart -> Validation: Chart is null!");
-		valid = false;
+		_err = ERR_DOES_NOT_EXIST;	
 		chart = Chart.new();
 		chart.notes = [];
 		pass
 
-	if typeof(chart.song) != TYPE_STRING or chart.song=="":
+	if typeof(chart.song) != TYPE_STRING or chart.song=="" or chart.song.length() >= 256:
 		push_error("Chart -> Validation: 'song' must be a non-empty string.");
-		valid = false;
+		_err = ERR_INVALID_DATA;
 		pass
-	if typeof(chart.characters) != TYPE_ARRAY or chart.characters.size() == 0:
-		push_error("Chart -> Validation: 'characters' must be a non-empty array.");
-		valid = false;
+	if typeof(chart.characters) != TYPE_ARRAY or chart.characters.size() == 0 or chart.characters.size() > 63:
+		push_error("Chart -> Validation: 'characters' must contain 1 - 64 characters.");
+		_err = ERR_INVALID_DATA;
 		pass
 	if typeof(chart.note_speed) != TYPE_INT or chart.note_speed <= 0:
-		push_error("Chart -> Validation: 'note_speed' must be a positive integer.");
-		valid = false;
+		push_error("Chart -> Validation: 'note_speed' is not valid.");
+		_err = ERR_INVALID_DATA;
 		pass
 	if typeof(chart.notes) != TYPE_ARRAY or chart.notes.size() == 0:
-		push_error("Chart -> Validation: 'notes' must be a non-empty array.");
-		valid = false;
+		push_error("Chart -> Validation: 'notes' is missing or empty.");
+		_err = ERR_INVALID_DATA;
 		pass
 
 	for i:int in chart.notes.size():
 		var note:Note = chart.notes[i];
 		if not note.key_name != null or typeof(note.key_name) != TYPE_STRING_NAME or not valid_keys.has(note.key_name):
-			push_error("Chart -> Validation: Note %d has invalid or missing 'key_name'." % i);
-			valid = false;
+			push_error("Chart -> Validation: Note %d has invalid or missing key name." % i);
+			_err = ERR_INVALID_DATA;
 			pass
-		if not note.time != null or typeof(note.time) != TYPE_FLOAT or note.time < 0.0:
-			push_error("Chart -> Validation: Note %d has invalid or missing 'time'." % i);
-			valid = false;
+		if not note.time != null or typeof(note.time) != TYPE_FLOAT or note.time < 0.0 or ((note.time > Conductor.player.stream.get_length()) if Conductor.player != null else true):
+			push_error("Chart -> Validation: Note %d has invalid or missing time position." % i);
+			_err = ERR_INVALID_DATA;
 			pass
 		pass
 
@@ -88,24 +100,20 @@ static func validate_chart(chart:Chart) -> bool:
 			var event:Event = chart.events[j];
 			if event.eventscript == null or event.eventscript.to_string() == "":
 				push_error("Chart -> Validation: Event %d is missing a valid 'script' in Event.script." % j);
-				valid = false;
+				_err = ERR_INVALID_DATA if event.eventscript.to_string() == "" else ERR_DOES_NOT_EXIST;
 				pass
 			pass
 		pass
 
 	# Return check.
-	return valid;
+	return _err;
 
-func _load_from_json(_data:String) -> Chart:
-	return Chart.new();
-
-# Load JSON Chart
-static func _parse_chart(path:String) -> Chart:
+static func _load_from_json(path:String) -> Chart:
 	var chart:Chart = Chart.new();
 
 	if not FileAccess.file_exists(path):
 		push_error("Chart -> Chart does not exist! " + path);
-		return chart;
+		return null;
 	var file:FileAccess = FileAccess.open(path, FileAccess.READ);
 
 	if file == null or file.get_error() != OK or FileAccess.get_open_error() != OK:
@@ -144,9 +152,9 @@ static func _parse_chart(path:String) -> Chart:
 	if parsed_data["notes"] != null:
 		for note_data:Dictionary in parsed_data["notes"]:
 			var note:Note = Note.new();
-			note.time = note_data["time"] as float;
-			note.key_name = note_data["key_name"] as StringName;
-			note.type = note_data["type"] as StringName;
+			note.time = note_data["time"];
+			note.key_name = note_data["key_name"];
+			note.type = note_data["type"];
 			chart.notes.append(note);
 			pass
 		pass
@@ -163,7 +171,16 @@ static func _parse_chart(path:String) -> Chart:
 			var nchar:Character = Character.new();
 			nchar.character_name = str(cchar);
 			chart.characters.append(nchar);
+			pass
 		pass
+	return chart;
+
+# Load Chart
+static func _parse_chart(path:String) -> Chart:
+	var chart:Chart;
+	if ModLoader.is_json_chart(path): chart = _load_from_json(path);
+	elif ModLoader.is_bin_chart(path): chart = _load_from_bin(path);
+	else: chart = load_default_chart();
 	return chart;
 
 ## Compile and save chart to JSON. Slower option.
@@ -236,9 +253,27 @@ func _save_chart(path:String = "") -> void:
 	file.close();
 	pass
 
+static func _load_from_bin(path:String = "") -> Chart:
+	var cht:Chart;
+	var file:FileAccess = FileAccess.open(path, FileAccess.READ);
+	if not FileAccess.file_exists(path):
+		push_error("Chart -> Chart does not exist! " + path);
+		return null;
+	cht = file.get_var(true);
+	return cht;
+
 func _save_chart_bin(path:String = "") -> void:
 	var save_path:String = path if (!path.is_empty()) else chart_path;
 	if save_path == "":
 		push_error("Chart -> No path specified for saving chart.");
 		return;
+	var file:FileAccess = FileAccess.open(save_path, FileAccess.WRITE);
+	var err:bool = file.store_var(self, true);
+	if !err: push_error("Chart -> BIN Save: Error while storing chart!");
+	file.close();
 	pass
+
+static func load_default_chart() -> Chart:
+	var chart:Chart;
+	chart = Chart._load_from_json("res://Assets/Songs/beat_test/beat_test.json");
+	return chart;
