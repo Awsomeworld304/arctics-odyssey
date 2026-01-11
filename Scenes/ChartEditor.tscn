@@ -1,19 +1,23 @@
-[gd_scene load_steps=21 format=3 uid="uid://dobkulb7xcfar"]
+[gd_scene load_steps=39 format=3 uid="uid://dobkulb7xcfar"]
 
 [ext_resource type="Script" uid="uid://bamkw10fyf8p8" path="res://Scripts/chart_editor.gd" id="1_67anw"]
 [ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/beat_test.wav" id="3_akv22"]
+[ext_resource type="Script" uid="uid://cqdwlirkrenry" path="res://Scripts/Objects/strumline_editor.gd" id="3_da5q0"]
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="3_qsohv"]
-[ext_resource type="FontFile" uid="uid://byffkjoo7jpvl" path="res://Assets/Fonts/Pixel/Pixellari.ttf" id="4_dy15n"]
+[ext_resource type="AudioStream" uid="uid://df1jfgwlqun56" path="res://Assets/Sounds/hitsound.wav" id="4_2i7kg"]
 [ext_resource type="FontFile" uid="uid://o4opdh3o6c12" path="res://Assets/Fonts/FiraCode/FiraCode-Bold.ttf" id="5_6envu"]
-[ext_resource type="Script" uid="uid://byhh3wexdca1b" path="res://Scripts/Objects/strumline.gd" id="5_gk37r"]
 [ext_resource type="Script" uid="uid://bnru5lmcpyjia" path="res://Scripts/Objects/grid_panel.gd" id="5_lelxc"]
 [ext_resource type="PackedScene" uid="uid://cjqoeju3yisxe" path="res://Scenes/Objects/strum.tscn" id="6_6btys"]
 [ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="6_iqyyb"]
 [ext_resource type="StyleBox" uid="uid://b8uta3fal6kwk" path="res://Assets/Editor/DefaultButton/Btn-Focus.tres" id="7_da5q0"]
+[ext_resource type="FontFile" uid="uid://es010scan6se" path="res://Assets/Fonts/monogram/ttf/monogram-extended.ttf" id="8_da5q0"]
 [ext_resource type="StyleBox" uid="uid://bfppjw3b4oygn" path="res://Assets/Editor/DefaultButton/Btn-Hover-Pressed.tres" id="8_dy15n"]
 [ext_resource type="StyleBox" uid="uid://dhb2dhrhi04x" path="res://Assets/Editor/DefaultButton/Btn-Hover.tres" id="9_w15xo"]
 [ext_resource type="StyleBox" uid="uid://s5trp4ljd7d5" path="res://Assets/Editor/DefaultButton/Btn-Pressed.tres" id="10_dia0i"]
 [ext_resource type="StyleBox" uid="uid://bbcm74hpo08oy" path="res://Assets/Editor/DefaultButton/Btn-Normal.tres" id="11_2i7kg"]
+[ext_resource type="Texture2D" uid="uid://c85q5ks7h27th" path="res://Assets/Images/UI/button_plus.png" id="15_w15xo"]
+[ext_resource type="BitMap" uid="uid://b2ux0ec3vgcck" path="res://Assets/Images/UI/button_mask.bmp" id="16_dia0i"]
+[ext_resource type="Texture2D" uid="uid://b7rb0hgxnnvst" path="res://Assets/Images/UI/button_minus.png" id="17_dia0i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31dnc"]
 bg_color = Color(0.25, 0.0820312, 0.0820312, 1)
@@ -53,6 +57,158 @@ bg_color = Color(0, 0.0452271, 0.152344, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5k2l8"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i7kg"]
+atlas = ExtResource("15_w15xo")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k2l8"]
+atlas = ExtResource("15_w15xo")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_car18"]
+atlas = ExtResource("15_w15xo")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emma5"]
+atlas = ExtResource("15_w15xo")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yytuo"]
+atlas = ExtResource("15_w15xo")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrevk"]
+atlas = ExtResource("17_dia0i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxr33"]
+atlas = ExtResource("17_dia0i")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u72mc"]
+atlas = ExtResource("17_dia0i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qh1op"]
+atlas = ExtResource("17_dia0i")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjoef"]
+atlas = ExtResource("17_dia0i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dia0i"]
+bg_color = Color(0, 0, 0, 0.3647059)
+
+[sub_resource type="Animation" id="Animation_2i7kg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main/_TimeSliderBG:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [336.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("main/_TimeSliderBG/_TimeSliderTitleBG/_SliderTitle:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("main/_TimeSliderBG/_TimeSliderTitleBG/_SliderTitle:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Time Slider"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("main/_TimeSliderBG/_TimeSliderTitleBG/_SliderTitle:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dia0i"]
+resource_name = "slide"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main/_TimeSliderBG:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [336.0, 360.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("main/_TimeSliderBG/_TimeSliderTitleBG/_SliderTitle:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [1.0, 0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("main/_TimeSliderBG/_TimeSliderTitleBG/_SliderTitle:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.249, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["Time Slider", "Time Slider", "Song Time"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("main/_TimeSliderBG/_TimeSliderTitleBG/_SliderTitle:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5k2l8"]
+_data = {
+&"RESET": SubResource("Animation_2i7kg"),
+&"slide": SubResource("Animation_dia0i")
+}
+
 [node name="ChartEditor" type="Node2D"]
 script = ExtResource("1_67anw")
 metadata/_edit_lock_ = true
@@ -87,21 +243,28 @@ metadata/_edit_lock_ = true
 
 [node name="Strumline" type="Node2D" parent="hud/player"]
 position = Vector2(96, 32)
-script = ExtResource("5_gk37r")
+script = ExtResource("3_da5q0")
+metadata/_edit_lock_ = true
+
+[node name="Hitsound" type="AudioStreamPlayer" parent="hud/player/Strumline"]
+stream = ExtResource("4_2i7kg")
+volume_db = -6.0
+bus = &"SFX"
 
 [node name="GridPanel" type="Control" parent="hud/player/Strumline"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -84.0
 offset_top = -16.0
-offset_right = -52.0
+offset_right = 84.0
 offset_bottom = 16.0
 script = ExtResource("5_lelxc")
 grid_width = 5
 grid_height = 12
-grid_color = Color(0.628906, 0.0958099, 0.0958099, 1)
-grid_color_sec = Color(0.390625, 0.0274658, 0.0274658, 1)
+grid_color = Color(0.265625, 0.265625, 0.265625, 1)
+grid_color_sec = Color(1, 1, 1, 1)
 metadata/_custom_type_script = "uid://bnru5lmcpyjia"
+metadata/_edit_lock_ = true
 
 [node name="left" parent="hud/player/Strumline" instance=ExtResource("6_6btys")]
 position = Vector2(-68, 0)
@@ -186,9 +349,9 @@ metadata/_edit_lock_ = true
 offset_left = 16.0
 offset_top = 64.0
 offset_right = 224.0
-offset_bottom = 360.0
+offset_bottom = 320.0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_fonts/normal_font = ExtResource("4_dy15n")
+theme_override_fonts/normal_font = ExtResource("8_da5q0")
 theme_override_fonts/bold_font = ExtResource("5_6envu")
 theme_override_fonts/mono_font = ExtResource("3_qsohv")
 theme_override_font_sizes/normal_font_size = 16
@@ -302,11 +465,90 @@ theme_override_styles/hover_pressed = ExtResource("8_dy15n")
 theme_override_styles/focus = ExtResource("7_da5q0")
 text = "Stop Chart"
 
+[node name="_NoteSpeedLbl" type="Label" parent="main/ChartMenu/Chart"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 147.0
+offset_right = 152.0
+offset_bottom = 187.0
+theme = ExtResource("6_iqyyb")
+text = "Note Speed:"
+vertical_alignment = 1
+
+[node name="NoteSpeedBox" type="SpinBox" parent="main/ChartMenu/Chart"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 155.0
+offset_right = 218.0
+offset_bottom = 179.0
+theme = ExtResource("6_iqyyb")
+max_value = 10.0
+step = 0.1
+alignment = 1
+
 [node name="Note" type="Panel" parent="main/ChartMenu"]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_d1vlv")
 metadata/_tab_index = 1
+
+[node name="PlusZoom" type="TextureButton" parent="main/ChartMenu/Note"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 11.0
+offset_right = 40.0
+offset_bottom = 43.0
+texture_normal = SubResource("AtlasTexture_2i7kg")
+texture_pressed = SubResource("AtlasTexture_5k2l8")
+texture_hover = SubResource("AtlasTexture_car18")
+texture_disabled = SubResource("AtlasTexture_emma5")
+texture_focused = SubResource("AtlasTexture_yytuo")
+texture_click_mask = ExtResource("16_dia0i")
+
+[node name="MinusZoom" type="TextureButton" parent="main/ChartMenu/Note"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 11.0
+offset_right = 72.0
+offset_bottom = 43.0
+texture_normal = SubResource("AtlasTexture_jrevk")
+texture_pressed = SubResource("AtlasTexture_sxr33")
+texture_hover = SubResource("AtlasTexture_u72mc")
+texture_disabled = SubResource("AtlasTexture_qh1op")
+texture_focused = SubResource("AtlasTexture_gjoef")
+texture_click_mask = ExtResource("16_dia0i")
+
+[node name="ZoomLabel" type="Label" parent="main/ChartMenu/Note"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 11.0
+offset_right = 208.0
+offset_bottom = 43.0
+theme = ExtResource("6_iqyyb")
+theme_override_font_sizes/font_size = 16
+text = "Zoom: 1/4"
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="main/ChartMenu/Note"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 51.0
+offset_right = 216.0
+offset_bottom = 75.0
+theme = ExtResource("6_iqyyb")
+text = "Place notes with Mouse"
+
+[node name="Event" type="Panel" parent="main/ChartMenu"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d1vlv")
+metadata/_tab_index = 2
+
+[node name="Audio" type="Panel" parent="main/ChartMenu"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d1vlv")
+metadata/_tab_index = 3
 
 [node name="_TimeSliderBG" type="ColorRect" parent="main"]
 offset_left = 8.0
@@ -315,39 +557,71 @@ offset_right = 632.0
 offset_bottom = 352.0
 color = Color(0, 0, 0, 0.364706)
 
-[node name="_TimeSliderTitleBG" type="ColorRect" parent="main/_TimeSliderBG"]
+[node name="_TimeSliderTitleBG" type="Panel" parent="main/_TimeSliderBG"]
 layout_mode = 0
 offset_top = -16.0
-offset_right = 168.0
-color = Color(0, 0, 0, 0.364706)
+offset_right = 184.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dia0i")
 
 [node name="_SliderTitle" type="Label" parent="main/_TimeSliderBG/_TimeSliderTitleBG"]
-layout_mode = 0
-offset_left = 8.0
-offset_right = 72.0
-offset_bottom = 16.0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_right = 76.0
+offset_bottom = 8.0
+grow_vertical = 2
 theme = ExtResource("6_iqyyb")
 text = "Time Slider"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SongTime" type="Label" parent="main"]
-offset_left = 80.0
-offset_top = 320.0
-offset_right = 176.0
-offset_bottom = 336.0
+[node name="SongTime" type="Label" parent="main/_TimeSliderBG/_TimeSliderTitleBG"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -8.0
+offset_right = 72.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("6_iqyyb")
 text = "[0:00 / 0:00]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TimeSlider" type="HSlider" parent="main"]
-offset_left = 8.0
-offset_top = 336.0
-offset_right = 632.0
-offset_bottom = 352.0
+[node name="SliderMinim" type="Button" parent="main/_TimeSliderBG/_TimeSliderTitleBG"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("6_iqyyb")
+text = "-"
+
+[node name="TimeSlider" type="HSlider" parent="main/_TimeSliderBG"]
+layout_mode = 0
+offset_right = 624.0
+offset_bottom = 16.0
 theme = ExtResource("6_iqyyb")
 step = 0.1
+
+[node name="TimeSliderAnim" type="AnimationPlayer" parent="main/_TimeSliderBG"]
+root_node = NodePath("../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_5k2l8")
+}
 
 [node name="ErrorPopup" type="ConfirmationDialog" parent="main"]
 canvas_item_default_texture_filter = 0
@@ -384,5 +658,11 @@ autowrap_mode = 3
 [connection signal="button_up" from="main/ChartMenu/Chart/ReloadChart" to="." method="_on_reload_chart_button_up"]
 [connection signal="button_up" from="main/ChartMenu/Chart/PlayChart" to="." method="_on_play_chart_button_up"]
 [connection signal="button_up" from="main/ChartMenu/Chart/StopChart" to="." method="_on_stop_chart_button_up"]
-[connection signal="drag_ended" from="main/TimeSlider" to="." method="_on_time_slider_drag_ended"]
-[connection signal="value_changed" from="main/TimeSlider" to="." method="_on_time_slider_value_changed"]
+[connection signal="value_changed" from="main/ChartMenu/Chart/NoteSpeedBox" to="." method="_on_note_speed_box_value_changed"]
+[connection signal="button_up" from="main/ChartMenu/Note/PlusZoom" to="." method="_on_plus_zoom_button_up"]
+[connection signal="mouse_exited" from="main/ChartMenu/Note/PlusZoom" to="." method="_on_plus_zoom_mouse_exited"]
+[connection signal="button_up" from="main/ChartMenu/Note/MinusZoom" to="." method="_on_minus_zoom_button_up"]
+[connection signal="mouse_exited" from="main/ChartMenu/Note/MinusZoom" to="." method="_on_minus_zoom_mouse_exited"]
+[connection signal="button_up" from="main/_TimeSliderBG/_TimeSliderTitleBG/SliderMinim" to="." method="_on_slider_minim_button_up"]
+[connection signal="drag_ended" from="main/_TimeSliderBG/TimeSlider" to="." method="_on_time_slider_drag_ended"]
+[connection signal="value_changed" from="main/_TimeSliderBG/TimeSlider" to="." method="_on_time_slider_value_changed"]

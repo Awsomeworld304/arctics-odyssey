@@ -1,0 +1,323 @@
+{
+	"characters": [
+		"bf",
+		"dad"
+	],
+	"chart_format_version": 0,
+	"chart_version": 0,
+	"note_speed": 1,
+	"notes": [
+		{
+			"key_name": "up",
+			"time": 2.4,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 3.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 3.6,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 7.2,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 7.8,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 8.4,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 12.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 12.6,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 12.9,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 13.2,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 16.8,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 17.1,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 17.7,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 18.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 21.6,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 21.9,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 22.2,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 26.4,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 26.7,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 27.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 31.2,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 31.5,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 31.8,
+			"type": "normal"
+		},
+		{
+			"key_name": "center",
+			"time": 33.3,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 36.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 36.3,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 36.9,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 36.975,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 37.2,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 40.8,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 41.4,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 42.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 45.6,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 46.2,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 46.8,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 46.95,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 47.1,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 47.4,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 50.4,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 51.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 51.6,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 55.2,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 60.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 60.3,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 60.6,
+			"type": "normal"
+		},
+		{
+			"key_name": "center",
+			"time": 62.1,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 64.8,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 65.1,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 65.7,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 65.775,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 66.0,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 69.6,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 69.9,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 70.2,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 70.5,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 70.8,
+			"type": "normal"
+		},
+		{
+			"key_name": "center",
+			"time": 71.7,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 74.4,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 74.7,
+			"type": "normal"
+		},
+		{
+			"key_name": "up",
+			"time": 75.3,
+			"type": "normal"
+		},
+		{
+			"key_name": "right",
+			"time": 75.375,
+			"type": "normal"
+		},
+		{
+			"key_name": "down",
+			"time": 75.6,
+			"type": "normal"
+		}
+	],
+	"song": "Untitled",
+	"song_bpm": 100
+}

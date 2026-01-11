@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://okv2tq1jbtnh"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2e5an"]
+
+[node name="NoteCursor" type="Node2D"]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
+mesh = SubResource("ArrayMesh_2e5an")
+
+[node name="TL" type="ColorRect" parent="."]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -14.0
+offset_bottom = -8.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="TL"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 2.0
+metadata/_edit_use_anchors_ = true
+
+[node name="TR" type="ColorRect" parent="."]
+offset_left = 15.0
+offset_top = -16.0
+offset_right = 17.0
+offset_bottom = -8.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="TR"]
+layout_mode = 0
+offset_left = -6.0
+offset_right = 2.0
+offset_bottom = 2.0
+metadata/_edit_use_anchors_ = true
+
+[node name="BL" type="ColorRect" parent="."]
+offset_left = -16.0
+offset_top = 8.0
+offset_right = -14.0
+offset_bottom = 16.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="BL"]
+layout_mode = 0
+offset_top = 6.0
+offset_right = 8.0
+offset_bottom = 8.0
+metadata/_edit_use_anchors_ = true
+
+[node name="BR" type="ColorRect" parent="."]
+offset_left = 15.0
+offset_top = 8.0
+offset_right = 17.0
+offset_bottom = 16.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="BR"]
+layout_mode = 0
+offset_left = -6.0
+offset_top = 6.0
+offset_right = 2.0
+offset_bottom = 8.0
+metadata/_edit_use_anchors_ = true

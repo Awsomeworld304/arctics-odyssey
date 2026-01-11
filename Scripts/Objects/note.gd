@@ -24,6 +24,7 @@ signal miss_note(note:Note);
 @export var type:StringName = "normal";
 ## Note position in the song ms.
 @export var time:float = 0.0;
+@export var hold_time:float = 0.0;
 ## Events do not matter yet.
 #@export var events:Array[StringName] = [];
 
@@ -31,25 +32,65 @@ signal miss_note(note:Note);
 var hit_time:float = -32;
 var frames:SpriteFrames = preload("res://Assets/sprite/note.tres");
 var _missed:bool = false;
+var hold_segments:Array[Sprite2D] = [];
 
 func _ready() -> void:
 	sprite_frames = frames;
 	animation = key_name;
 	pass
 
-func set_note(_name:String) -> void:
-	#nframes:SpriteFrames = load(res://)
+func set_note_skin(skin:String) -> void:
+	frames = load("res://Assets/sprite/%s.tres" % skin);
+	sprite_frames = frames;
+	animation = key_name;
+	pass
+
+func add_hold() -> void:
+	if hold_time <= 0: return;
+	
+	var hold_px:int = floori(hold_time * (Conductor.bpm/60) * (Conductor._offset_scroll_modifier * Conductor.scroll_speed));
+	
+	for i:int in range(hold_px - (32/2) - 1):
+		var seg:Sprite2D = Sprite2D.new();
+		seg.texture = frames.get_frame_texture("hold", 0);
+		seg.position.y = (32/2) + i;
+		seg.name = "hold_" + str(i);
+		seg.show_behind_parent = true;
+		
+		hold_segments.append(seg);
+		pass
+	
+	var fseg:Sprite2D = Sprite2D.new();
+	fseg.texture = frames.get_frame_texture("hold_end", 0);
+	fseg.position.y = ((32/2) + (hold_segments.size() -1));
+	fseg.name = "hold_" + str((hold_segments.size() -1));
+	fseg.show_behind_parent = true;
+	hold_segments.append(fseg);
+	
+	for seg:Sprite2D in hold_segments:
+		add_child(seg);
 	pass
 
 func _process(_delta: float) -> void:
 	self.position.y = (self.time - Conductor.position) * (Conductor.bpm / 60.0) * Conductor._offset_scroll_modifier * Conductor.scroll_speed;
 	
 	# Really hacky, find a better way.
-	if self.position.y <= -32:
-		self.visible = false;
-		if !_missed:
-			miss_note.emit(self);
-			_missed = true;
-			pass
-	elif hit_time == -32: self.visible = true;
+	if self.hold_time > 0:
+		if self.position.y <= -32:
+			self.visible = false;
+			if !_missed:
+				miss_note.emit(self);
+				_missed = true;
+				pass
+		elif hit_time == -32: self.visible = true;
+		pass
+	else:
+		if self.position.y <= -32:
+			self.visible = false;
+			if !_missed:
+				miss_note.emit(self);
+				_missed = true;
+				pass
+		elif hit_time == -32: self.visible = true;
+		pass
 	pass

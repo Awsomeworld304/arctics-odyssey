@@ -37,7 +37,7 @@ static func parse_metadata(metadata_path:String) -> Dictionary:
 	
 	if data.get_or_add("characters", []) == []:
 		push_error("ChartMetadata -> Parse (%s): No characters, adding default player." % data["song"]);
-		data["characters"] = ["player"];
+		data["characters"] = ["none"];
 		pass
 	
 	if data.get_or_add("charts", {}) == {}:

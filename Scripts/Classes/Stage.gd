@@ -10,8 +10,11 @@ class_name Stage
 @onready var opponent_pos:Vector2 = ($"OpponentPosition" as Marker2D).position;
 
 # ---- RHYTHM ----
-#@onready var player_strum:Strumline = $"PlayerController/Strumline" as Strumline;
+@onready var player_strum:Strumline = $"PlayerController/Strumline" as Strumline;
 @onready var opp_strum:Strumline = $"OpponentStrumline" as Strumline;
+
+# ---- PLAYER ----
+@onready var player_health:TextureProgressBar = $PlayerController/HPBar as TextureProgressBar;
 
 # ---- DEVELOPER MENU ----
 @onready var dev_songName:Label = $"DevMenu/songname" as Label;
@@ -22,10 +25,14 @@ var dev_song_length:int = 0;
 
 func on_hit_note(_note:Note) -> void:
 	print("Stage -> Hit Note");
+	phealth += 5;
 	pass
 
+var phealth:int = 100;
 func on_miss_note(_note:Note) -> void:
 	print("Stage -> Miss Note");
+	phealth -= 5;
+	get_tree().create_tween().tween_property(player_health, "value", phealth, 0.2).from_current();
 	pass
 
 func load_song(chart_path:String) -> void:
@@ -35,7 +42,7 @@ func load_song(chart_path:String) -> void:
 	Conductor.bpm = chartData.song_bpm if (chartData != null) else 100;
 	Conductor.scroll_speed = chartData.note_speed if (chartData != null) else 1;
 	
-	#player_strum.load_chart(chartData);
+	player_strum.load_chart(chartData);
 	opp_strum.load_chart(Chart._parse_chart(chart_path));
 	
 	Conductor.stop();
@@ -54,8 +61,8 @@ func _ready() -> void:
 	
 	var _s:int = Conductor.sixteenth_will_pass.connect(_step_pass);
 	_s = Conductor.quarter_will_pass.connect(_beat_pass);
-	#_s = player_strum.note_hit.connect(on_hit_note);
-	#_s = player_strum.note_miss.connect(on_miss_note);
+	_s = player_strum.note_hit.connect(on_hit_note);
+	_s = player_strum.note_miss.connect(on_miss_note);
 	
 	# ---- DEV
 	_s = dev_timeSlider.drag_started.connect(drag_started);
@@ -136,7 +143,7 @@ func _on_pause_button_up() -> void:
 func _on_stop_button_up() -> void:
 	dev_timeSlider.value = Conductor.position;
 	Conductor.stop(true);
-	#player_strum.reset();
+	player_strum.reset();
 	opp_strum.reset();
 	is_dragging = false;
 	prev_paused = false;
@@ -153,15 +160,15 @@ func _on_time_slider_value_changed(value: float) -> void:
 
 func _on_restart_button_up() -> void:
 	Conductor.pause(true);
-	#for note in player_strum.chart.notes:
-		#note.visible = true;
-	#for note in opp_strum.chart.notes:
-		#note.visible = true;
+	for note in player_strum.chart.notes:
+		note.visible = true;
+	for note in opp_strum.chart.notes:
+		note.visible = true;
 	
-	#player_strum.note_visual_reset();
+	player_strum.note_visual_reset();
 	opp_strum.note_visual_reset();
 	print(clampf((1 - (1 + ((Conductor.position - (Conductor.player.stream.get_length())) / Conductor.player.stream.get_length()))), 0.25, 0.75));
-	await get_tree().create_tween().tween_property(Conductor, "position", 0, clampf((1 - (1 + ((Conductor.position - (Conductor.player.stream.get_length())) / Conductor.player.stream.get_length()))), 0.25, 0.75)).finished;
-	Conductor.set_song_position(0);
+	await get_tree().create_tween().tween_property(Conductor, "position", 0, clampf((1 - (1 + ((Conductor.position - (Conductor.player.stream.get_length())) / Conductor.player.stream.get_length()))), 0.25, 0.75)).set_ease(Tween.EASE_IN_OUT).finished;
+	Conductor.set_song_position(0); 
 	Conductor.pause();
 	pass

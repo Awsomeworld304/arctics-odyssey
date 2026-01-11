@@ -85,6 +85,9 @@ class TimeSignature:
 		numerator = num;
 		denominator = den;
 		pass
+	
+	func _to_string() -> String:
+		return "%s/%s" % [numerator, denominator];
 	pass
 
 class BeatIncrementor:
@@ -168,6 +171,7 @@ func get_beat_time() -> float:
 
 ## Set the position of the song in seconds.
 func set_song_position(pos:float) -> void:
+	if pos < 0: pos = 0;
 	player.play(pos)
 	player.stream_paused = is_paused;
 	await get_tree().process_frame;

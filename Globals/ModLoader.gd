@@ -2,6 +2,8 @@ extends Node
 # TAC is Text Arctic Chart
 # PAC is Packed Arctic Chart
 static var _jtypes:PackedStringArray = ["json", "tac"];
+# AOS is Arctic Odyssey serialized Stage
+static var _stypes:PackedStringArray = ["pak", "aos", "asp"];
 static var _btypes:PackedStringArray = ["pac"];
 
 static func is_json_chart(path:String = "") -> bool:
@@ -49,7 +51,9 @@ func find_songs() -> Dictionary[String, String]:
 			var json:JSON = JSON.new();
 			var song_name:String = json.parse_string(FileAccess.open("%s/%s/metadata.json" % [dir.get_current_dir(), sub], FileAccess.READ).get_as_text())["song"];
 			print(ChartMetadata.parse_metadata("%s/%s/metadata.json" % [dir.get_current_dir(), sub]));
-			book.get_or_add(song_name, "%s/%s/metadata.json" % [dir.get_current_dir(), sub]);
+			book.set(song_name, "%s/%s/metadata.json" % [dir.get_current_dir(), sub]);
 			if Settings.debug: print("Modloader -> Find Songs: Found valid song with name %s at %s." % [song_name, ("%s/%s" % [dir.get_current_dir(), sub])]);
 		pass
+			
+	
 	return book;

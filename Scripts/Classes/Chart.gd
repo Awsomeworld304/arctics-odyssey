@@ -10,9 +10,11 @@ extends Node
 ## Chart Characters
 @export var characters:Array[Character] = [];
 ## The scroll speed per chart.
-@export var note_speed:int = 1;
+@export var note_speed:float = 1;
 ## The song bpm.
 @export var song_bpm:int = 100;
+## The song time signature.
+var time_signature:Conductor.TimeSignature = Conductor.TimeSignature.new(4,4);
 ## Chart events.
 @export var events:Array[Event] = [];
 ## Chart Format Version to prevent engine issues.
@@ -74,7 +76,7 @@ static func validate_chart(chart:Chart) -> Error:
 		push_error("Chart -> Validation: 'characters' must contain 1 - 64 characters.");
 		_err = ERR_INVALID_DATA;
 		pass
-	if typeof(chart.note_speed) != TYPE_INT or chart.note_speed <= 0:
+	if typeof(chart.note_speed) != TYPE_FLOAT or chart.note_speed <= 0.0:
 		push_error("Chart -> Validation: 'note_speed' is not valid.");
 		_err = ERR_INVALID_DATA;
 		pass
@@ -89,7 +91,7 @@ static func validate_chart(chart:Chart) -> Error:
 			push_error("Chart -> Validation: Note %d has invalid or missing key name." % i);
 			_err = ERR_INVALID_DATA;
 			pass
-		if not note.time != null or typeof(note.time) != TYPE_FLOAT or note.time < 0.0 or ((note.time > Conductor.player.stream.get_length()) if Conductor.player != null else true):
+		if not note.time != null or typeof(note.time) != TYPE_FLOAT or note.time < 0.0 or ((note.time > Conductor.player.stream.get_length()) if Conductor.player != null else false):
 			push_error("Chart -> Validation: Note %d has invalid or missing time position." % i);
 			_err = ERR_INVALID_DATA;
 			pass
@@ -108,27 +110,9 @@ static func validate_chart(chart:Chart) -> Error:
 	# Return check.
 	return _err;
 
-static func _load_from_json(path:String) -> Chart:
+static func _parse_json_data(parsed_data:Dictionary, path:String) -> Chart:
 	var chart:Chart = Chart.new();
-
-	if not FileAccess.file_exists(path):
-		push_error("Chart -> Chart does not exist! " + path);
-		return null;
-	var file:FileAccess = FileAccess.open(path, FileAccess.READ);
-
-	if file == null or file.get_error() != OK or FileAccess.get_open_error() != OK:
-		push_error("Chart -> FileAccess error: " + var_to_str(file.get_error()) + " " + var_to_str(FileAccess.get_open_error()));
-		return chart;
-
-	var json_pstring:String = file.get_as_text();
-	var json:JSON = JSON.new();
-	var parse_result:Error = json.parse(json_pstring);
-	if not parse_result == OK:
-		push_warning("Chart -> JSON Parse Error: ", json.get_error_message(), " in ", json_pstring, " at line ", json.get_error_line());
-		return chart;
-
-	var parsed_data:Dictionary = json.get_data();
-
+	
 	if parsed_data["song"] != null:
 		chart.song = str(parsed_data["song"]);
 		pass
@@ -155,24 +139,51 @@ static func _load_from_json(path:String) -> Chart:
 			note.time = note_data["time"];
 			note.key_name = note_data["key_name"];
 			note.type = note_data["type"];
+			if note_data.get("hold_time", 0.0) != 0.0: note.hold_time = note_data["hold_time"];
 			chart.notes.append(note);
 			pass
 		pass
 	else: push_error("Chart -> Parse: Notes are null!");
 
+	"""
 	if parsed_data["events"] != null:
 		for event_data:Dictionary in parsed_data["events"]:
 			print("Chart -> Parse: Found event %s in chart %s" % [event_data["event"], chart.song]);
 			pass
 		pass
+	"""
 
 	if parsed_data["characters"] != null:
 		for cchar:String in parsed_data["characters"] as Array[String]:
-			var nchar:Character = Character.new();
+			var nchar	:Character = Character.new();
 			nchar.character_name = str(cchar);
 			chart.characters.append(nchar);
 			pass
 		pass
+	return chart;
+
+static func _load_from_json(path:String) -> Chart:
+	var chart:Chart = Chart.new();
+
+	if not FileAccess.file_exists(path):
+		push_error("Chart -> Chart does not exist! " + path);
+		return null;
+	var file:FileAccess = FileAccess.open(path, FileAccess.READ);
+
+	if file == null or file.get_error() != OK or FileAccess.get_open_error() != OK:
+		push_error("Chart -> FileAccess error: " + var_to_str(file.get_error()) + " " + var_to_str(FileAccess.get_open_error()));
+		return chart;
+
+	var json_pstring:String = file.get_as_text();
+	var json:JSON = JSON.new();
+	var parse_result:Error = json.parse(json_pstring);
+	if not parse_result == OK:
+		push_warning("Chart -> JSON Parse Error: ", json.get_error_message(), " in ", json_pstring, " at line ", json.get_error_line());
+		return chart;
+
+	var parsed_data:Dictionary = json.get_data();
+
+	chart = _parse_json_data(parsed_data, path);
 	return chart;
 
 # Load Chart
@@ -243,9 +254,9 @@ func _save_chart(path:String = "") -> void:
 		push_error("Chart -> FileAccess error while writing: " + var_to_str(file.get_error()) + " " + var_to_str(FileAccess.get_open_error()));
 		return;
 
-	var store_result:int = file.store_string(json_string);
+	var store_result:bool = file.store_string(json_string);
 
-	if store_result != OK:
+	if !store_result:
 		push_error("Chart -> Failed to write JSON string to file: " + save_path);
 		file.close();
 		return;

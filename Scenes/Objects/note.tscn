@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bur1d64pi11p"]
+[gd_scene load_steps=4 format=3 uid="uid://bur1d64pi11p"]
 
-[ext_resource type="SpriteFrames" uid="uid://co68xf08xn207" path="res://Assets/sprite/note.tres" id="1_rt4i0"]
+[ext_resource type="SpriteFrames" uid="uid://cb3j27pbgeun3" path="res://Assets/sprite/note-new.tres" id="1_s26px"]
 [ext_resource type="Script" uid="uid://ccmyl84txo7se" path="res://Scripts/Objects/note.gd" id="2_ofxjs"]
+[ext_resource type="PackedScene" uid="uid://okv2tq1jbtnh" path="res://Scenes/Objects/NoteCursor.tscn" id="3_s26px"]
 
 [node name="Note" type="AnimatedSprite2D"]
-sprite_frames = ExtResource("1_rt4i0")
+sprite_frames = ExtResource("1_s26px")
 script = ExtResource("2_ofxjs")
 
 [node name="debug" type="ColorRect" parent="."]
@@ -22,3 +23,5 @@ offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 1)
+
+[node name="NoteCursor" parent="." instance=ExtResource("3_s26px")]

@@ -1,14 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bldflnb8g8wyt"]
+[gd_scene load_steps=8 format=3 uid="uid://bldflnb8g8wyt"]
 
 [ext_resource type="Script" uid="uid://b4yyu5qy1g77" path="res://Scripts/toolkit.gd" id="1_8moq3"]
 [ext_resource type="PackedScene" uid="uid://6e7l3l3q7g3h" path="res://Scenes/Objects/notes_parallax_bg.tscn" id="2_l2r27"]
 [ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="3_l2r27"]
+[ext_resource type="Script" uid="uid://bs5jhvrus4oi6" path="res://Scripts/Objects/convert_chart.gd" id="4_s3or5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s3or5"]
 bg_color = Color(0.133333, 0.133333, 0.133333, 0.705882)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2r27"]
 bg_color = Color(0.0820312, 0.0820312, 0.0820312, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv5mw"]
+bg_color = Color(0.12109375, 0.12109375, 0.12109375, 1)
 
 [node name="Toolkit" type="Node2D"]
 script = ExtResource("1_8moq3")
@@ -18,6 +22,7 @@ script = ExtResource("1_8moq3")
 [node name="main" type="CanvasLayer" parent="."]
 
 [node name="mod_list" type="Panel" parent="main"]
+visible = false
 offset_right = 128.0
 offset_bottom = 360.0
 theme = ExtResource("3_l2r27")
@@ -60,6 +65,7 @@ theme = ExtResource("3_l2r27")
 metadata/_edit_lock_ = true
 
 [node name="setup" type="Panel" parent="main"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -192,5 +198,104 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
+[node name="convert_chart" type="Panel" parent="main"]
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bv5mw")
+script = ExtResource("4_s3or5")
+
+[node name="title" type="Label" parent="main/convert_chart"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 32.0
+theme = ExtResource("3_l2r27")
+theme_override_font_sizes/font_size = 32
+text = "Chart Converter"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bg" type="ColorRect" parent="main/convert_chart/title"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 32.0
+color = Color(0, 0, 0, 0.478431)
+
+[node name="info" type="RichTextLabel" parent="main/convert_chart"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 128.0
+offset_right = 576.0
+offset_bottom = 256.0
+theme = ExtResource("3_l2r27")
+bbcode_enabled = true
+text = "Chart Info:"
+
+[node name="pick_chart" type="Button" parent="main/convert_chart"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 88.0
+theme = ExtResource("3_l2r27")
+text = "Pick Chart"
+
+[node name="cht_name" type="Label" parent="main/convert_chart/pick_chart"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = -4.0
+offset_right = 512.0
+offset_bottom = 28.0
+theme = ExtResource("3_l2r27")
+theme_override_font_sizes/font_size = 32
+
+[node name="save_chart" type="Button" parent="main/convert_chart"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 296.0
+offset_right = 136.0
+offset_bottom = 320.0
+theme = ExtResource("3_l2r27")
+text = "Save Chart"
+
+[node name="clear_chart" type="Button" parent="main/convert_chart"]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 296.0
+offset_right = 576.0
+offset_bottom = 320.0
+theme = ExtResource("3_l2r27")
+text = "Discard Chart"
+
+[node name="chart_exit" type="Button" parent="main/convert_chart"]
+layout_mode = 0
+offset_left = 608.0
+offset_right = 640.0
+offset_bottom = 32.0
+text = "X"
+
+[node name="FileDialog" type="FileDialog" parent="main/convert_chart"]
+oversampling_override = 1.0
+title = "Open a File"
+ok_button_text = "Load"
+file_mode = 0
+display_mode = 1
+access = 2
+filters = PackedStringArray("*.json", "*.tac")
+use_native_dialog = true
+
+[node name="SaveDialog" type="FileDialog" parent="main/convert_chart"]
+oversampling_override = 1.0
+ok_button_text = "Save Chart"
+access = 2
+filters = PackedStringArray("*.json", "*.tac")
+use_native_dialog = true
+
 [connection signal="button_up" from="main/tool_menu/hide" to="." method="_on_hide_button_up"]
 [connection signal="button_up" from="main/tool_menu/godot/g_dl_button" to="." method="_on_g_dl_button_button_up"]
+[connection signal="button_up" from="main/convert_chart/pick_chart" to="main/convert_chart" method="_on_pick_chart_button_up"]
+[connection signal="button_up" from="main/convert_chart/save_chart" to="main/convert_chart" method="_on_save_chart_button_up"]
+[connection signal="button_up" from="main/convert_chart/clear_chart" to="main/convert_chart" method="_on_clear_chart_button_up"]
+[connection signal="button_up" from="main/convert_chart/chart_exit" to="main/convert_chart" method="_on_chart_exit_button_up"]
+[connection signal="file_selected" from="main/convert_chart/FileDialog" to="main/convert_chart" method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="main/convert_chart/SaveDialog" to="main/convert_chart" method="_on_save_dialog_file_selected"]
