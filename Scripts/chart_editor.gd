@@ -80,8 +80,8 @@ func spawn_stage() -> void:
 
 func _ready() -> void:
 	#strum.bot_strumline = true;
-	#var audio:AudioStreamMP3 = AudioStreamMP3.load_from_file("user://Mods/Songs/expurgation/expurgation.mp3");
-	#player.stream = audio;
+	var audio:AudioStreamMP3 = AudioStreamMP3.load_from_file("user://Mods/Songs/expurgation/expurgation.mp3");
+	player.stream = audio;
 	
 	Conductor.player = player;
 
@@ -90,7 +90,7 @@ func _ready() -> void:
 	_s = strum.note_hit.connect(on_hit_note);
 	_s = timeSlider.drag_started.connect(drag_started);
 	
-	if load_song("user://Mods/Songs/beat_test/beat_test.json") != OK:
+	if load_song("user://Mods/Songs/expurgation/expurgation.json") != OK:
 		errBox.visible = true;
 		errTxt.text = err_msg_template % ["Beat Test", "user://Mods/Songs/beat_test/beat_test.json", "???"];
 		pass

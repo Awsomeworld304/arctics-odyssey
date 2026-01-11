@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmcv72611vxps"]
+[gd_scene load_steps=8 format=3 uid="uid://dmcv72611vxps"]
 
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="1_u0o8h"]
 [ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="2_tfxx4"]
@@ -29,8 +29,24 @@ func _on_charteditor_button_up() -> void:
 
 
 func _on_teststage_button_up() -> void:
-	LevelManager.load_scene(\"test_stage\", false, true);
+	LevelManager.load_scene(\"test_stage\", true);
 	pass # Replace with function body.
+
+
+func _on_tab_bar_tab_changed(tab: int) -> void:
+	match tab:
+		0:
+			($menu/scenes as Panel).visible = true;
+			($menu/tools as Panel).visible = false;
+		1:
+			($menu/scenes as Panel).visible = false;
+			($menu/tools as Panel).visible = true;
+	pass
+
+
+func _on_toolkit_button_up() -> void:
+	LevelManager.load_scene(\"Toolkit\");
+	pass
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jnptj"]
@@ -43,6 +59,8 @@ corner_radius_bottom_left = 6
 [sub_resource type="LabelSettings" id="LabelSettings_6k4tq"]
 font = ExtResource("1_u0o8h")
 font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tfxx4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_svfpo"]
 font = ExtResource("1_u0o8h")
@@ -103,20 +121,20 @@ scrolling_enabled = false
 tab_count = 3
 tab_0/title = "Scenes"
 tab_1/title = "Tools"
-tab_1/disabled = true
 tab_2/title = "Other"
 tab_2/disabled = true
 
 [node name="scenes" type="Panel" parent="menu"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 64.24613
+offset_right = 272.0
+offset_bottom = 232.89224
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tfxx4")
 
 [node name="title" type="Label" parent="menu/scenes"]
 layout_mode = 0
-offset_top = 56.0
 offset_right = 272.0
-offset_bottom = 72.0
+offset_bottom = 15.999992
 text = "-- Scenes --"
 label_settings = SubResource("LabelSettings_svfpo")
 horizontal_alignment = 1
@@ -128,10 +146,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 68.0
-offset_top = 76.3692
-offset_right = 164.0
-offset_bottom = 100.369
+offset_left = -48.0
+offset_top = -44.169235
+offset_right = 48.0
+offset_bottom = -20.169426
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_u0o8h")
@@ -145,10 +163,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 68.0
-offset_top = 116.523
-offset_right = 164.0
-offset_bottom = 140.523
+offset_left = -48.0
+offset_top = -4.015442
+offset_right = 48.0
+offset_bottom = 19.984558
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_u0o8h")
@@ -162,16 +180,51 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 68.0
-offset_top = 156.677
-offset_right = 164.0
-offset_bottom = 180.677
+offset_left = -48.0
+offset_top = 36.13855
+offset_right = 48.0
+offset_bottom = 60.13855
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_u0o8h")
 theme_override_font_sizes/font_size = 16
 text = "Chart Editor"
 
+[node name="tools" type="Panel" parent="menu"]
+visible = false
+layout_mode = 0
+offset_top = 64.24613
+offset_right = 272.0
+offset_bottom = 232.89224
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tfxx4")
+
+[node name="title" type="Label" parent="menu/tools"]
+layout_mode = 0
+offset_right = 272.0
+offset_bottom = 15.999992
+text = "-- Tools --"
+label_settings = SubResource("LabelSettings_svfpo")
+horizontal_alignment = 1
+
+[node name="toolkit" type="Button" parent="menu/tools"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -44.169235
+offset_right = 48.0
+offset_bottom = -20.169426
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_u0o8h")
+theme_override_font_sizes/font_size = 16
+text = "Toolkit"
+
+[connection signal="tab_changed" from="menu/TabBar" to="." method="_on_tab_bar_tab_changed"]
 [connection signal="button_up" from="menu/scenes/teststage" to="." method="_on_teststage_button_up"]
 [connection signal="button_up" from="menu/scenes/scripteditor" to="." method="_on_scripteditor_button_up"]
 [connection signal="button_up" from="menu/scenes/charteditor" to="." method="_on_charteditor_button_up"]
+[connection signal="button_up" from="menu/tools/toolkit" to="." method="_on_toolkit_button_up"]

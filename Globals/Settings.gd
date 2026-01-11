@@ -42,8 +42,8 @@ var errormsg:String = "";
 # windowed, borderless windowed, fullscreen, ex. fullscreen.
 var fullscreen_mode:int = 0;
 var resolutions:Array[Vector2i]  = [Vector2i(640, 360), Vector2i(1280, 720), Vector2i(1920, 1080), Vector2i(2560, 1080)];
-var resolution_mode:int = 2;
-var max_framerate:int = 180;
+var resolution_mode:int = 0;
+var max_framerate:int = 60;
 
 # Gameplay
 var story_mode:int = 0;
@@ -56,6 +56,13 @@ var audio_offset_ms:int = 0;
 var volume:float = 100.0; # Master
 var musicVolume:float = 100.0;
 var sfxVolume:float = 100.0;
+
+func _delete_saves() -> Error:
+	var err:Error = DirAccess.remove_absolute(save_file);
+	if err != OK: return err;
+	err = DirAccess.remove_absolute(mod_file);
+	if err != OK: return err;
+	return OK;
 
 ## Saves engine variables and settings to save file.[br]
 ## The file can be located at ```user://AO/EngineSettings.sav```.
@@ -143,12 +150,19 @@ func _load_settings() -> Error:
 		_: DisplayServer.window_set_size(resolutions[0]);
 
 	match fullscreen_mode:
-		0: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
-		1:
+		0: 
+			#DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false);
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
-			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, !DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS));
-		2: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN);
-		_: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
+		1:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN);
+			#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
+			#DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, !DisplayServer.window_get_flag(DisplayServer.WINDOW_FLAG_BORDERLESS));
+		2: 
+			#DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false);
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN);
+		_: 
+			#DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false);
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED);
 
 	match story_mode:
 		0: story = "Campaign";
@@ -157,11 +171,12 @@ func _load_settings() -> Error:
 	Engine.max_fps = max_framerate;
 
 	# 0 DB Volume = Full volume. Higher than that will kill your ears. (100db, ouch).
-	if volume > 100:
-		volume = 100;
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), volume - 100);
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), musicVolume - 100);
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), sfxVolume - 100);
+	if volume > 100: volume = 75;
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(clampf(volume/100, 0.0,1.0)));
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(clampf(musicVolume/100, 0.0,1.0)));
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(clampf(sfxVolume/100, 0.0,1.0)));
+	
+	print("vol " + str(AudioServer.get_bus_volume_db(0)))
 	return OK;
 
 ## Loads mod settings into global access.[br]
@@ -190,15 +205,15 @@ func update_discord(details:String="^", state:String="^", l_img:String="^", l_im
 	DiscordRPC.small_image_text = s_img_txt if !s_img_txt.contains("^") else DiscordRPC.small_image_text;
 	pass
 
-func change(key:String, value:String="", value2:String="", save_settings:bool=false) -> void:
+func change(key:String, value:Variant=null, value2:Variant=null, save_settings:bool=false) -> void:
 	match key:
 		"max_framerate", "fps":
-			if value.is_empty() or int(value) <= 0:
+			if value != null and int(value) <= 0:
 				max_framerate = 60;
 				Engine.max_fps = max_framerate;
 				printerr("Settings (change) -> Invalid Framerate! Using default. (60)");
 				print("Settings -> New FPS: " + var_to_str(max_framerate));
-			else:
+			elif value != null:
 				max_framerate = int(value);
 				Engine.max_fps = max_framerate;
 				print("Settings (change) -> New FPS: " + var_to_str(max_framerate));
@@ -218,12 +233,11 @@ func change(key:String, value:String="", value2:String="", save_settings:bool=fa
 
 func _ready() -> void:
 	ErrorScene.hide();
-	#_load_settings()
-	if  OK != OK:
+	if _load_settings() != OK:
 		print("Settings Error!");
 		LevelManager.error();
 	if _save_flag:
-		pass##if _save_settings() != OK: LevelManager.error("Save error during settings save!");
+		if _save_settings() != OK: LevelManager.error("Save error during settings save!");
 	init_discord();
 
 func _process(_delta: float) -> void:

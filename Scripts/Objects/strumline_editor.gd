@@ -264,6 +264,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func note_is_in_range(note:Note, hit_time:float) -> bool:
+	if !note.visible: return false;
 	var result:bool = abs(note.time - hit_time) <= hit_window;
 	note.hit_time = hit_time;
 	if !result: note_miss.emit();

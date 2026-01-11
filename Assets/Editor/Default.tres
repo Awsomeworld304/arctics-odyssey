@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=37 format=4 uid="uid://bhtotw8dc8jgt"]
+[gd_resource type="Theme" load_steps=40 format=4 uid="uid://bhtotw8dc8jgt"]
 
 [ext_resource type="FontFile" uid="uid://b46ciimvjvuvn" path="res://Assets/Fonts/Pixel/m5x7.ttf" id="1_5lgff"]
 [ext_resource type="StyleBox" uid="uid://b8uta3fal6kwk" path="res://Assets/Editor/DefaultButton/Btn-Focus.tres" id="1_y6vk5"]
@@ -8,10 +8,13 @@
 [ext_resource type="StyleBox" uid="uid://s5trp4ljd7d5" path="res://Assets/Editor/DefaultButton/Btn-Pressed.tres" id="5_wauiw"]
 [ext_resource type="StyleBox" uid="uid://dyystfptfnk6a" path="res://Assets/Editor/Panel.tres" id="6_a4sru"]
 [ext_resource type="StyleBox" uid="uid://dr13shpv0plx5" path="res://Assets/Editor/TabBar/btn_highlight.tres" id="8_7ba7d"]
+[ext_resource type="FontFile" uid="uid://es010scan6se" path="res://Assets/Fonts/monogram/ttf/monogram-extended.ttf" id="8_px00j"]
 [ext_resource type="Texture2D" uid="uid://b5xmipfhvdke5" path="res://Assets/Editor/UIArrowDown.png" id="8_vcry3"]
 [ext_resource type="Texture2D" uid="uid://cyysiip1wq6i1" path="res://Assets/Editor/UIArrowUp.png" id="9_px00j"]
 [ext_resource type="StyleBox" uid="uid://dw21xc045mq57" path="res://Assets/Editor/TabBar/btn_pressed.tres" id="9_vk4fy"]
+[ext_resource type="FontFile" uid="uid://crn68j6nbeu1s" path="res://Assets/Fonts/monogram/ttf/monogram-extended-italic.ttf" id="9_x1x0a"]
 [ext_resource type="StyleBox" uid="uid://cpofhsti678bk" path="res://Assets/Editor/TabBar/tab_focus.tres" id="10_pdw0y"]
+[ext_resource type="FontFile" uid="uid://dc0s5p3wivf60" path="res://Assets/Fonts/monogram/ttf/monogram.ttf" id="10_rodhv"]
 [ext_resource type="StyleBox" uid="uid://b0mjcae6s8slv" path="res://Assets/Editor/TabBar/tab_disabled.tres" id="10_vk4fy"]
 [ext_resource type="StyleBox" uid="uid://dc8mq3fprcvoe" path="res://Assets/Editor/TabBar/tab_hover.tres" id="11_vcry3"]
 [ext_resource type="StyleBox" uid="uid://bbjybuk4u5wt4" path="res://Assets/Editor/TabBar/tab_sel.tres" id="12_px00j"]
@@ -19,7 +22,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kfkt2"]
 
-[sub_resource type="Image" id="Image_vcry3"]
+[sub_resource type="Image" id="Image_x1x0a"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////YP///2H///8A////AP///wD///8A////AP///wD///8A////AP///2D///9h////AP///wD///8A////YP///7////+/////Yf///wD///8A////AP///wD///8A////AP///2D///+/////v////2H///8A////AP///2H///+/////v////7////9h////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////Yf///7////+/////v////2H///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///wD///9h////v////7////+/////Yf///2D///+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///2H///+/////v////7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////Yf///7////+/////v////7////9g////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////Yf///wD///8A////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////+/////v////7////9h////AP///wD///8A////AP///wD///8A////AP///2D///+/////v////7////9g////Yf///7////+/////v////2H///8A////AP///wD///8A////AP///2D///+/////v////7////9g////AP///wD///9h////v////7////+/////Yf///wD///8A////AP///2D///+/////v////7////9g////AP///wD///8A////AP///2H///+/////v////7////9h////AP///wD///9h////v////7////9g////AP///wD///8A////AP///wD///8A////Yf///7////+/////YP///wD///8A////AP///2H///9g////AP///wD///8A////AP///wD///8A////AP///wD///9h////YP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -29,7 +32,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_o4ove"]
-image = SubResource("Image_vcry3")
+image = SubResource("Image_x1x0a")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x1x0a"]
 bg_color = Color(0, 0, 0, 0)
@@ -1443,11 +1446,11 @@ RichTextLabel/font_sizes/bold_italics_font_size = 32
 RichTextLabel/font_sizes/italics_font_size = 32
 RichTextLabel/font_sizes/mono_font_size = 32
 RichTextLabel/font_sizes/normal_font_size = 32
-RichTextLabel/fonts/bold_font = ExtResource("1_5lgff")
-RichTextLabel/fonts/bold_italics_font = ExtResource("1_5lgff")
-RichTextLabel/fonts/italics_font = ExtResource("1_5lgff")
-RichTextLabel/fonts/mono_font = ExtResource("1_5lgff")
-RichTextLabel/fonts/normal_font = ExtResource("1_5lgff")
+RichTextLabel/fonts/bold_font = ExtResource("8_px00j")
+RichTextLabel/fonts/bold_italics_font = ExtResource("9_x1x0a")
+RichTextLabel/fonts/italics_font = ExtResource("9_x1x0a")
+RichTextLabel/fonts/mono_font = ExtResource("10_rodhv")
+RichTextLabel/fonts/normal_font = ExtResource("8_px00j")
 SpinBox/icons/down = ExtResource("8_vcry3")
 SpinBox/icons/down_disabled = ExtResource("8_vcry3")
 SpinBox/icons/down_hover = ExtResource("8_vcry3")

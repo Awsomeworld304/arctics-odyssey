@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var anim:AnimationPlayer = $anim as AnimationPlayer;
-@onready var tabPanels:Array[Panel] = [($"menu/main/Gameplay" as Panel), ($"menu/main/Graphics" as Panel), ($"menu/main/Display" as Panel), ($"menu/main/Input" as Panel)];
+@onready var tabPanels:Array[Panel] = [($"menu/main/Gameplay" as Panel), ($"menu/main/Graphics" as Panel), ($"menu/main/Audio" as Panel), ($"menu/main/Input" as Panel)];
 @onready var deleteSaveBtn:Button = $"menu/main/Gameplay/DeleteSave" as Button;
 
 #region Save Funcs
@@ -15,6 +15,13 @@ func _on_saveclose_button_up() -> void:
 	if err != OK:
 		LevelManager.error(error_string(err));
 		pass
+	
+	err = Settings._load_settings();
+	if err != OK:
+		LevelManager.error(error_string(err));
+		pass
+	
+	_close();
 	pass
 
 func _on_close_button_up() -> void:
@@ -36,18 +43,35 @@ func _on_settings_tabs_tab_changed(tab:int) -> void:
 #endregion
 
 #region Gameplay
+@onready var visOffset:SpinBox = $menu/main/Gameplay/VisualOffset as SpinBox;
+@onready var audOffset:SpinBox = $menu/main/Gameplay/AudioOffset as SpinBox;
+
+func _gameplay_ready() -> void:
+	visOffset.value = Settings.visual_offset_ms;
+	audOffset.value = Settings.audio_offset_ms;
+	pass
+
+func _on_visual_offset_value_changed(value: float) -> void:
+	Settings.visual_offset_ms = value;
+	pass
+
+func _on_audio_offset_value_changed(value: float) -> void:
+	Settings.audio_offset_ms = value;
+	pass
+
 var saveClick:int = 0;
 func _delete_save() -> void:
 	if saveClick == 1:
 		deleteSaveBtn.text = "You sure?";
-	elif  saveClick == 2:
+	elif saveClick == 2:
 		deleteSaveBtn.text = "Save deleted.";
 		deleteSaveBtn.release_focus();
+		if Settings._delete_saves() != OK: push_error("Options -> Settings: Error in deleting saves!");
+		LevelManager.reload(true);
 		await get_tree().create_timer(2).timeout;
 		deleteSaveBtn.text = "Delete Save";
 		saveClick = 0;
 	pass
-
 
 func _on_delete_save_button_up() -> void:
 	saveClick+=1;
@@ -56,10 +80,55 @@ func _on_delete_save_button_up() -> void:
 #endregion
 
 #region Graphics
-@onready var fpsBox:LineEdit = $"menu/main/Graphics/FramerateLabel/Framerate" as LineEdit;
+@onready var fpsBox:SpinBox = $"menu/main/Graphics/FramerateLabel/Framerate" as SpinBox;
+@onready var resBox:OptionButton = $menu/main/Graphics/ResolutionLabel/Resolution as OptionButton;
+@onready var fsBox:OptionButton = $menu/main/Graphics/FullscreenLabel/Fullscreen as OptionButton;
+
+func _graphics_ready() -> void:
+	fpsBox.value = Settings.max_framerate;
+	resBox.selected = Settings.resolution_mode;
+	fsBox.selected = Settings.fullscreen_mode;
+	pass
+
+func _on_fullscreen_item_selected(index: int) -> void:
+	Settings.fullscreen_mode = index;
+	pass
+
+
+func _on_resolution_item_selected(index: int) -> void:
+	Settings.resolution_mode = index;
+	pass
+
+
+func _on_framerate_value_changed(value: float) -> void:
+	Settings.max_framerate = value;
+	pass
 #endregion
 
-#region Display
+#region Audio
+@onready var masSlider:HSlider = $menu/main/Audio/MasterLabel/MasterSlider as HSlider;
+@onready var musSlider:HSlider = $menu/main/Audio/MusicLabel/MusicSlider as HSlider;
+@onready var sndSlider:HSlider = $menu/main/Audio/SoundLabel/SoundSlider as HSlider;
+
+func _audio_ready() -> void:
+	masSlider.value = Settings.volume;
+	musSlider.value = Settings.musicVolume;
+	sndSlider.value = Settings.sfxVolume;
+	pass
+
+func _on_master_slider_drag_ended(_value_changed: bool) -> void:
+	Settings.volume = masSlider.value;
+	pass
+
+
+func _on_music_slider_drag_ended(_value_changed: bool) -> void:
+	Settings.musicVolume = musSlider.value;
+	pass
+
+
+func _on_sound_slider_drag_ended(_value_changed: bool) -> void:
+	Settings.sfxVolume = sndSlider.value;
+	pass
 #endregion
 
 #region Input
@@ -166,5 +235,8 @@ func _on_input_defaults_button_up() -> void:
 #endregion
 
 func _ready() -> void:
+	_gameplay_ready();
+	_graphics_ready();
+	_audio_ready();
 	_input_ready();
 	pass

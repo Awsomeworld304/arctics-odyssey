@@ -108,3 +108,15 @@ func _on_g_dl_button_button_up() -> void:
 	_s = gdl.download_completed.connect(_on_godot_dl_completed);
 	gdl.start_download();
 	pass
+
+# General
+
+
+func _on_gen_exit_button_up() -> void:
+	LevelManager.reload(true);
+	pass
+
+
+func _on_chart_converter_button_up() -> void:
+	($main/convert_chart as Panel).visible = true;
+	pass

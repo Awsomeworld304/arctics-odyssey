@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://0cxhfycwq7ds"]
+[gd_scene load_steps=17 format=3 uid="uid://0cxhfycwq7ds"]
 
-[ext_resource type="Script" uid="uid://leuf3r6l7u52" path="res://Scripts/Classes/Stage.gd" id="1_6cbpv"]
+[ext_resource type="Script" uid="uid://cqxbrq5ubhhlv" path="res://Scripts/Stages/test_stage.gd" id="1_5xjv4"]
 [ext_resource type="AudioStream" uid="uid://bh6mxbcgjcbt5" path="res://Assets/Songs/beat_test/beat_test.wav" id="2_5xjv4"]
 [ext_resource type="Texture2D" uid="uid://dyuk46mttgxs0" path="res://Assets/Images/stages/test_stage/test_stage_bg.png" id="3_ge6p3"]
 [ext_resource type="Texture2D" uid="uid://bm5ide8uab0lf" path="res://Assets/Images/stages/test_stage/test_stage_bg2.png" id="4_fwer1"]
@@ -9,36 +9,100 @@
 [ext_resource type="Theme" uid="uid://bhtotw8dc8jgt" path="res://Assets/Editor/Default.tres" id="7_s3uvg"]
 [ext_resource type="PackedScene" uid="uid://xniwcwhllhj1" path="res://Scenes/Gameplay/player_controller.tscn" id="8_mbnlu"]
 [ext_resource type="PackedScene" uid="uid://b1lafek1u43gi" path="res://Scenes/Gameplay/strumline.tscn" id="9_boqyn"]
+[ext_resource type="Texture2D" uid="uid://d1npryp7kyjlh" path="res://Assets/Images/stages/test_stage/test_stage.png" id="10_5xjv4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xjv4"]
+bg_color = Color(0, 0, 0, 0.527)
+corner_radius_top_left = 13
+corner_radius_top_right = 13
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ge6p3"]
+bg_color = Color(0, 0, 0, 0.5254902)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwer1"]
+bg_color = Color(0, 0, 0, 0.5254902)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+anti_aliasing = false
+
+[sub_resource type="Animation" id="Animation_5xjv4"]
+resource_name = "slide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DevMenu:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [144.0, 332.0]
+}
+
+[sub_resource type="Animation" id="Animation_ge6p3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DevMenu:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [144.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fwer1"]
+_data = {
+&"RESET": SubResource("Animation_ge6p3"),
+&"slide": SubResource("Animation_5xjv4")
+}
 
 [node name="TestStage" type="Node2D"]
-script = ExtResource("1_6cbpv")
+script = ExtResource("1_5xjv4")
 
 [node name="Player" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_5xjv4")
 bus = &"Music"
 
 [node name="TestStageBg" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(320, 180)
 scale = Vector2(2, 2)
 texture = ExtResource("3_ge6p3")
 metadata/_edit_lock_ = true
 
 [node name="TestStageBg2" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-320, -180)
 scale = Vector2(2, 2)
 texture = ExtResource("4_fwer1")
 centered = false
 
 [node name="TestStageBg1" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-320, -180)
 scale = Vector2(2, 2)
 texture = ExtResource("5_dppac")
 centered = false
 
 [node name="TestStageFloor" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-320, -180)
 scale = Vector2(2, 2)
 texture = ExtResource("6_xupw1")
+centered = false
+
+[node name="TestStage" type="Sprite2D" parent="."]
+texture = ExtResource("10_5xjv4")
 centered = false
 
 [node name="PlayerPosition" type="Marker2D" parent="."]
@@ -98,18 +162,18 @@ value = 100.0
 
 [node name="OpponentStrumline" parent="." instance=ExtResource("9_boqyn")]
 process_priority = -1
-modulate = Color(1, 1, 1, 0)
 position = Vector2(480, 50)
 bot_strumline = true
 
 [node name="DevMenu" type="Panel" parent="."]
-offset_left = 440.0
-offset_top = 136.0
-offset_right = 632.0
-offset_bottom = 328.0
-metadata/_edit_lock_ = true
+offset_left = 439.0
+offset_top = 144.0
+offset_right = 631.0
+offset_bottom = 335.99994
+theme_override_styles/panel = SubResource("StyleBoxFlat_5xjv4")
 
 [node name="title" type="Label" parent="DevMenu"]
+visible = false
 layout_mode = 0
 offset_right = 192.0
 offset_bottom = 23.0
@@ -118,6 +182,14 @@ theme_override_font_sizes/font_size = 32
 text = "Developer Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="dev_drawer" type="Button" parent="DevMenu"]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 26.0
+theme = ExtResource("7_s3uvg")
+theme_override_font_sizes/font_size = 32
+text = "Developer Menu"
 
 [node name="play" type="Button" parent="DevMenu"]
 layout_mode = 0
@@ -193,19 +265,19 @@ theme = ExtResource("7_s3uvg")
 text = "Song Position"
 horizontal_alignment = 1
 
-[node name="time_slider_bg" type="ColorRect" parent="DevMenu"]
+[node name="time_slider_bg" type="Panel" parent="DevMenu"]
 layout_mode = 0
 offset_left = -432.0
-offset_top = 200.0
+offset_top = 192.0
 offset_right = 192.0
-offset_bottom = 216.0
-color = Color(0, 0, 0, 0.364706)
+offset_bottom = 208.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ge6p3")
 
-[node name="bg2" type="ColorRect" parent="DevMenu/time_slider_bg"]
+[node name="bg2" type="Panel" parent="DevMenu/time_slider_bg"]
 layout_mode = 0
 offset_top = -16.0
 offset_right = 80.0
-color = Color(0, 0, 0, 0.364706)
+theme_override_styles/panel = SubResource("StyleBoxFlat_fwer1")
 
 [node name="Label" type="Label" parent="DevMenu/time_slider_bg/bg2"]
 layout_mode = 0
@@ -220,9 +292,9 @@ vertical_alignment = 1
 [node name="time_slider" type="HSlider" parent="DevMenu"]
 layout_mode = 0
 offset_left = -432.0
-offset_top = 200.0
+offset_top = 192.0
 offset_right = 192.0
-offset_bottom = 216.0
+offset_bottom = 208.0
 theme = ExtResource("7_s3uvg")
 step = 0.1
 
@@ -236,6 +308,12 @@ theme = ExtResource("7_s3uvg")
 text = "[0:00 / 0:00]"
 horizontal_alignment = 1
 
+[node name="DevAnim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fwer1")
+}
+
+[connection signal="button_up" from="DevMenu/dev_drawer" to="." method="_on_dev_drawer_button_up"]
 [connection signal="button_up" from="DevMenu/play" to="." method="_on_play_button_up"]
 [connection signal="button_up" from="DevMenu/pause" to="." method="_on_pause_button_up"]
 [connection signal="button_up" from="DevMenu/stop" to="." method="_on_stop_button_up"]

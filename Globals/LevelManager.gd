@@ -96,8 +96,8 @@ func trans(level:String, global:bool = false, _trans:String = "default") -> void
 ## level (String) - The file name of the level.[br]
 ## global = false (Bool) - Specifies if the loaded scene is a global scene.
 ## gameplay = false (Bool) - Specifies if the scene is located in the gameplay region.
-func load_scene(level:String, global:bool = false, gameplay:bool = false) -> void:
-	trans(("Gameplay/" + level) if gameplay else level, global);
+func load_scene(level:String, stage:bool = false) -> void:
+	trans(("Stages/" + level) if stage else level, false);
 	pass
 
 func error(msg:String = "Unknown Fatal Error!") -> void:

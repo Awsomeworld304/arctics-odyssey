@@ -221,7 +221,7 @@ bus = &"Music"
 z_index = -2
 offset_right = 640.0
 offset_bottom = 360.0
-color = Color(0.0627451, 0.0627451, 0.0627451, 1)
+color = Color(0.115448, 0.13808894, 0.37890625, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="hud" type="CanvasLayer" parent="."]
@@ -250,6 +250,13 @@ metadata/_edit_lock_ = true
 stream = ExtResource("4_2i7kg")
 volume_db = -6.0
 bus = &"SFX"
+
+[node name="ColorRect" type="ColorRect" parent="hud/player/Strumline"]
+offset_left = -84.0
+offset_top = -32.0
+offset_right = 84.0
+offset_bottom = 328.0
+color = Color(0, 0, 0, 0.485)
 
 [node name="GridPanel" type="Control" parent="hud/player/Strumline"]
 layout_mode = 3

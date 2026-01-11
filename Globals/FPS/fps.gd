@@ -16,7 +16,7 @@ var template:String = "FPS: {fps}\n{mem}";
 func get_mem_formatted() -> String:
 	if !memory_enabled: return "";
 	var mem:float = (OS.get_static_memory_usage()/1000000.0);
-	return "MEM: %s %s" % [snappedf(mem, 0.01), "Mb"] if (mem < 1000.0) else [snappedf(mem/1000.0, 0.01), "Gb"];
+	return "MEM: %s %s" % [snappedf(mem, 0.01), "Mb"] if (mem < 1000.0) else [snappedf((mem/1000.0), 0.01), "Gb"];
 
 func get_fps_formatted() -> String:
 	var color:String = "white";

@@ -116,7 +116,7 @@ func convert_chart(chart_data:Dictionary, path:String) -> Chart:
 
 
 func _on_chart_exit_button_up() -> void:
-	LevelManager.reload(true);
+	self.visible = false;
 	pass
 
 

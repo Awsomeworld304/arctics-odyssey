@@ -56,7 +56,7 @@ func generate_strumline_id() -> StringName:
 	for _i:int in range(4):
 		new_id += strumline_bit_pile[randi_range(0, strumline_bit_pile.size()-1)];
 		pass
-	if Settings.debug: print("Strumline -> GSLID: New ID: %s" % new_id);
+	#if Settings.debug: print("Strumline -> GSLID: New ID: %s" % new_id);
 	return StringName(new_id);
 
 func _init(is_bot_strumline:bool = false, in_editor:bool = false) -> void:
@@ -129,6 +129,8 @@ func load_chart(new_chart:Chart) -> Error:
 		else:
 			note.add_to_group(strumline_id + ".note");
 			note.miss_note.connect(note_miss.emit);
+			pass
+		
 		match(note.key_name):
 			"left":
 				note.add_to_group((strumline_id + ".bot_left") if bot_strumline else (strumline_id + ".left"));
@@ -145,8 +147,12 @@ func load_chart(new_chart:Chart) -> Error:
 			"right":
 				note.add_to_group((strumline_id + ".bot_right") if bot_strumline else (strumline_id + ".right"));
 				right.add_child(note);
+				
 		note.position.y = sec_to_px(note);
+		note.set_note_skin("note-new");
+		note.add_hold();
 		pass
+		
 	return Error.OK;
 
 ## TODO: make a soft reset that removes hit times of each note and reverses them with delta
@@ -202,11 +208,11 @@ func bot_input() -> void:
 	if chart == null or chart.notes.size() == 0: return;
 	for note:Note in chart.notes:
 		if note.visible and note.hit_time == -32 and abs(note.time - Conductor.position) <= 0.016:
-			print("BOT calculate_note called for note at time: ", note.time);
+			#print("BOT calculate_note called for note at time: ", note.time);
 			Input.action_press("bot_" + note.key_name);
 			Input.action_release("bot_" + note.key_name);
 		pass
-	print("BOT actuially pressing");
+	#print("BOT actuially pressing");
 
 	# Detect note presses.
 	if Input.is_action_just_pressed("bot_left"):
@@ -258,11 +264,13 @@ func _process(_delta: float) -> void:
 	pass
 
 func note_is_in_range(note:Note, hit_time:float) -> bool:
+	if !note.visible: return false;
 	var result:bool = abs(note.time - hit_time) <= hit_window;
 	note.hit_time = hit_time;
-	if !result: note_miss.emit();
+	if !result: note_miss.emit(note);
 	return result;
 
+var _t:Tween;
 func calculate_note(note:Note, hit_time:float) -> void:
 	#print("Note in range and is hit.");
 	var rating:String = "ERROR";
@@ -276,10 +284,9 @@ func calculate_note(note:Note, hit_time:float) -> void:
 	
 	if Settings.debug: rating += "\n[font_size=16]%s MS[/font_size]" % int((note.time - hit_time) * 1000);
 	ui_RATING.text = rating;
-	ui_RATING.create_tween().stop();
+	if _t: _t.kill();
 	var color:Color = Color.WHITE if !bot_strumline else Color.CRIMSON;
-	var tcolor:Color = color;
-	tcolor.a = 0;
+	var tcolor:Color = color.clamp(Color(0,0,0,0), Color(1,1,1,0));
 	ui_RATING.modulate = color;
 
 	if !bot_strumline: hit_notes += 1;
@@ -287,7 +294,8 @@ func calculate_note(note:Note, hit_time:float) -> void:
 	note.visible = false;
 
 	# Rating
-	var _t:PropertyTweener = get_tree().create_tween().tween_property(ui_RATING, "modulate", tcolor, 0.25);
+	_t = get_tree().create_tween();
+	var _s:PropertyTweener = _t.tween_property(ui_RATING, "modulate", tcolor, 0.25);
 	pass
 
 # -------- Handler Functions --------
@@ -300,7 +308,7 @@ func _check_note_press(note_group:StringName = "none") -> void:
 				pass
 			# Note is not hit.
 			else:
-				if note.position.y < (-5*Conductor.scroll_speed): print("Strumline -> Did press! Missed note?");
+				#if note.position.y < (-5*Conductor.scroll_speed): print("Strumline -> Did press! Missed note?");
 				pass
 			pass
 		pass

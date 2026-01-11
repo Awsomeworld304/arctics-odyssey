@@ -72,7 +72,7 @@ font = ExtResource("3_wag1g")
 font = ExtResource("3_wag1g")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcquk"]
-bg_color = Color(0, 0.495605, 0.546875, 0.419608)
+bg_color = Color(1, 1, 1, 0.047058824)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nvrgx"]
 bg_color = Color(1, 1, 1, 0.047000002)
@@ -214,8 +214,8 @@ tab_0/title = "Gameplay"
 tab_0/tooltip = "Gameplay Settings"
 tab_1/title = "Graphics"
 tab_1/tooltip = "Graphics Settings"
-tab_2/title = "Display"
-tab_2/tooltip = "Display Settings"
+tab_2/title = "Audio"
+tab_2/tooltip = "Audio Settings"
 tab_3/title = "Input"
 tab_3/tooltip = "Input Settings"
 script = SubResource("GDScript_p5oaw")
@@ -313,9 +313,11 @@ text = "Visual Offset (MS): "
 layout_mode = 0
 offset_left = 124.0
 offset_top = 12.2342
-offset_right = 182.0
+offset_right = 208.0
 offset_bottom = 33.2342
 theme = ExtResource("9_j2wfu")
+alignment = 1
+suffix = " MS"
 
 [node name="_AudioOffset" type="Label" parent="menu/main/Gameplay"]
 layout_mode = 0
@@ -330,9 +332,11 @@ text = "Audio Offset (MS): "
 layout_mode = 0
 offset_left = 124.0
 offset_top = 44.2342
-offset_right = 182.0
+offset_right = 208.0
 offset_bottom = 65.2342
 theme = ExtResource("9_j2wfu")
+alignment = 1
+suffix = " MS"
 
 [node name="Graphics" type="Panel" parent="menu/main"]
 visible = false
@@ -341,6 +345,31 @@ offset_top = 62.2658
 offset_right = 512.0
 offset_bottom = 250.26602
 theme_override_styles/panel = SubResource("StyleBoxFlat_lknhe")
+
+[node name="FullscreenLabel" type="Label" parent="menu/main/Graphics"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 7.7341995
+offset_right = 320.0
+offset_bottom = 31.7342
+theme = ExtResource("9_j2wfu")
+text = "Fullscreen:"
+label_settings = SubResource("LabelSettings_o6h3d")
+
+[node name="Fullscreen" type="OptionButton" parent="menu/main/Graphics/FullscreenLabel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 0.234245
+offset_right = 201.0
+offset_bottom = 24.2342
+theme = ExtResource("9_j2wfu")
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Exclusive"
+popup/item_2/id = 2
 
 [node name="ResolutionLabel" type="Label" parent="menu/main/Graphics"]
 layout_mode = 0
@@ -359,13 +388,15 @@ offset_top = 0.234245
 offset_right = 201.0
 offset_bottom = 24.2342
 theme = ExtResource("9_j2wfu")
-item_count = 3
-popup/item_0/text = "1280 x 720 (720p)"
+item_count = 4
+popup/item_0/text = "640 x 360"
 popup/item_0/id = 0
-popup/item_1/text = "1920 x 1080 (1080p)"
+popup/item_1/text = "1280 x 720 (720p)"
 popup/item_1/id = 1
-popup/item_2/text = "2560 x 1440 (2K)"
+popup/item_2/text = "1920 x 1080 (1080p)"
 popup/item_2/id = 2
+popup/item_3/text = "2560 x 1080 (Wide 1080p)"
+popup/item_3/id = 3
 
 [node name="FramerateLabel" type="Label" parent="menu/main/Graphics"]
 layout_mode = 0
@@ -377,16 +408,16 @@ theme = ExtResource("9_j2wfu")
 text = "Framerate: "
 label_settings = SubResource("LabelSettings_s02xc")
 
-[node name="Framerate" type="LineEdit" parent="menu/main/Graphics/FramerateLabel"]
+[node name="Framerate" type="SpinBox" parent="menu/main/Graphics/FramerateLabel"]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 0.234253
 offset_right = 144.0
 offset_bottom = 24.2343
 theme = ExtResource("9_j2wfu")
-placeholder_text = "60"
-alignment = 2
-caret_blink = true
+max_value = 360.0
+allow_greater = true
+alignment = 1
 
 [node name="GraphicsDefaults" type="Button" parent="menu/main/Graphics"]
 layout_mode = 0
@@ -398,13 +429,67 @@ theme = ExtResource("9_j2wfu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_2hi08")
 text = "Set Defaults"
 
-[node name="Display" type="Panel" parent="menu/main"]
+[node name="Audio" type="Panel" parent="menu/main"]
 visible = false
 layout_mode = 0
 offset_top = 62.2658
 offset_right = 512.0
 offset_bottom = 250.26602
 theme_override_styles/panel = SubResource("StyleBoxFlat_dcquk")
+
+[node name="MasterLabel" type="Label" parent="menu/main/Audio"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 68.0
+offset_bottom = 32.0
+theme = ExtResource("9_j2wfu")
+text = "Master:"
+label_settings = SubResource("LabelSettings_o6h3d")
+
+[node name="MasterSlider" type="HSlider" parent="menu/main/Audio/MasterLabel"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 0.7341995
+offset_right = 476.0
+offset_bottom = 16.7342
+tick_count = 25
+
+[node name="MusicLabel" type="Label" parent="menu/main/Audio"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 40.2343
+offset_right = 68.0
+offset_bottom = 64.2343
+theme = ExtResource("9_j2wfu")
+text = "Music: "
+label_settings = SubResource("LabelSettings_s02xc")
+
+[node name="MusicSlider" type="HSlider" parent="menu/main/Audio/MusicLabel"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 0.7341995
+offset_right = 476.0
+offset_bottom = 16.7342
+tick_count = 25
+
+[node name="SoundLabel" type="Label" parent="menu/main/Audio"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 72.2343
+offset_right = 68.0
+offset_bottom = 96.2343
+theme = ExtResource("9_j2wfu")
+text = "Sound: "
+label_settings = SubResource("LabelSettings_s02xc")
+
+[node name="SoundSlider" type="HSlider" parent="menu/main/Audio/SoundLabel"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 0.7341995
+offset_right = 476.0
+offset_bottom = 16.7342
+tick_count = 25
 
 [node name="Input" type="Panel" parent="menu/main"]
 visible = false
@@ -558,6 +643,14 @@ autoplay = "fade_in"
 [connection signal="button_up" from="menu/main/save-close" to="." method="_on_saveclose_button_up"]
 [connection signal="button_up" from="menu/main/close" to="." method="_on_close_button_up"]
 [connection signal="button_up" from="menu/main/Gameplay/DeleteSave" to="." method="_on_delete_save_button_up"]
+[connection signal="value_changed" from="menu/main/Gameplay/VisualOffset" to="." method="_on_visual_offset_value_changed"]
+[connection signal="value_changed" from="menu/main/Gameplay/AudioOffset" to="." method="_on_audio_offset_value_changed"]
+[connection signal="item_selected" from="menu/main/Graphics/FullscreenLabel/Fullscreen" to="." method="_on_fullscreen_item_selected"]
+[connection signal="item_selected" from="menu/main/Graphics/ResolutionLabel/Resolution" to="." method="_on_resolution_item_selected"]
+[connection signal="value_changed" from="menu/main/Graphics/FramerateLabel/Framerate" to="." method="_on_framerate_value_changed"]
+[connection signal="drag_ended" from="menu/main/Audio/MasterLabel/MasterSlider" to="." method="_on_master_slider_drag_ended"]
+[connection signal="drag_ended" from="menu/main/Audio/MusicLabel/MusicSlider" to="." method="_on_music_slider_drag_ended"]
+[connection signal="drag_ended" from="menu/main/Audio/SoundLabel/SoundSlider" to="." method="_on_sound_slider_drag_ended"]
 [connection signal="button_up" from="menu/main/Input/left/lftchange" to="." method="_on_lftchange_button_up"]
 [connection signal="button_up" from="menu/main/Input/down/dwnchange" to="." method="_on_dwnchange_button_up"]
 [connection signal="button_up" from="menu/main/Input/center/cntchange" to="." method="_on_cntchange_button_up"]
