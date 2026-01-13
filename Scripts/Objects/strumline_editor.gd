@@ -291,7 +291,7 @@ func calculate_note(note:Note, hit_time:float) -> void:
 
 	if !bot_strumline: hit_notes += 1;
 	note_hit.emit(note);
-	note.visible = false;
+	#note.visible = false;
 
 	# Rating
 	_t = get_tree().create_tween();

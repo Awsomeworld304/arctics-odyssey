@@ -71,12 +71,35 @@ func add_hold() -> void:
 		add_child(seg);
 	pass
 
+func update_hold() -> void:
+	for seg:Sprite2D in hold_segments:
+		if (is_held() and self.position.y > 0):
+			self.self_modulate = Color.TRANSPARENT;
+			pass
+		else: self.self_modulate = Color.WHITE;
+		if (self.position.y + hold_segments.find(seg)) < (0 if is_held() else -32):
+			seg.visible = false;
+			pass
+		else: seg.visible = true;
+			
+		pass
+	pass
+
+func is_held() -> bool:
+	return Input.is_action_pressed(key_name);
+
+func hold_finished() -> bool:
+	return (self.position.y + hold_segments.find((hold_segments.size()-1)) >= 0);
+
 func _process(_delta: float) -> void:
 	self.position.y = (self.time - Conductor.position) * (Conductor.bpm / 60.0) * Conductor._offset_scroll_modifier * Conductor.scroll_speed;
 	
+	
 	# Really hacky, find a better way.
-	if self.hold_time > 0:
-		if self.position.y <= -32:
+	if (self.hold_time > 0):
+		update_hold();
+		
+		if (self.position.y + hold_segments.size()) <= -32:
 			self.visible = false;
 			if !_missed:
 				miss_note.emit(self);

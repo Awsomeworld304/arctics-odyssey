@@ -29,6 +29,21 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 anti_aliasing = false
 
+[sub_resource type="Animation" id="Animation_ge6p3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DevMenu:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [144.0]
+}
+
 [sub_resource type="Animation" id="Animation_5xjv4"]
 resource_name = "slide"
 length = 0.5
@@ -43,21 +58,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [144.0, 332.0]
-}
-
-[sub_resource type="Animation" id="Animation_ge6p3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DevMenu:position:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [144.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fwer1"]
@@ -162,6 +162,7 @@ value = 100.0
 
 [node name="OpponentStrumline" parent="." instance=ExtResource("9_boqyn")]
 process_priority = -1
+modulate = Color(1, 1, 1, 0)
 position = Vector2(480, 50)
 bot_strumline = true
 
